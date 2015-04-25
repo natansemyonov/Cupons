@@ -1,0 +1,5 @@
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\CuponUnitTests\bin\Debug\CuponUnitTests.dll
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\CuponUnitTests\bin\Debug\CuponUnitTests.pdb
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\CuponUnitTests\obj\Debug\CuponUnitTests.dll
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\CuponUnitTests\obj\Debug\CuponUnitTests.pdb
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\CuponUnitTests\obj\Debug\CuponUnitTests.csprojResolveAssemblyReference.cache

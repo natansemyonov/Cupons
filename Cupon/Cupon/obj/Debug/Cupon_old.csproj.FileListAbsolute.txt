@@ -1,0 +1,12 @@
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\Cupon\bin\Debug\Cupon.exe.config
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\Cupon\obj\Debug\Cupon.exe
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\Cupon\obj\Debug\Cupon.pdb
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\Cupon\bin\Debug\Cupon.exe
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\Cupon\bin\Debug\Cupon.pdb
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\Cupon\bin\Debug\EntityFramework.dll
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\Cupon\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\Cupon\bin\Debug\EntityFramework.xml
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\Cupon\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\Cupon\obj\Debug\Cupon.Migrations.natan.resources
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\Cupon\obj\Debug\Cupon_old.csproj.GenerateResource.Cache
+C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\Cupon\obj\Debug\Cupon_old.csprojResolveAssemblyReference.cache
