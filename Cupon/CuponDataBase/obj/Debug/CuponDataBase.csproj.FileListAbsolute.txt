@@ -11,3 +11,17 @@ C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים
 C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\CuponDataBase\obj\Debug\CuponDataBase.Migrations.all3.resources
 C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\CuponDataBase\obj\Debug\CuponDataBase.Migrations.d.resources
 C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\CuponDataBase\obj\Debug\CuponDataBase.Migrations.f.resources
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\bin\Debug\CuponDataBase.exe.config
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\obj\Debug\CuponDataBase.exe
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\obj\Debug\CuponDataBase.pdb
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\bin\Debug\CuponDataBase.exe
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\bin\Debug\CuponDataBase.pdb
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\bin\Debug\EntityFramework.dll
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\bin\Debug\EntityFramework.xml
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\obj\Debug\CuponDataBase.csprojResolveAssemblyReference.cache
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\obj\Debug\CuponDataBase.Migrations.all3.resources
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\obj\Debug\CuponDataBase.Migrations.d.resources
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\obj\Debug\CuponDataBase.Migrations.f.resources
+C:\Users\Ido\Documents\Cupons\Cupon\CuponDataBase\obj\Debug\CuponDataBase.csproj.GenerateResource.Cache

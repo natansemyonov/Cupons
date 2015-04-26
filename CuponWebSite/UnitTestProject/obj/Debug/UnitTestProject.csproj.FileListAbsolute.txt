@@ -1,0 +1,10 @@
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject\bin\Debug\UnitTestProject.dll.config
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject\bin\Debug\UnitTestProject.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject\bin\Debug\UnitTestProject.pdb
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject\bin\Debug\CuponWebSite.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject\bin\Debug\EntityFramework.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject\bin\Debug\CuponWebSite.pdb
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject\bin\Debug\EntityFramework.xml
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject\obj\Debug\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject\obj\Debug\UnitTestProject.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject\obj\Debug\UnitTestProject.pdb

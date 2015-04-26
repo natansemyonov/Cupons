@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cupons" EntityType="Model.Cupon" />
+    <EntitySet Name="Users" EntityType="Model.User" />
+    <EntitySet Name="Bussinesses" EntityType="Model.Bussiness" />
+    <AssociationSet Name="BussinessOwnerBussiness" Association="Model.BussinessOwnerBussiness">
+      <End Role="BussinessOwner" EntitySet="Users" />
+      <End Role="Bussiness" EntitySet="Bussinesses" />
+    </AssociationSet>
+    <AssociationSet Name="BussinessBussinessCupon" Association="Model.BussinessBussinessCupon">
+      <End Role="Bussiness" EntitySet="Bussinesses" />
+      <End Role="BussinessCupon" EntitySet="Cupons" />
+    </AssociationSet>
+    <EntitySet Name="Preferences" EntityType="Model.Preference" />
+    <AssociationSet Name="BasicUserPreference" Association="Model.BasicUserPreference">
+      <End Role="BasicUser" EntitySet="Users" />
+      <End Role="Preference" EntitySet="Preferences" />
+    </AssociationSet>
+    <EntitySet Name="PurchasedCupons" EntityType="Model.PurchasedCupon" />
+    <AssociationSet Name="BasicUserPurchasedCupon" Association="Model.BasicUserPurchasedCupon">
+      <End Role="BasicUser" EntitySet="Users" />
+      <End Role="PurchasedCupon" EntitySet="PurchasedCupons" />
+    </AssociationSet>
+    <AssociationSet Name="BussinessCuponPurchasedCupon" Association="Model.BussinessCuponPurchasedCupon">
+      <End Role="BussinessCupon" EntitySet="Cupons" />
+      <End Role="PurchasedCupon" EntitySet="PurchasedCupons" />
+    </AssociationSet>
+    <AssociationSet Name="UserSocialNetworkCupon" Association="Model.UserSocialNetworkCupon">
+      <End Role="User" EntitySet="Users" />
+      <End Role="SocialNetworkCupon" EntitySet="Cupons" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="Location">
+    <Property Type="Double" Name="Longtitude" Nullable="false" />
+    <Property Type="Double" Name="Latitude" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="Cupon">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="Double" Name="OriginalPrice" Nullable="false" />
+    <Property Type="Double" Name="Price" Nullable="false" />
+    <Property Type="Model.Rate" Name="Rate" Nullable="false" />
+    <Property Type="DateTime" Name="ExpirationDate" Nullable="false" />
+    <Property Type="Model.Category" Name="Category" Nullable="false" />
+    <Property Type="Boolean" Name="Approved" Nullable="false" />
+    <Property Name="Location" Type="Model.Location" Nullable="false" />
+  </EntityType>
+  <EnumType Name="Category">
+    <Member Name="Resturants" />
+    <Member Name="Shopping" />
+    <Member Name="HealthCare" />
+    <Member Name="OfficeAndElectronics" />
+    <Member Name="Vacations" />
+    <Member Name="Pleasure" />
+  </EnumType>
+  <EnumType Name="Rate">
+    <Member Name="One" />
+    <Member Name="Two" />
+    <Member Name="Three" />
+    <Member Name="Four" />
+    <Member Name="Five" />
+    <Member Name="NA" />
+  </EnumType>
+  <EnumType Name="Gender">
+    <Member Name="Male" />
+    <Member Name="Female" />
+  </EnumType>
+  <EnumType Name="CuponState">
+    <Member Name="Pending" />
+    <Member Name="Used" />
+  </EnumType>
+  <EntityType Name="SocialNetworkCupon" BaseType="Model.Cupon">
+    <Property Type="String" Name="URL" Nullable="false" />
+    <Property Type="String" Name="PhoneNumber" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Model.UserSocialNetworkCupon" FromRole="SocialNetworkCupon" ToRole="User" />
+  </EntityType>
+  <EntityType Name="BussinessCupon" BaseType="Model.Cupon">
+    <NavigationProperty Name="Bussiness" Relationship="Model.BussinessBussinessCupon" FromRole="BussinessCupon" ToRole="Bussiness" />
+    <NavigationProperty Name="PurchasedCupons" Relationship="Model.BussinessCuponPurchasedCupon" FromRole="BussinessCupon" ToRole="PurchasedCupon" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="UserName" Nullable="false" />
+    <Property Type="String" Name="Password" Nullable="false" />
+    <Property Type="String" Name="Email" Nullable="false" />
+    <NavigationProperty Name="SocialNetworkCupons" Relationship="Model.UserSocialNetworkCupon" FromRole="User" ToRole="SocialNetworkCupon" />
+  </EntityType>
+  <EntityType Name="BasicUser" BaseType="Model.User">
+    <Property Type="Model.Gender" Name="Gender" Nullable="false" />
+    <Property Type="String" Name="PhoneNumber" Nullable="false" />
+    <Property Type="DateTime" Name="BirthDate" Nullable="false" />
+    <Property Name="Location" Type="Model.Location" Nullable="false" />
+    <NavigationProperty Name="Preferences" Relationship="Model.BasicUserPreference" FromRole="BasicUser" ToRole="Preference" />
+    <NavigationProperty Name="PurchasedCupons" Relationship="Model.BasicUserPurchasedCupon" FromRole="BasicUser" ToRole="PurchasedCupon" />
+  </EntityType>
+  <EntityType Name="BussinessOwner" BaseType="Model.User">
+    <NavigationProperty Name="Bussinesses" Relationship="Model.BussinessOwnerBussiness" FromRole="BussinessOwner" ToRole="Bussiness" />
+  </EntityType>
+  <EntityType Name="SystemAdmin" BaseType="Model.User" />
+  <EntityType Name="Bussiness">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="Model.Category" Name="Category" Nullable="false" />
+    <Property Name="Location" Type="Model.Location" Nullable="false" />
+    <NavigationProperty Name="BussinessOwner" Relationship="Model.BussinessOwnerBussiness" FromRole="Bussiness" ToRole="BussinessOwner" />
+    <NavigationProperty Name="BussinessCupons" Relationship="Model.BussinessBussinessCupon" FromRole="Bussiness" ToRole="BussinessCupon" />
+  </EntityType>
+  <Association Name="BussinessOwnerBussiness">
+    <End Type="Model.BussinessOwner" Role="BussinessOwner" Multiplicity="1" />
+    <End Type="Model.Bussiness" Role="Bussiness" Multiplicity="*" />
+  </Association>
+  <Association Name="BussinessBussinessCupon">
+    <End Type="Model.Bussiness" Role="Bussiness" Multiplicity="1" />
+    <End Type="Model.BussinessCupon" Role="BussinessCupon" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Preference">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Model.Category" Name="Category" Nullable="false" />
+    <NavigationProperty Name="BasicUser" Relationship="Model.BasicUserPreference" FromRole="Preference" ToRole="BasicUser" />
+  </EntityType>
+  <Association Name="BasicUserPreference">
+    <End Type="Model.BasicUser" Role="BasicUser" Multiplicity="1" />
+    <End Type="Model.Preference" Role="Preference" Multiplicity="*" />
+  </Association>
+  <EntityType Name="PurchasedCupon">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="SerialKey" Nullable="false" />
+    <Property Type="Model.CuponState" Name="State" Nullable="false" />
+    <Property Type="Model.Rate" Name="Rate" Nullable="false" />
+    <NavigationProperty Name="BasicUser" Relationship="Model.BasicUserPurchasedCupon" FromRole="PurchasedCupon" ToRole="BasicUser" />
+    <NavigationProperty Name="BussinessCupon" Relationship="Model.BussinessCuponPurchasedCupon" FromRole="PurchasedCupon" ToRole="BussinessCupon" />
+  </EntityType>
+  <Association Name="BasicUserPurchasedCupon">
+    <End Type="Model.BasicUser" Role="BasicUser" Multiplicity="1" />
+    <End Type="Model.PurchasedCupon" Role="PurchasedCupon" Multiplicity="*" />
+  </Association>
+  <Association Name="BussinessCuponPurchasedCupon">
+    <End Type="Model.BussinessCupon" Role="BussinessCupon" Multiplicity="1" />
+    <End Type="Model.PurchasedCupon" Role="PurchasedCupon" Multiplicity="*" />
+  </Association>
+  <Association Name="UserSocialNetworkCupon">
+    <End Type="Model.User" Role="User" Multiplicity="1" />
+    <End Type="Model.SocialNetworkCupon" Role="SocialNetworkCupon" Multiplicity="*" />
+  </Association>
+</Schema>

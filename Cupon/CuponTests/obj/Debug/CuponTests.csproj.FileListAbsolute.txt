@@ -10,3 +10,15 @@ C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים
 C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\CuponTests\obj\Debug\CuponTests.csprojResolveAssemblyReference.cache
 C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\CuponTests\obj\Debug\CuponTests.dll
 C:\Users\Natan-PC\Google Drive\BGU\ניתוח ועיצוב מונחה עצמים\עבודות\עבודה 1\פתרון - עבודה 1\DesignWork1\Cupon\CuponTests\obj\Debug\CuponTests.pdb
+C:\Users\Ido\Documents\Cupons\Cupon\CuponTests\bin\Debug\CuponTests.dll.config
+C:\Users\Ido\Documents\Cupons\Cupon\CuponTests\bin\Debug\CuponTests.dll
+C:\Users\Ido\Documents\Cupons\Cupon\CuponTests\bin\Debug\CuponTests.pdb
+C:\Users\Ido\Documents\Cupons\Cupon\CuponTests\bin\Debug\CuponDataBase.exe
+C:\Users\Ido\Documents\Cupons\Cupon\CuponTests\bin\Debug\EntityFramework.dll
+C:\Users\Ido\Documents\Cupons\Cupon\CuponTests\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Ido\Documents\Cupons\Cupon\CuponTests\bin\Debug\CuponDataBase.pdb
+C:\Users\Ido\Documents\Cupons\Cupon\CuponTests\bin\Debug\EntityFramework.xml
+C:\Users\Ido\Documents\Cupons\Cupon\CuponTests\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Ido\Documents\Cupons\Cupon\CuponTests\obj\Debug\CuponTests.csprojResolveAssemblyReference.cache
+C:\Users\Ido\Documents\Cupons\Cupon\CuponTests\obj\Debug\CuponTests.dll
+C:\Users\Ido\Documents\Cupons\Cupon\CuponTests\obj\Debug\CuponTests.pdb

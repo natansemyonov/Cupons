@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="Cupons">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Cupon)">
+        <MappingFragment StoreEntitySet="Cupons">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="OriginalPrice" ColumnName="OriginalPrice" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Approved" ColumnName="Approved" />
+          <ComplexProperty Name="Location" TypeName="Model.Location">
+            <ScalarProperty Name="Longtitude" ColumnName="Location_Longtitude" />
+            <ScalarProperty Name="Latitude" ColumnName="Location_Latitude" />
+          </ComplexProperty>
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.BussinessCupon)">
+        <MappingFragment StoreEntitySet="Cupons_BussinessCupon">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.SocialNetworkCupon)">
+        <MappingFragment StoreEntitySet="Cupons_SocialNetworkCupon">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.BussinessOwner)">
+        <MappingFragment StoreEntitySet="Users_BussinessOwner">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.BasicUser)">
+        <MappingFragment StoreEntitySet="Users_BasicUser">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ComplexProperty Name="Location" TypeName="Model.Location">
+            <ScalarProperty Name="Longtitude" ColumnName="Location_Longtitude" />
+            <ScalarProperty Name="Latitude" ColumnName="Location_Latitude" />
+          </ComplexProperty>
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.SystemAdmin)">
+        <MappingFragment StoreEntitySet="Users_SystemAdmin">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bussinesses">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Bussiness)">
+        <MappingFragment StoreEntitySet="Bussinesses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ComplexProperty Name="Location" TypeName="Model.Location">
+            <ScalarProperty Name="Longtitude" ColumnName="Location_Longtitude" />
+            <ScalarProperty Name="Latitude" ColumnName="Location_Latitude" />
+          </ComplexProperty>
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Preferences">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Preference)">
+        <MappingFragment StoreEntitySet="Preferences">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchasedCupons">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.PurchasedCupon)">
+        <MappingFragment StoreEntitySet="PurchasedCupons">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SerialKey" ColumnName="SerialKey" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="BussinessOwnerBussiness" TypeName="Model.BussinessOwnerBussiness" StoreEntitySet="Bussinesses">
+      <EndProperty Name="BussinessOwner">
+        <ScalarProperty Name="Id" ColumnName="BussinessOwner_Id" />
+      </EndProperty>
+      <EndProperty Name="Bussiness">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BussinessBussinessCupon" TypeName="Model.BussinessBussinessCupon" StoreEntitySet="Cupons_BussinessCupon">
+      <EndProperty Name="Bussiness">
+        <ScalarProperty Name="Id" ColumnName="Bussiness_Id" />
+      </EndProperty>
+      <EndProperty Name="BussinessCupon">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BasicUserPreference" TypeName="Model.BasicUserPreference" StoreEntitySet="Preferences">
+      <EndProperty Name="BasicUser">
+        <ScalarProperty Name="Id" ColumnName="BasicUser_Id" />
+      </EndProperty>
+      <EndProperty Name="Preference">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BasicUserPurchasedCupon" TypeName="Model.BasicUserPurchasedCupon" StoreEntitySet="PurchasedCupons">
+      <EndProperty Name="BasicUser">
+        <ScalarProperty Name="Id" ColumnName="BasicUser_Id" />
+      </EndProperty>
+      <EndProperty Name="PurchasedCupon">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BussinessCuponPurchasedCupon" TypeName="Model.BussinessCuponPurchasedCupon" StoreEntitySet="PurchasedCupons">
+      <EndProperty Name="BussinessCupon">
+        <ScalarProperty Name="Id" ColumnName="BussinessCupon_Id" />
+      </EndProperty>
+      <EndProperty Name="PurchasedCupon">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserSocialNetworkCupon" TypeName="Model.UserSocialNetworkCupon" StoreEntitySet="Cupons_SocialNetworkCupon">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="SocialNetworkCupon">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

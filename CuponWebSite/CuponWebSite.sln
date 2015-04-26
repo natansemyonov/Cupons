@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CuponWebSite", "CuponWebSite\CuponWebSite.csproj", "{266E033B-875F-4E04-BE70-1FC6EF07F47F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{74013C29-0A33-4121-8C92-BE35AFC363F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{266E033B-875F-4E04-BE70-1FC6EF07F47F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{266E033B-875F-4E04-BE70-1FC6EF07F47F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{266E033B-875F-4E04-BE70-1FC6EF07F47F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{266E033B-875F-4E04-BE70-1FC6EF07F47F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74013C29-0A33-4121-8C92-BE35AFC363F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74013C29-0A33-4121-8C92-BE35AFC363F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74013C29-0A33-4121-8C92-BE35AFC363F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74013C29-0A33-4121-8C92-BE35AFC363F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

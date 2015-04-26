@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Cupons" EntityType="Model.Store.Cupons" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="Model.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Bussinesses" EntityType="Model.Store.Bussinesses" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Preferences" EntityType="Model.Store.Preferences" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PurchasedCupons" EntityType="Model.Store.PurchasedCupons" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_BussinessOwner" EntityType="Model.Store.Users_BussinessOwner" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cupons_BussinessCupon" EntityType="Model.Store.Cupons_BussinessCupon" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_BasicUser" EntityType="Model.Store.Users_BasicUser" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cupons_SocialNetworkCupon" EntityType="Model.Store.Cupons_SocialNetworkCupon" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_SystemAdmin" EntityType="Model.Store.Users_SystemAdmin" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="BussinessOwnerBussiness" Association="Model.Store.BussinessOwnerBussiness">
+      <End Role="BussinessOwner" EntitySet="Users_BussinessOwner" />
+      <End Role="Bussiness" EntitySet="Bussinesses" />
+    </AssociationSet>
+    <AssociationSet Name="BussinessBussinessCupon" Association="Model.Store.BussinessBussinessCupon">
+      <End Role="Bussiness" EntitySet="Bussinesses" />
+      <End Role="BussinessCupon" EntitySet="Cupons_BussinessCupon" />
+    </AssociationSet>
+    <AssociationSet Name="BasicUserPreference" Association="Model.Store.BasicUserPreference">
+      <End Role="BasicUser" EntitySet="Users_BasicUser" />
+      <End Role="Preference" EntitySet="Preferences" />
+    </AssociationSet>
+    <AssociationSet Name="BasicUserPurchasedCupon" Association="Model.Store.BasicUserPurchasedCupon">
+      <End Role="BasicUser" EntitySet="Users_BasicUser" />
+      <End Role="PurchasedCupon" EntitySet="PurchasedCupons" />
+    </AssociationSet>
+    <AssociationSet Name="BussinessCuponPurchasedCupon" Association="Model.Store.BussinessCuponPurchasedCupon">
+      <End Role="BussinessCupon" EntitySet="Cupons_BussinessCupon" />
+      <End Role="PurchasedCupon" EntitySet="PurchasedCupons" />
+    </AssociationSet>
+    <AssociationSet Name="UserSocialNetworkCupon" Association="Model.Store.UserSocialNetworkCupon">
+      <End Role="User" EntitySet="Users" />
+      <End Role="SocialNetworkCupon" EntitySet="Cupons_SocialNetworkCupon" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BussinessOwner_inherits_User" Association="Model.Store.FK_BussinessOwner_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="BussinessOwner" EntitySet="Users_BussinessOwner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BussinessCupon_inherits_Cupon" Association="Model.Store.FK_BussinessCupon_inherits_Cupon">
+      <End Role="Cupon" EntitySet="Cupons" />
+      <End Role="BussinessCupon" EntitySet="Cupons_BussinessCupon" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BasicUser_inherits_User" Association="Model.Store.FK_BasicUser_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="BasicUser" EntitySet="Users_BasicUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SocialNetworkCupon_inherits_Cupon" Association="Model.Store.FK_SocialNetworkCupon_inherits_Cupon">
+      <End Role="Cupon" EntitySet="Cupons" />
+      <End Role="SocialNetworkCupon" EntitySet="Cupons_SocialNetworkCupon" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SystemAdmin_inherits_User" Association="Model.Store.FK_SystemAdmin_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="SystemAdmin" EntitySet="Users_SystemAdmin" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Cupons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OriginalPrice" Type="float" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="Rate" Type="int" Nullable="false" />
+    <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
+    <Property Name="Category" Type="int" Nullable="false" />
+    <Property Name="Approved" Type="bit" Nullable="false" />
+    <Property Name="Location_Longtitude" Type="float" Nullable="false" />
+    <Property Name="Location_Latitude" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bussinesses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Category" Type="int" Nullable="false" />
+    <Property Name="Location_Longtitude" Type="float" Nullable="false" />
+    <Property Name="Location_Latitude" Type="float" Nullable="false" />
+    <Property Name="BussinessOwner_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Preferences">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Category" Type="int" Nullable="false" />
+    <Property Name="BasicUser_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PurchasedCupons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SerialKey" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="State" Type="int" Nullable="false" />
+    <Property Name="Rate" Type="int" Nullable="false" />
+    <Property Name="BasicUser_Id" Type="int" Nullable="false" />
+    <Property Name="BussinessCupon_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_BussinessOwner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cupons_BussinessCupon">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Bussiness_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_BasicUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Gender" Type="int" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BirthDate" Type="datetime" Nullable="false" />
+    <Property Name="Location_Longtitude" Type="float" Nullable="false" />
+    <Property Name="Location_Latitude" Type="float" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cupons_SocialNetworkCupon">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="URL" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_SystemAdmin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="BussinessOwnerBussiness">
+    <End Role="BussinessOwner" Type="Model.Store.Users_BussinessOwner" Multiplicity="1" />
+    <End Role="Bussiness" Type="Model.Store.Bussinesses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BussinessOwner">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bussiness">
+        <PropertyRef Name="BussinessOwner_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BussinessBussinessCupon">
+    <End Role="Bussiness" Type="Model.Store.Bussinesses" Multiplicity="1" />
+    <End Role="BussinessCupon" Type="Model.Store.Cupons_BussinessCupon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bussiness">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BussinessCupon">
+        <PropertyRef Name="Bussiness_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BasicUserPreference">
+    <End Role="BasicUser" Type="Model.Store.Users_BasicUser" Multiplicity="1" />
+    <End Role="Preference" Type="Model.Store.Preferences" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BasicUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Preference">
+        <PropertyRef Name="BasicUser_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BasicUserPurchasedCupon">
+    <End Role="BasicUser" Type="Model.Store.Users_BasicUser" Multiplicity="1" />
+    <End Role="PurchasedCupon" Type="Model.Store.PurchasedCupons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BasicUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PurchasedCupon">
+        <PropertyRef Name="BasicUser_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BussinessCuponPurchasedCupon">
+    <End Role="BussinessCupon" Type="Model.Store.Cupons_BussinessCupon" Multiplicity="1" />
+    <End Role="PurchasedCupon" Type="Model.Store.PurchasedCupons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BussinessCupon">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PurchasedCupon">
+        <PropertyRef Name="BussinessCupon_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserSocialNetworkCupon">
+    <End Role="User" Type="Model.Store.Users" Multiplicity="1" />
+    <End Role="SocialNetworkCupon" Type="Model.Store.Cupons_SocialNetworkCupon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SocialNetworkCupon">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BussinessOwner_inherits_User">
+    <End Role="User" Type="Model.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BussinessOwner" Type="Model.Store.Users_BussinessOwner" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BussinessOwner">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BussinessCupon_inherits_Cupon">
+    <End Role="Cupon" Type="Model.Store.Cupons" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BussinessCupon" Type="Model.Store.Cupons_BussinessCupon" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Cupon">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BussinessCupon">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BasicUser_inherits_User">
+    <End Role="User" Type="Model.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BasicUser" Type="Model.Store.Users_BasicUser" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BasicUser">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SocialNetworkCupon_inherits_Cupon">
+    <End Role="Cupon" Type="Model.Store.Cupons" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SocialNetworkCupon" Type="Model.Store.Cupons_SocialNetworkCupon" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Cupon">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SocialNetworkCupon">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SystemAdmin_inherits_User">
+    <End Role="User" Type="Model.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SystemAdmin" Type="Model.Store.Users_SystemAdmin" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SystemAdmin">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,7 @@
+C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\bin\CuponWebSite.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\bin\CuponWebSite.pdb
+C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\bin\EntityFramework.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\bin\EntityFramework.xml
+C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.csprojResolveAssemblyReference.cache
+C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.pdb
