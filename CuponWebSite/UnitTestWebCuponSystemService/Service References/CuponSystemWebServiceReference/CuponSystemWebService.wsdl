@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="AuthenticateUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticateUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AuthenticateUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddBussinessOwner">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddBussinessOwnerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddBussinessOwnerResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddBasicUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="gender" type="tns:Gender" />
+            <s:element minOccurs="0" maxOccurs="1" name="phoneNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="birthDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="location" type="tns:Location" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="Gender">
+        <s:restriction base="s:string">
+          <s:enumeration value="Male" />
+          <s:enumeration value="Female" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Location">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Longtitude" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Latitude" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddBasicUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddBasicUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddSystemAdmin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddSystemAdminResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddSystemAdminResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddBussiness">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="category" type="tns:Category" />
+            <s:element minOccurs="0" maxOccurs="1" name="location" type="tns:Location" />
+            <s:element minOccurs="1" maxOccurs="1" name="bussinessOwnerId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="Category">
+        <s:restriction base="s:string">
+          <s:enumeration value="Resturants" />
+          <s:enumeration value="Shopping" />
+          <s:enumeration value="HealthCare" />
+          <s:enumeration value="OfficeAndElectronics" />
+          <s:enumeration value="Vacations" />
+          <s:enumeration value="Pleasure" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="AddBussinessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddBussinessResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AuthenticateUserSoapIn">
+    <wsdl:part name="parameters" element="tns:AuthenticateUser" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateUserSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthenticateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddBussinessOwnerSoapIn">
+    <wsdl:part name="parameters" element="tns:AddBussinessOwner" />
+  </wsdl:message>
+  <wsdl:message name="AddBussinessOwnerSoapOut">
+    <wsdl:part name="parameters" element="tns:AddBussinessOwnerResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddBasicUserSoapIn">
+    <wsdl:part name="parameters" element="tns:AddBasicUser" />
+  </wsdl:message>
+  <wsdl:message name="AddBasicUserSoapOut">
+    <wsdl:part name="parameters" element="tns:AddBasicUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddSystemAdminSoapIn">
+    <wsdl:part name="parameters" element="tns:AddSystemAdmin" />
+  </wsdl:message>
+  <wsdl:message name="AddSystemAdminSoapOut">
+    <wsdl:part name="parameters" element="tns:AddSystemAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddBussinessSoapIn">
+    <wsdl:part name="parameters" element="tns:AddBussiness" />
+  </wsdl:message>
+  <wsdl:message name="AddBussinessSoapOut">
+    <wsdl:part name="parameters" element="tns:AddBussinessResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CuponSystemWebServiceSoap">
+    <wsdl:operation name="AuthenticateUser">
+      <wsdl:input message="tns:AuthenticateUserSoapIn" />
+      <wsdl:output message="tns:AuthenticateUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddBussinessOwner">
+      <wsdl:input message="tns:AddBussinessOwnerSoapIn" />
+      <wsdl:output message="tns:AddBussinessOwnerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddBasicUser">
+      <wsdl:input message="tns:AddBasicUserSoapIn" />
+      <wsdl:output message="tns:AddBasicUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddSystemAdmin">
+      <wsdl:input message="tns:AddSystemAdminSoapIn" />
+      <wsdl:output message="tns:AddSystemAdminSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddBussiness">
+      <wsdl:input message="tns:AddBussinessSoapIn" />
+      <wsdl:output message="tns:AddBussinessSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CuponSystemWebServiceSoap" type="tns:CuponSystemWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AuthenticateUser">
+      <soap:operation soapAction="http://tempuri.org/AuthenticateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBussinessOwner">
+      <soap:operation soapAction="http://tempuri.org/AddBussinessOwner" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBasicUser">
+      <soap:operation soapAction="http://tempuri.org/AddBasicUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddSystemAdmin">
+      <soap:operation soapAction="http://tempuri.org/AddSystemAdmin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBussiness">
+      <soap:operation soapAction="http://tempuri.org/AddBussiness" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CuponSystemWebServiceSoap12" type="tns:CuponSystemWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AuthenticateUser">
+      <soap12:operation soapAction="http://tempuri.org/AuthenticateUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBussinessOwner">
+      <soap12:operation soapAction="http://tempuri.org/AddBussinessOwner" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBasicUser">
+      <soap12:operation soapAction="http://tempuri.org/AddBasicUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddSystemAdmin">
+      <soap12:operation soapAction="http://tempuri.org/AddSystemAdmin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBussiness">
+      <soap12:operation soapAction="http://tempuri.org/AddBussiness" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CuponSystemWebService">
+    <wsdl:port name="CuponSystemWebServiceSoap" binding="tns:CuponSystemWebServiceSoap">
+      <soap:address location="http://localhost:20353/CuponSystemWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CuponSystemWebServiceSoap12" binding="tns:CuponSystemWebServiceSoap12">
+      <soap12:address location="http://localhost:20353/CuponSystemWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
