@@ -25,3 +25,5 @@ D:\Cupons\CuponWebSite\CuponWebSite\bin\Newtonsoft.Json.xml
 D:\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.dll
 D:\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.pdb
 D:\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.csprojResolveAssemblyReference.cache
+C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\bin\Newtonsoft.Json.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\bin\Newtonsoft.Json.xml

@@ -14,7 +14,7 @@ namespace CuponWebSite
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-    [System.ComponentModel.ToolboxItem(false)]
+ //   [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
      [System.Web.Script.Services.ScriptService]
     public class CuponSystemWebService : System.Web.Services.WebService
@@ -445,8 +445,9 @@ namespace CuponWebSite
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public String FindCuponByPreference(Category category)
+        public string FindCuponByPreference(string c)
         {
+            Category category = (Category) int.Parse(c);
             List<Cupon> cuponsList = new List<Cupon>();
             using (ModelContainer entities = new ModelContainer())
             {
@@ -466,7 +467,7 @@ namespace CuponWebSite
                     Approved = cupon.Approved,
                     Id = cupon.Id
                 }));
-                return JsonConvert.SerializeObject(cuponsList, Formatting.Indented);
+                return JsonConvert.SerializeObject(cuponsList.GetRange(0,cuponsList.Count<100?cuponsList.Count:100), Formatting.Indented);
             }
         }
        
@@ -679,5 +680,17 @@ namespace CuponWebSite
         }
 
         #endregion --------Social Network Cupons---------------
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+            BodyStyle = WebMessageBodyStyle.Wrapped,
+            ResponseFormat = WebMessageFormat.Json)]
+        public string about()
+        {
+            bool res = true;
+            string d = "{\"a\":\"a\"}";
+            return d;
+        }
+
     }
 }

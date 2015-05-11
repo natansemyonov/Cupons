@@ -30,3 +30,5 @@ D:\Cupons\CuponWebSite\UnitTestProject\obj\Debug\UnitTestProject.dll
 D:\Cupons\CuponWebSite\UnitTestProject\obj\Debug\UnitTestProject.pdb
 D:\Cupons\CuponWebSite\UnitTestProject\bin\Debug\Newtonsoft.Json.dll
 D:\Cupons\CuponWebSite\UnitTestProject\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject\bin\Debug\Newtonsoft.Json.xml
