@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestWebCuponSystemService\bin\Debug\UnitTestWebCuponSystemService.dll.config
 C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestWebCuponSystemService\bin\Debug\UnitTestWebCuponSystemService.dll
 C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestWebCuponSystemService\bin\Debug\UnitTestWebCuponSystemService.pdb
 C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestWebCuponSystemService\obj\Debug\UnitTestWebCuponSystemService.csprojResolveAssemblyReference.cache
 C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestWebCuponSystemService\obj\Debug\UnitTestWebCuponSystemService.dll
 C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestWebCuponSystemService\obj\Debug\UnitTestWebCuponSystemService.pdb
+=======
+D:\Cupons\CuponWebSite\UnitTestWebCuponSystemService\bin\Debug\UnitTestWebCuponSystemService.dll.config
+D:\Cupons\CuponWebSite\UnitTestWebCuponSystemService\bin\Debug\UnitTestWebCuponSystemService.dll
+D:\Cupons\CuponWebSite\UnitTestWebCuponSystemService\bin\Debug\UnitTestWebCuponSystemService.pdb
+D:\Cupons\CuponWebSite\UnitTestWebCuponSystemService\obj\Debug\UnitTestWebCuponSystemService.csprojResolveAssemblyReference.cache
+D:\Cupons\CuponWebSite\UnitTestWebCuponSystemService\obj\Debug\UnitTestWebCuponSystemService.dll
+D:\Cupons\CuponWebSite\UnitTestWebCuponSystemService\obj\Debug\UnitTestWebCuponSystemService.pdb
+>>>>>>> origin/master

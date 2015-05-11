@@ -209,6 +209,7 @@ namespace CuponWebSite
                     Location = location,
                     BussinessOwner = (BussinessOwner)bussinessOwner
                 };
+                ((BussinessOwner)bussinessOwner).Bussinesses.Add(bussiness);
                 entities.Bussinesses.Add(bussiness);
                 entities.SaveChanges();
                 return true;
@@ -272,7 +273,7 @@ namespace CuponWebSite
                     Category = data.Category,
                     Location = data.Location,
                     Id = data.Id,
-                    BussinessCupons =data.BussinessCupons,
+                    BussinessCupons = data.BussinessCupons,
                     BussinessOwner = data.BussinessOwner
                 };
                 return JsonConvert.SerializeObject(bussiness, Formatting.Indented);
@@ -487,7 +488,6 @@ namespace CuponWebSite
                 return true;
             }
         }
-        
         #endregion --------Cupons---------------
 
         #region --------Bussiness Cupons---------------
@@ -528,27 +528,29 @@ namespace CuponWebSite
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public String FindCuponByBussiness(double latitude, double longtitude)
+        public String FindCuponByBussiness(int bussinessId)
         {
             List<BussinessCupon> cuponsList = new List<BussinessCupon>();
             using (ModelContainer entities = new ModelContainer())
             {
-                //var data = entities.Cupons.Where(x => x. == latitude & x.Location.Longtitude == longtitude).ToList();
-                //if (data.Count == 0)
-                //    return "";
-                //cuponsList.AddRange(data.Select(cupon => new Cupon
-                //{
-                //    Name = cupon.Name,
-                //    Description = cupon.Description,
-                //    Category = cupon.Category,
-                //    Location = cupon.Location,
-                //    OriginalPrice = cupon.OriginalPrice,
-                //    Price = cupon.Price,
-                //    Rate = cupon.Rate,
-                //    ExpirationDate = cupon.ExpirationDate,
-                //    Approved = cupon.Approved,
-                //    Id = cupon.Id
-                //}));
+                var data = entities.Cupons.Where(x => ((BussinessCupon)x).Bussiness.Id == bussinessId).ToList();
+                if (data.Count == 0)
+                    return "";
+                cuponsList.AddRange(data.Select(cupon => new BussinessCupon
+                {
+                    Name = cupon.Name,
+                    Description = cupon.Description,
+                    Category = cupon.Category,
+                    Location = cupon.Location,
+                    OriginalPrice = cupon.OriginalPrice,
+                    Price = cupon.Price,
+                    Rate = cupon.Rate,
+                    ExpirationDate = cupon.ExpirationDate,
+                    Approved = cupon.Approved,
+                    Id = cupon.Id,
+                    Bussiness = ((BussinessCupon)cupon).Bussiness,
+                    PurchasedCupons = ((BussinessCupon)cupon).PurchasedCupons
+                }));
                 return JsonConvert.SerializeObject(cuponsList, Formatting.Indented);
             }
         }
@@ -642,6 +644,57 @@ namespace CuponWebSite
             }
         }
 
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        ResponseFormat = WebMessageFormat.Json)]
+        public String CuponHistory(int basicUserId)
+        {
+            List<PurchasedCupon> purchasedCuponsList = new List<PurchasedCupon>();
+            using (ModelContainer entities = new ModelContainer())
+            {
+                var data = entities.PurchasedCupons.Where(x => x.BasicUser.Id == basicUserId).ToList();
+                if (data.Count == 0)
+                    return "";
+                purchasedCuponsList.AddRange(data.Select(purchasedCupon => new PurchasedCupon
+                {
+                    Id = purchasedCupon.Id,
+                    SerialKey = purchasedCupon.SerialKey,
+                    State = purchasedCupon.State,
+                    Rate = purchasedCupon.Rate,
+                    BasicUser = purchasedCupon.BasicUser,
+                    BussinessCupon = purchasedCupon.BussinessCupon
+                }));
+                return JsonConvert.SerializeObject(purchasedCuponsList, Formatting.Indented);
+            }
+        }
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        ResponseFormat = WebMessageFormat.Json)]
+        public String BussinessCuponHistory(int bussinessId)
+        {
+            List<PurchasedCupon> purchasedCuponsList = new List<PurchasedCupon>();
+            using (ModelContainer entities = new ModelContainer())
+            {
+                var data = entities.PurchasedCupons.Where(x => x.BussinessCupon.Bussiness.Id == bussinessId).ToList();
+                if (data.Count == 0)
+                    return "";
+                purchasedCuponsList.AddRange(data.Select(purchasedCupon => new PurchasedCupon
+                {
+                    Id = purchasedCupon.Id,
+                    SerialKey = purchasedCupon.SerialKey,
+                    State = purchasedCupon.State,
+                    Rate = purchasedCupon.Rate,
+                    BasicUser = purchasedCupon.BasicUser,
+                    BussinessCupon = purchasedCupon.BussinessCupon
+                }));
+                return JsonConvert.SerializeObject(purchasedCuponsList, Formatting.Indented);
+            }
+        }
+       
         #endregion ---------Purchased Cupons --------
 
         #region --------Social Network Cupons---------------
@@ -673,6 +726,7 @@ namespace CuponWebSite
                     URL = url,
                     User = user
                 };
+                user.SocialNetworkCupons.Add(SNCupon);
                 entities.Cupons.Add(SNCupon);
                 entities.SaveChanges();
                 return true;
