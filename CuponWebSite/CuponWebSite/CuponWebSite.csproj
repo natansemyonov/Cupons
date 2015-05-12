@@ -76,6 +76,7 @@
     </Content>
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\main.css" />
     <Content Include="css\shop-homepage.css" />
     <Content Include="css\slider.css" />
     <Content Include="CuponSystemWebService.asmx" />

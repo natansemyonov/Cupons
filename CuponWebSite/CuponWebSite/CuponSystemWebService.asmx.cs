@@ -91,12 +91,41 @@ namespace CuponWebSite
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public string FindBasicUserByName_Email( string userName, string email)
+        public string FindBasicUserByName_Email(string userName, string email)
         {
             BasicUser bUser;
             using (ModelContainer entities = new ModelContainer())
             {
                 var user = entities.Users.First(x => x.UserName == userName & x.Email == email);
+                if (user == null)
+                    return "";
+                bUser = new BasicUser
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    PhoneNumber = ((BasicUser)user).PhoneNumber,
+                    Location = ((BasicUser)user).Location,
+                    Password = user.Password,
+                    BirthDate = ((BasicUser)user).BirthDate,
+                    Gender = ((BasicUser)user).Gender,
+                    Preferences = ((BasicUser)user).Preferences
+                };
+                return JsonConvert.SerializeObject(bUser, Formatting.Indented);
+            }
+        }
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        ResponseFormat = WebMessageFormat.Json)]
+        public string FindUserByID(string id)
+        {
+            int i = int.Parse(id);
+            BasicUser bUser;
+            using (ModelContainer entities = new ModelContainer())
+            {
+                var user = entities.Users.First(x => x.Id == i);
                 if (user == null)
                     return "";
                 bUser = new BasicUser
@@ -151,7 +180,6 @@ namespace CuponWebSite
                     Category = category,
                     BasicUser = (BasicUser)user
                 };
-
                 ((BasicUser)user).Preferences.Add(preference);
                 entities.SaveChanges();
                 return true;
@@ -184,6 +212,8 @@ namespace CuponWebSite
                 return true;
             }
         }
+
+
         #endregion --------USERS---------------
 
         #region --------Bussiness---------------
@@ -566,9 +596,9 @@ namespace CuponWebSite
             using (ModelContainer entities = new ModelContainer())
             {
                 var user = entities.Users.First(x => x.Id == userId);
-                if (user == null) return false;
+                    if (user == null) return false;
                 var cupon = entities.Cupons.First(x => x.Id == cuponId);
-                if (cupon == null) return false;
+                    if (cupon == null) return false;
                 PurchasedCupon purchasedCupon = new PurchasedCupon
                 {
                     SerialKey = serialkey,
