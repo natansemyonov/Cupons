@@ -49,7 +49,59 @@ function SetAccount(accountId){
 }
 
 function register() {
-    
+    var userID;
+    var user = new Object();
+    user.userName = "ido1";
+    user.password = "ido";
+    user.email = "ido";
+    user.gender = "0";
+    user.phoneNumber = "ido";
+    user.birthDate = "2014-05-06T18:49:16.029Z";
+    user.longitude = "31.123";
+    user.latitude = "7.1343";
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/UserServices.asmx/BasicUserRegister",
+        data: JSON.stringify(user),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.d) {
+                setCookie("user", user.userName, 365);
+                setCookie("pass", user.password, 365);
+                setCookie("id", data.d, 365);
+                userID = data.d;//data.d;
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
+    //set account tab
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/CuponSystemWebService.asmx/FindUserByID",
+        data: JSON.stringify({ "id": userID }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.d) {
+                var d = JSON.parse(data.d);
+                $("#accountImg").attr("src", "http://placehold.it/120x120");
+                $("#accountName").text(d.userName);
+                $("#accountMail").text(d.Email);
+                $("#accountView").click();
+                document.getElementById("head_login").setAttribute("hidden", true);
+                document.getElementById("head_account").removeAttribute("hidden");
+                SetView("products");
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
 }
 
 function login() {
@@ -58,7 +110,7 @@ function login() {
     var password = document.getElementById("login-password").value;
     $.ajax({
         type: "POST",
-        url: "http://localhost:20353/CuponSystemWebService.asmx/AuthenticateUser",
+        url: "http://localhost:20353/Controller/CuponSystemWebService.asmx/AuthenticateUser",
         data: JSON.stringify({ "userName": userName, "password": password }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -77,7 +129,7 @@ function login() {
     //set account tab
     $.ajax({
         type: "POST",
-        url: "http://localhost:20353/CuponSystemWebService.asmx/FindUserByID",
+        url: "http://localhost:20353/Controller/CuponSystemWebService.asmx/FindUserByID",
         data: JSON.stringify({ "id": userID }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

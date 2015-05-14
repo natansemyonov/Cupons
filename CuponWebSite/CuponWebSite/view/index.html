@@ -138,7 +138,8 @@
 					<a href="#" class="list-group-item" onclick="GetCupons(4);">Vacations</a>
 					<a href="#" class="list-group-item" onclick="GetCupons(5);">Pleasure</a>
                 </div>
-                <hr>				
+                <hr>
+                <a class="btn" href="BussinessOwner.html">bussiness</a>
             </div>
 
             <div class="col-md-9">
@@ -285,15 +286,11 @@
                             <div class="panel-title">Sign Up</div>
                         </div>  
                         <div class="panel-body" >
-                            <form id="signupform" class="form-horizontal" role="form">
-                                
+                            <form id="signupform" class="form-horizontal" role="form">  
                                 <div id="signupalert" style="display:none" class="alert alert-danger">
                                     <p>Error:</p>
                                     <span></span>
                                 </div>
-                                    
-                                
-                                  
                                 <div class="form-group">
                                     <label for="email" class="col-md-3 control-label">Email</label>
                                     <div class="col-md-9">
@@ -452,7 +449,7 @@
 				</div>	<!--/.row-->
 			</div><!--section-->
 	</div>
-	<!-- /about -->
+    <!-- /about -->
     <div class="container" id="profile" >
     <h1>Edit Profile</h1>
   	<hr>
@@ -581,7 +578,39 @@
             </div>
         </div>
     </div>
-    
+    <div class="modal fade" id="CuponModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="CuponName">Modal</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <span><b>Description:&nbsp</b></span>
+                            <span id="cuponDescription"></span>
+                            <br />
+                            <span><b>Location:&nbsp</b></span>
+                            <span id="cuponLocation"></span>
+                            <br />
+                            <span><b>Expiration Date:&nbsp</b></span>
+                            <span id="cuponExpiration"></span>
+                        </div>
+                        <div class="col-md-2">
+                            <span id="cuponOriginalPrice" style="color:red;text-decoration: line-through;font-size:larger;"></span>
+                            <span id="cuponPrice" style="color:green;text-decoration: none;font-size:larger;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="PurchaseButton" class="btn btn-primary">Buy</button>
+                </div>
+            </div>
+        </div>m
+    </div>
+
     <!-- jQuery -->
 
     <!-- Bootstrap Core JavaScript -->
@@ -589,7 +618,7 @@
 	<script src="js/main.js"></script>
 	<Script src="js/cupon.js" type="text/javascript"></script>
     <script type="text/javascript">
-    navigator.geolocation.getCurrentPosition(showdPosition);
+    //navigator.geolocation.getCurrentPosition(showdPosition);
 
 function showPosition(position) {
     lat = position.coords.latitude;

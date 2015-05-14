@@ -74,20 +74,29 @@
     <Content Include="App_Data\Database_log.ldf">
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
-    <Content Include="css\bootstrap.css" />
-    <Content Include="css\bootstrap.min.css" />
-    <Content Include="css\main.css" />
-    <Content Include="css\shop-homepage.css" />
-    <Content Include="css\slider.css" />
-    <Content Include="CuponSystemWebService.asmx" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="index.html" />
-    <Content Include="js\bootstrap.js" />
-    <Content Include="js\bootstrap.min.js" />
-    <Content Include="js\cupon.js" />
-    <Content Include="js\jquery.js" />
-    <Content Include="js\main.js" />
+    <Content Include="Controller\BussinessServices.asmx" />
+    <Content Include="Controller\CuponServices.asmx" />
+    <Content Include="Controller\UserServices.asmx" />
+    <Content Include="view\BussinessOwner.html" />
+    <Content Include="Controller\CuponSystemWebService.asmx" />
+    <Content Include="view\css\bootstrap.css" />
+    <Content Include="view\css\bootstrap.min.css" />
+    <Content Include="view\css\main.css" />
+    <Content Include="view\css\shop-homepage.css" />
+    <Content Include="view\css\slider.css" />
+    <Content Include="view\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="view\images\Female_User.jpg" />
+    <Content Include="view\images\Male_User.jpg" />
+    <Content Include="view\index.html" />
     <Content Include="Model.edmx.sql" />
+    <Content Include="view\js\bootstrap-modal.js" />
+    <Content Include="view\js\bootstrap.js" />
+    <Content Include="view\js\bootstrap.min.js" />
+    <Content Include="view\js\bussiness.js" />
+    <Content Include="view\js\cupon.js" />
+    <Content Include="view\js\jquery.js" />
+    <Content Include="view\js\main.js" />
+    <Content Include="view\SysAdmin.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -108,13 +117,25 @@
     <Compile Include="Category.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controller\BussinessServices.asmx.cs">
+      <DependentUpon>BussinessServices.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controller\CuponServices.asmx.cs">
+      <DependentUpon>CuponServices.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controller\UserServices.asmx.cs">
+      <DependentUpon>UserServices.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Cupon.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="CuponState.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="CuponSystemWebService.asmx.cs">
+    <Compile Include="Controller\CuponSystemWebService.asmx.cs">
       <DependentUpon>CuponSystemWebService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
@@ -180,11 +201,11 @@
     <Content Include="packages.config" />
     <Content Include="LICENSE" />
     <Content Include="README.md" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="less\slider.less" />
+    <Content Include="view\less\slider.less" />
+    <Content Include="view\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="view\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="view\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="view\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -198,11 +219,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="images\" />
-    <Folder Include="scripts\" />
-    <Folder Include="styles\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

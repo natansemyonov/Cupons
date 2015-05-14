@@ -1,317 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ServiceModel.Activities;
-using System.ServiceModel.Web;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.ServiceModel.Web;
 using System.Web;
 using System.Web.Services;
 using Newtonsoft.Json;
 
-namespace CuponWebSite
+namespace CuponWebSite.Controller
 {
     /// <summary>
-    /// Summary description for CuponSystemWebService
+    /// Summary description for CuponServices
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
- //   [System.ComponentModel.ToolboxItem(false)]
+    [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
      [System.Web.Script.Services.ScriptService]
-    public class CuponSystemWebService : System.Web.Services.WebService
+    public class CuponServices : System.Web.Services.WebService
     {
-        public CuponSystemWebService()
-        {
-            //Uncomment the following line if using designed components 
-            //InitializeComponent();
-        }
 
-        #region --------USERS---------------
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public bool AuthenticateUser(string userName, string password)
-        {
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var data = entities.Users.Where(x => x.UserName == userName && x.Password == password).ToList();
-                if (data.Count == 0)
-                    return false;
-                return true;
-
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public bool BussinessOwnerRegister(string userName, string password, string email)
-        {
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var data = entities.Users.Where(x => x.UserName == userName).ToList();
-                if (data.Count != 0)
-                    return false;
-                BussinessOwner user = new BussinessOwner
-                {
-                    UserName = userName,
-                    Password = password,
-                    Email = email
-                };
-                entities.Users.Add(user);
-                entities.SaveChanges();
-                return true;
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public bool UpdateBasicUser(int userId, string userName, string password, string email, string phoneNumber, Location location)
-        {
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var user = entities.Users.First(x => x.Id == userId);
-                if (user == null)
-                    return false;
-                user.UserName = userName;
-                user.Password = password;
-                user.Email = email;
-                ((BasicUser)user).PhoneNumber = phoneNumber;
-                ((BasicUser)user).Location = location;
-
-                entities.SaveChanges();
-                return true;
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public string FindBasicUserByName_Email(string userName, string email)
-        {
-            BasicUser bUser;
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var user = entities.Users.First(x => x.UserName == userName & x.Email == email);
-                if (user == null)
-                    return "";
-                bUser = new BasicUser
-                {
-                    Id = user.Id,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    PhoneNumber = ((BasicUser)user).PhoneNumber,
-                    Location = ((BasicUser)user).Location,
-                    Password = user.Password,
-                    BirthDate = ((BasicUser)user).BirthDate,
-                    Gender = ((BasicUser)user).Gender,
-                    Preferences = ((BasicUser)user).Preferences
-                };
-                return JsonConvert.SerializeObject(bUser, Formatting.Indented);
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public string FindUserByID(string id)
-        {
-            int i = int.Parse(id);
-            BasicUser bUser;
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var user = entities.Users.First(x => x.Id == i);
-                if (user == null)
-                    return "";
-                bUser = new BasicUser
-                {
-                    Id = user.Id,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    PhoneNumber = ((BasicUser)user).PhoneNumber,
-                    Location = ((BasicUser)user).Location,
-                    Password = user.Password,
-                    BirthDate = ((BasicUser)user).BirthDate,
-                    Gender = ((BasicUser)user).Gender,
-                    Preferences = ((BasicUser)user).Preferences
-                };
-                return JsonConvert.SerializeObject(bUser, Formatting.Indented);
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public bool ChangePassword(int userId, string newPassword)
-        {
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var user = entities.Users.First(x => x.Id == userId);
-                if (user == null)
-                    return false;
-                user.Password = newPassword;
-                entities.SaveChanges();
-                return true;
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public bool AddPreference(Category category, int userId)
-        {
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var user = entities.Users.First(x => x.Id == userId);
-                if (user == null)
-                    return false;
-                var data = entities.Preferences.Where(x => x.Category == category & x.BasicUser.Id == userId).ToList();
-                if (data.Count != 0)
-                    return false;
-                Preference preference = new Preference
-                {
-                    Category = category,
-                    BasicUser = (BasicUser)user
-                };
-                ((BasicUser)user).Preferences.Add(preference);
-                entities.SaveChanges();
-                return true;
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public bool BasicUserRegister(string userName, string password, string email, Gender gender, string phoneNumber, DateTime birthDate, Location location)
-        {
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var data = entities.Users.Where(x => x.UserName == userName).ToList();
-                if (data.Count != 0)
-                    return false;
-                BasicUser basicUser = new BasicUser
-                {
-                    UserName = userName,
-                    Password = password,
-                    Email = email,
-                    Gender = gender,
-                    PhoneNumber = phoneNumber,
-                    BirthDate = birthDate,
-                    Location = location
-                };
-                entities.Users.Add(basicUser);
-                entities.SaveChanges();
-                return true;
-            }
-        }
-
-
-        #endregion --------USERS---------------
-
-        #region --------Bussiness---------------
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public bool AddBussiness(string name, string description, Category category, Location location, int bussinessOwnerId)
-        {
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var data = entities.Bussinesses.Where(x => x.Name == name).ToList();
-                if (data.Count != 0)
-                    return false;
-                var bussinessOwner = entities.Users.First(x => x.Id == bussinessOwnerId);
-                if (bussinessOwner == null)
-                    return false;
-                Bussiness bussiness = new Bussiness
-                {
-                    Name = name,
-                    Description = description,
-                    Category = category,
-                    Location = location,
-                    BussinessOwner = (BussinessOwner)bussinessOwner
-                };
-                ((BussinessOwner)bussinessOwner).Bussinesses.Add(bussiness);
-                entities.Bussinesses.Add(bussiness);
-                entities.SaveChanges();
-                return true;
-            }
-        }
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public bool DeleteBussiness(int bussinessId)
-        {
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var data = entities.Bussinesses.First(x => x.Id == bussinessId);
-                if (data == null)
-                    return false;
-                entities.Bussinesses.Remove(data);
-                entities.SaveChanges();
-                return true;
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public bool UpdateBussiness(int bussinessId, string name, string description, Category category, Location location)
-        {
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var bussiness = entities.Bussinesses.First(x => x.Id == bussinessId);
-                if (bussiness == null)
-                    return false;
-                bussiness.Name = name;
-                bussiness.Description = description;
-                bussiness.Category = category;
-                bussiness.Location = location;
-                bussiness.Id = bussinessId;
-
-                entities.SaveChanges();
-                return true;
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public String FindBussinessByName(string bussinessName)
-        {
-            Cupon cupon;
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var data = entities.Bussinesses.First(x => x.Name == bussinessName);
-                if (data == null)
-                    return "";
-                Bussiness bussiness = new Bussiness
-                {
-                    Name = data.Name,
-                    Description = data.Description,
-                    Category = data.Category,
-                    Location = data.Location,
-                    Id = data.Id,
-                    BussinessCupons = data.BussinessCupons,
-                    BussinessOwner = data.BussinessOwner
-                };
-                return JsonConvert.SerializeObject(bussiness, Formatting.Indented);
-            }
-        }
-        #endregion --------Bussiness---------------
-
-        #region --------Cupons---------------
         [WebMethod]
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
@@ -382,6 +91,35 @@ namespace CuponWebSite
 
                 entities.SaveChanges();
                 return true;
+            }
+        }
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+            BodyStyle = WebMessageBodyStyle.Wrapped,
+            ResponseFormat = WebMessageFormat.Json)]
+        public String GetAllCupons()
+        {
+            List<Cupon> cuponsList = new List<Cupon>();
+            using (ModelContainer entities = new ModelContainer())
+            {
+                var data = entities.Cupons.OfType<BussinessCupon>().ToList();
+                if (data.Count == 0)
+                    return "";
+                cuponsList.AddRange(data.Select(cupon => new Cupon
+                {
+                    Name = cupon.Name,
+                    Description = cupon.Description,
+                    Category = cupon.Category,
+                    Location = cupon.Location,
+                    OriginalPrice = cupon.OriginalPrice,
+                    Price = cupon.Price,
+                    Rate = cupon.Rate,
+                    ExpirationDate = cupon.ExpirationDate,
+                    Approved = cupon.Approved,
+                    Id = cupon.Id
+                }).Where(x => x.Approved).Reverse().Take(100));
+                return JsonConvert.SerializeObject(cuponsList, Formatting.Indented);
             }
         }
 
@@ -518,7 +256,6 @@ namespace CuponWebSite
                 return true;
             }
         }
-        #endregion --------Cupons---------------
 
         #region --------Bussiness Cupons---------------
         [WebMethod]
@@ -591,25 +328,31 @@ namespace CuponWebSite
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool PurchaseCupon(int cuponId, int userId, string serialkey, CuponState state, Rate rate)
+        public string PurchaseCupon(int cuponId, int userId)
         {
             using (ModelContainer entities = new ModelContainer())
             {
-                var user = entities.Users.First(x => x.Id == userId);
-                    if (user == null) return false;
-                var cupon = entities.Cupons.First(x => x.Id == cuponId);
-                    if (cupon == null) return false;
+                Random rnd = new Random();
+                string serial = "" + rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9) + "-" +
+                                rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9) + "-" + rnd.Next(0, 9) +
+                                rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9);
+                User user = entities.Users.First(x => x.Id == userId);
+                    if (user == null) return "false";
+                user = entities.Users.OfType<BasicUser>().First(x => x.Id == userId);
+                Cupon cupon = entities.Cupons.First(x => x.Id == cuponId);
+                    if (cupon == null) return "false";
                 PurchasedCupon purchasedCupon = new PurchasedCupon
                 {
-                    SerialKey = serialkey,
-                    State = state,
-                    Rate =rate,
+                    SerialKey = serial,
+                    State = CuponState.Pending,
+                    Rate =Rate.NA,
                     BasicUser = (BasicUser)user,
                     BussinessCupon = (BussinessCupon)cupon
                 };
                 entities.PurchasedCupons.Add(purchasedCupon);
                 entities.SaveChanges();
-                return true;
+                //SendEmail(user.Email,serial);
+                return serial;
             }
         }
 
@@ -765,16 +508,36 @@ namespace CuponWebSite
 
         #endregion --------Social Network Cupons---------------
 
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-            BodyStyle = WebMessageBodyStyle.Wrapped,
-            ResponseFormat = WebMessageFormat.Json)]
-        public string about()
+        private void SendEmail(string recepientEmail, string body)
         {
-            bool res = true;
-            string d = "{\"a\":\"a\"}";
-            return d;
-        }
+            //Set Mail Definiotions
+            SmtpClient smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+            };
+            NetworkCredential networkCred = new NetworkCredential
+            {
+                UserName = "cupon@gmail.com",//TODO
+                Password = "cuponS"//TODO
+            };
+            smtp.Credentials = networkCred;
 
+            //Set Mail For User
+            MailMessage userMailMessage = new MailMessage
+            {
+                From = new MailAddress("cupon@gmail.com"),//TODO
+                Subject = "CupoNoa",//TODO
+                Body = body,
+                IsBodyHtml = true
+            };
+            userMailMessage.To.Add(new MailAddress(recepientEmail));
+
+            smtp.Send(userMailMessage);
+
+        }
     }
 }
