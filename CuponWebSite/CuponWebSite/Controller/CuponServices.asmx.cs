@@ -17,7 +17,7 @@ namespace CuponWebSite.Controller
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-     [System.Web.Script.Services.ScriptService]
+    [System.Web.Script.Services.ScriptService]
     public class CuponServices : System.Web.Services.WebService
     {
 
@@ -187,13 +187,13 @@ namespace CuponWebSite.Controller
         ResponseFormat = WebMessageFormat.Json)]
         public String FindCuponByLocation(double latitude, double longtitude)
         {
-            List<Cupon> cuponsList = new List<Cupon>() ;
+            List<Cupon> cuponsList = new List<Cupon>();
             using (ModelContainer entities = new ModelContainer())
             {
                 var data = entities.Cupons.Where(x => x.Location.Latitude == latitude & x.Location.Longtitude == longtitude).ToList();
                 if (data.Count == 0)
                     return "";
-                cuponsList.AddRange(data.Select( cupon => new Cupon
+                cuponsList.AddRange(data.Select(cupon => new Cupon
                 {
                     Name = cupon.Name,
                     Description = cupon.Description,
@@ -216,7 +216,7 @@ namespace CuponWebSite.Controller
         ResponseFormat = WebMessageFormat.Json)]
         public string FindCuponByPreference(string c)
         {
-            Category category = (Category) int.Parse(c);
+            Category category = (Category)int.Parse(c);
             List<Cupon> cuponsList = new List<Cupon>();
             using (ModelContainer entities = new ModelContainer())
             {
@@ -236,10 +236,10 @@ namespace CuponWebSite.Controller
                     Approved = cupon.Approved,
                     Id = cupon.Id
                 }));
-                return JsonConvert.SerializeObject(cuponsList.GetRange(0,cuponsList.Count<100?cuponsList.Count:100), Formatting.Indented);
+                return JsonConvert.SerializeObject(cuponsList.GetRange(0, cuponsList.Count < 100 ? cuponsList.Count : 100), Formatting.Indented);
             }
         }
-       
+
         [WebMethod]
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
@@ -337,22 +337,22 @@ namespace CuponWebSite.Controller
                                 rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9) + "-" + rnd.Next(0, 9) +
                                 rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9);
                 User user = entities.Users.First(x => x.Id == userId);
-                    if (user == null) return "false";
+                if (user == null) return JsonConvert.SerializeObject(false, Formatting.Indented);
                 user = entities.Users.OfType<BasicUser>().First(x => x.Id == userId);
                 Cupon cupon = entities.Cupons.First(x => x.Id == cuponId);
-                    if (cupon == null) return "false";
+                if (cupon == null) return JsonConvert.SerializeObject(false, Formatting.Indented);
                 PurchasedCupon purchasedCupon = new PurchasedCupon
                 {
                     SerialKey = serial,
                     State = CuponState.Pending,
-                    Rate =Rate.NA,
+                    Rate = Rate.NA,
                     BasicUser = (BasicUser)user,
                     BussinessCupon = (BussinessCupon)cupon
                 };
                 entities.PurchasedCupons.Add(purchasedCupon);
                 entities.SaveChanges();
                 //SendEmail(user.Email,serial);
-                return serial;
+                return JsonConvert.SerializeObject(serial, Formatting.Indented);
             }
         }
 
@@ -467,7 +467,7 @@ namespace CuponWebSite.Controller
                 return JsonConvert.SerializeObject(purchasedCuponsList, Formatting.Indented);
             }
         }
-       
+
         #endregion ---------Purchased Cupons --------
 
         #region --------Social Network Cupons---------------
