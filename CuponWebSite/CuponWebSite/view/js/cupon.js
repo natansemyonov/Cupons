@@ -105,7 +105,7 @@ function ShowCuponModal(cuponId) {
                         $('#cuponExpiration').html(new Date(cupon.ExpirationDate).toDateString());
                         $('#cuponPrice').html(cupon.Price + '&#8362;');
                         $('#cuponOriginalPrice').html(cupon.OriginalPrice + '&#8362;');
-                        $('#PurchaseButton').click(BuyCupon(cuponId));
+                        $('#PurchaseButton').click(function() { BuyCupon(cuponId); });
                         $('#CuponModal').modal('show');
 
                     } else {
@@ -141,7 +141,9 @@ function BuyCupon(cuponId) {
             if (!d) {
                 return;
             }
-            
+            $('#CuponModal').modal('hide');
+            $('#generalModalBody').html(d);
+            $('#GeneralModal').modal('show');
 
         },
         error: function (xhr, ajaxOptions, thrownError) {
