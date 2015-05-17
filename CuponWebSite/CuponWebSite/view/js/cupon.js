@@ -153,3 +153,61 @@ function BuyCupon(cuponId) {
 
     });
 }
+
+function showPosition(position) {
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+    var latlon = new google.maps.LatLng(lat, lon);
+    var mapholder = document.getElementById('mapCanvas');
+    mapholder.style.height = '250px';
+    mapholder.style.width = '500px';
+
+    var myOptions = {
+        center: latlon,
+        zoom: 14,
+        mapTypeId:google.maps.MapTypeId.ROADMAP,
+        mapTypeControl:false,
+        navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL }
+    }
+    
+    var map = new google.maps.Map(document.getElementById("mapCanvas"), myOptions);
+    var marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
+}
+
+function showdPosition(position) {
+    var myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    var mapOptions = {
+        zoom: 14,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+
+    }
+    mapholder = document.getElementById('mapCanvas');
+    mapholder.style.height = '400px';
+    mapholder.style.width = '400px';
+    var map = new google.maps.Map(document.getElementById('mapCanvas'), mapOptions);
+
+    // Place a draggable marker on the map
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        draggable: true
+    });
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'latLng': marker.position }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+                document.getElementById("location").value = results[0].formatted_address;
+            }
+        }
+    });
+    google.maps.event.addListener(marker, 'dragend', function(evt) {
+        geocoder.geocode({ 'latLng': marker.position }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                    document.getElementById("location").value = results[0].formatted_address;
+                }
+            }
+        });
+    });
+}

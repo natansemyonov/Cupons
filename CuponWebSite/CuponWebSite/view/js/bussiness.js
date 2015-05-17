@@ -61,3 +61,34 @@ function stars(rating) {
     }
     return s + '</p>';
 }
+
+function AddCupon() {
+    var cupon = new Object();
+    cupon.name = $('#NewCuponName').val();
+    cupon.description = $('#NewCuponDescription').val();
+    cupon.originalPrice = $('#NewCuponOriginalPrice').val();
+    cupon.price = $('#NewCuponPrice').val();
+    cupon.expirationDate = $('#NewCuponDate').val();
+    cupon.category = $('#NewCuponCategory').val();
+    cupon.longitude = -0.1276250;
+    cupon.latitude = 51.5033630;
+    cupon.bussinessId =  12;
+    //$('#WaitModal').modal('show');
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/CuponServices.asmx/AddBussinessCupon",
+        data: JSON.stringify(cupon),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            
+            $('#AddCuponModal').modal('hide');
+            $('#WaitModal').modal('hide');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+            
+        }
+
+    });
+}

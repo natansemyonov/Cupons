@@ -262,10 +262,18 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool AddBussinessCupon(string name, string description, double originalPrice, double price, Rate rate, DateTime expirationDate, Category category, bool approved, Location location, int bussinessId)
+        public bool AddBussinessCupon(string name, string description, double originalPrice,
+            double price, string expirationDate, int category,
+            string longitude, string latitude, int bussinessId)
         {
             using (ModelContainer entities = new ModelContainer())
             {
+                Location location = new Location
+                {
+                    Latitude = double.Parse(latitude),
+                    Longtitude = double.Parse(longitude)
+                };
+                DateTime date = DateTime.Parse(expirationDate);
                 var data = entities.Cupons.Where(x => x.Name == name).ToList();
                 if (data.Count != 0)
                     return false;
@@ -275,13 +283,13 @@ namespace CuponWebSite.Controller
                 {
                     Name = name,
                     Description = description,
-                    Category = category,
+                    Category = (Category)category,
                     Location = location,
                     OriginalPrice = originalPrice,
                     Price = price,
-                    Rate = rate,
-                    ExpirationDate = expirationDate,
-                    Approved = approved,
+                    Rate = Rate.NA,
+                    ExpirationDate = date,
+                    Approved = false,
                     Bussiness = bussiness
                 };
                 entities.Cupons.Add(cupon);
