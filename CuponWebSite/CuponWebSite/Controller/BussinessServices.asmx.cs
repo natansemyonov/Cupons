@@ -112,7 +112,27 @@ namespace CuponWebSite.Controller
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 };
-                return JsonConvert.SerializeObject(bussiness, Formatting.Indented,settings);
+                return JsonConvert.SerializeObject(bussiness, Formatting.Indented, settings);
+            }
+        }
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        ResponseFormat = WebMessageFormat.Json)]
+        public String FindBussinessByOwner(int ownerID)
+        {
+            Cupon cupon;
+            using (ModelContainer entities = new ModelContainer())
+            {
+                var data = entities.Bussinesses.Where(x => x.BussinessOwner.Id == ownerID);
+                if (!data.Any())
+                    return "";
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                return JsonConvert.SerializeObject(data, Formatting.Indented, settings);
             }
         }
     }

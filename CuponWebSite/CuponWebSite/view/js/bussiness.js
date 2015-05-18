@@ -4,10 +4,11 @@ var bussinessCupons = [];
 main();
 function main() {
     GetBussiness();
+    ShowBussiness();
 }
 
 
-function GetBussinessDetails(name) {
+function GetBussinessDetails(name,i) {
     $('#WaitModal').modal('show');
     $.ajax({
         type: "POST",
@@ -18,7 +19,17 @@ function GetBussinessDetails(name) {
         async: false,
         success: function (data) {
             var d = JSON.parse(data.d);
-            bussinessId = d.Id;
+            var j = "<div><div><b>Description:</b><p>" + d.Description + "</p></div>"+
+            "<div><b>Location:</b><p>"+document.getElementById('address'+i).innerHTML+"</p></div><div>" +
+            "<b>Live Cupons:</b><p>" + d.BussinessCupons.length + "</p><b>Old Cupons:</b><p>" + d.BussinessCupons.length + "</p></div></div>";
+            $("#generalModalTitle").html(d.Name);
+            $("#generalModalBody").html(j);
+            if ($("#editbutton").length==0)
+                $("#generalModalCloseButton").after('<button class="btn btn-success" id="editbutton" onclick="EditBussiness(' + d.Id + ')">Edit</button>');
+            else {
+                $("#editbutton").click(function (){EditBussiness(d.Id)});
+            }
+            $("#GeneralModal").modal("show");
             $('#WaitModal').modal('hide');
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -30,7 +41,7 @@ function GetBussinessDetails(name) {
 }
 
 function GetCuponForBussiness(bussinessId,type) {
-    $('#WaitModal').modal('show');
+   // $('#WaitModal').modal('show');
     $.ajax({
         type: "POST",
         url: "http://localhost:20353/Controller/CuponServices.asmx/FindCuponByBussiness",
@@ -43,7 +54,7 @@ function GetCuponForBussiness(bussinessId,type) {
                 bussinessCupons += JSON.parse(data.d);
             if (type == 1)
                 bussinessCupons = JSON.parse(data.d);
-            $('#WaitModal').modal('hide');
+           // $('#WaitModal').modal('hide');
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log("faliure in ajax call for - " + xhr.status);
@@ -112,7 +123,7 @@ function GetBussiness() {
     $.ajax({
         type: "POST",
         url: "http://localhost:20353/Controller/BussinessServices.asmx/FindBussinessByOwner",
-        data: JSON.stringify({}),
+        data: JSON.stringify({"ownerID":8}),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: false,
@@ -129,28 +140,34 @@ function GetBussiness() {
 
 function ShowBussiness() {
     document.getElementById("cupons_div").innerHTML = "";
-    var geocoder = new google.maps.Geocoder();
     for (var i = 0; i < bussinesses.length; i++) {
         var address;
         var myLatlng = new google.maps.LatLng(bussinesses[i].Location.Latitude, bussinesses[i].Location.Longtitude);
-        geocoder.geocode({ 'latLng': myLatlng }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                if (results[0]) {
-                    address = results[0].formatted_address;
-                }
-            }
-        });
-        var j = '<div class="col-sm-6 col-lg-6 col-md-6" onclick="GetBussinessDetails(' + bussinesses[i].Name + ')> <div class="thumbnail"> <img src="http://placehold.it/320x150" alt=""> <div class="caption">' +
-        ' <h4><a href="#">' + bussinesses[i].Name + '</a> </h4> <p>' + bussinesses[i].Description + '</p>' + '<p>' + address + '</p>' +
+        address = GetLocation(myLatlng, i);
+        var j = '<div class="col-sm-6 col-lg-6 col-md-6" onclick="GetBussinessDetails(\'' + bussinesses[i].Name + '\','+i+')"> <div class="thumbnail"> <img src="http://placehold.it/320x150" alt=""> <div class="caption">' +
+        ' <h4><a href="#">' + bussinesses[i].Name + '</a> </h4> <p>' + bussinesses[i].Description + '</p>' + '<div id="address' + i+ '"></div>' +
         '</div> </div> </div>';
         document.getElementById("cupons_div").innerHTML += j;
     }
 }
 
+function GetLocation(myLatlng,i) {
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'latLng': myLatlng }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+                var address = results[0].formatted_address;
+                $('#address' + i).html(address);
+                return address;
+            }
+        }
+    });
+}
+
 function GetCuponsForOwner() {
     bussinessCupons = [];
     for (var i = 0; i < bussinesses.length; i++) {
-        GetCuponForBussiness(bussinesses.Id,0);
+        GetCuponForBussiness(bussinesses[i].Id,0);
     }
-    ShowCupons(bussinesses);
+    ShowCupons(bussinessCupons);
 }
