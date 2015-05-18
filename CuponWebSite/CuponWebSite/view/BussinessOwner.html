@@ -13,7 +13,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/slider.css" rel="stylesheet">
+    <link href="css/slider.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet" />
@@ -23,11 +23,11 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	    <script src="js/jquery.js"></script>
+    <script src="js/jquery.js"></script>
 </head>
 
 <body>
-	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -54,26 +54,27 @@
                     <li>
                         <a href="#" onclick="SetView('about');">Contact</a>
                     </li>
-                <li class="dropdown">
-				  <a class="dropdown-toggle" data-toggle="dropdown">Search<b class="caret"></b></a>
-				  <ul class="dropdown-menu">
-						<li>
-							<div class="navbar-content">
-								<div class="" id="nav-collapse3">
-									<form class="navbar-form navbar-right" role="search">
-									  <div class="form-group">
-										<input type="text" class="form-control" placeholder="Search" />
-									  </div>
-									  <button type="submit" class="btn "><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button><br />
-									  <a href="#" onclick="SetView('search');$('.dropdown.open .dropdown-toggle').dropdown('toggle');navigator.geolocation.getCurrentPosition(showdPosition);">Advanced</a>
-									</form>
-								  </div>
-							</div>
-						</li>
-					</ul>
-				</li>
-			  </ul>
-			  
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">Search<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="navbar-content">
+                                    <div class="" id="nav-collapse3">
+                                        <form class="navbar-form navbar-right" role="search">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Search" />
+                                            </div>
+                                            <button type="submit" class="btn "><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                            <br />
+                                            <a href="#" onclick="SetView('search');$('.dropdown.open .dropdown-toggle').dropdown('toggle');navigator.geolocation.getCurrentPosition(showdPosition);">Advanced</a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
                 <ul class="nav navbar-nav navbar-right" id="head_account" hidden>
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Account
                                              <b class="caret"></b></a>
@@ -124,7 +125,7 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container" id="products" >
+    <div class="container" id="products">
 
         <div class="row">
             <div class="col-md-3">
@@ -132,21 +133,18 @@
                     <img src="//placehold.it/100" class="avatar img-circle" alt="avatar"><br />
                     <span id="Span1">Bussiness</span>
                 </div>
-                
+
                 <div class="list-group">
-                    <a href="#" class="list-group-item" onclick="GetCupons();">My Cupons</a>
-                    <a href="#" class="list-group-item" onclick="GetCupons(1);">History</a>
-                    <a href="#" class="list-group-item" onclick="GetCupons(2);">Settings</a>
+                    <a href="#" class="list-group-item" onclick="GetBussiness()">My Bussinesses</a>
+                    <a href="#" class="list-group-item" onclick="GetCuponsForOwner()">All Cupons</a>
+                    <a href="#" class="list-group-item" onclick="">Settings</a>
                     <a href="#" class="list-group-item" onclick="$('#AddCuponModal').modal('show');">Add New Cupon</a>
                 </div>
-                <hr>				
             </div>
 
             <div class="col-md-9">
-                
 
                 <div class="row" id="cupons_div">
-
                 </div>
 
             </div>
@@ -158,7 +156,7 @@
     <div class="container">
 
         <hr>
-	
+
         <!-- Footer -->
         <footer>
             <div class="row">
@@ -170,24 +168,24 @@
 
     </div>
     <!-- /.container -->
-    
+
     <div id="WaitModal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false"
-         data-backdrop="static">
+        data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="text-align: center">
                     <h3>Searching for Cupons</h3>
                 </div>
-                <div class="modal-body" >
-                    <div style="height:200px">
-                      <span id="searching_spinner_center" style="position: absolute;display: block;top: 50%;left: 50%;"></span>
+                <div class="modal-body">
+                    <div style="height: 200px">
+                        <span id="searching_spinner_center" style="position: absolute; display: block; top: 50%; left: 50%;"></span>
                     </div>
                 </div>
                 <div class="modal-footer" style="text-align: center"></div>
             </div>
         </div>
     </div>
-        <div class="modal fade" id="AddCuponModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="AddCuponModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -197,30 +195,30 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <section class="container">
-                            <div class="container-page">				
+                            <div class="container-page">
                                 <div class="col-md-6">
                                     <h3 class="dark-grey">Registration</h3>
-				
+
                                     <div class="form-group col-lg-12">
                                         <label>Cupon Name</label>
                                         <input type="" name="" class="form-control" id="NewCuponName" value="">
                                     </div>
-				
+
                                     <div class="form-group col-lg-12">
                                         <label>Description</label>
                                         <input type="text" name="" class="form-control" id="NewCuponDescription" value="">
                                     </div>
-				
+
                                     <div class="form-group col-lg-6">
                                         <label>Original Price</label>
                                         <input type="number" name="" class="form-control" id="NewCuponOriginalPrice" value="">
                                     </div>
-								
+
                                     <div class="form-group col-lg-6">
                                         <label>Cupon Price</label>
                                         <input type="number" name="" class="form-control" id="NewCuponPrice" value="">
                                     </div>
-				
+
                                     <div class="form-group col-lg-6">
                                         <label>Select Category</label>
                                         <select id="NewCuponCategory">
@@ -231,11 +229,11 @@
                                             <option value="4">Vacations</option>
                                             <option value="5">Pleasure</option>
                                         </select>
-                                    </div>			
-				                    <div class="form-group col-lg-6">
+                                    </div>
+                                    <div class="form-group col-lg-6">
                                         <label>Expiration Date</label>
-                                        <input type="date" id="NewCuponDate"/>
-				                    </div>
+                                        <input type="date" id="NewCuponDate" />
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -253,7 +251,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bussiness.js"></script>
- 
+
 </body>
 
 </html>

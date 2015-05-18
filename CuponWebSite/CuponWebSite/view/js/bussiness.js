@@ -1,14 +1,24 @@
-﻿
-function GetBussinessDetails() {
+﻿var bussinesses = [];
+var bussinessCupons = [];
+
+main();
+function main() {
+    GetBussiness();
+}
+
+
+function GetBussinessDetails(name) {
     $('#WaitModal').modal('show');
     $.ajax({
         type: "POST",
-        url: "http://localhost:20353/CuponSystemWebService.asmx/FindCuponByBussiness",
-        data: JSON.stringify({ "bussinessId": catId }),
+        url: "http://localhost:20353/Controller/BussinessServices.asmx/FindBussinessByName",
+        data: JSON.stringify({ "bussinessName": name }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        async: false,
         success: function (data) {
-            ShowCupons(JSON.parse(data.d));
+            var d = JSON.parse(data.d);
+            bussinessId = d.Id;
             $('#WaitModal').modal('hide');
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -19,24 +29,28 @@ function GetBussinessDetails() {
     });
 }
 
-function GetCupons() {
+function GetCuponForBussiness(bussinessId,type) {
     $('#WaitModal').modal('show');
     $.ajax({
         type: "POST",
-        url: "http://localhost:20353/CuponSystemWebService.asmx/FindCuponByBussiness",
-        data: JSON.stringify({ "bussinessId": catId }),
+        url: "http://localhost:20353/Controller/CuponServices.asmx/FindCuponByBussiness",
+        data: JSON.stringify({ "bussinessId": parseInt(bussinessId) }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        async: false,
         success: function (data) {
-            ShowCupons(JSON.parse(data.d));
+            if (type == 0)
+                bussinessCupons += JSON.parse(data.d);
+            if (type == 1)
+                bussinessCupons = JSON.parse(data.d);
             $('#WaitModal').modal('hide');
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log("faliure in ajax call for - " + xhr.status);
-
         }
-
     });
+    $('#WaitModal').modal('hide');
+
 }
 
 function ShowCupons(cuponList) {
@@ -46,7 +60,7 @@ function ShowCupons(cuponList) {
             '<h4 class="pull-right">' + cuponList[i].Price + '</h4> <h4><a href="#">' + cuponList[i].Name +
             '</a> </h4> <p>' + cuponList[i].Description + '</p>' +
             '</div> <div class="ratings"> <p class="pull-right"></p> ' + stars(cuponList[i].Rate) + '</div> </div> </div>';
-        document.getElementById("cupons_div").innerHTML += j;
+            document.getElementById("cupons_div").innerHTML += j;
     }
 }
 
@@ -72,7 +86,7 @@ function AddCupon() {
     cupon.category = $('#NewCuponCategory').val();
     cupon.longitude = -0.1276250;
     cupon.latitude = 51.5033630;
-    cupon.bussinessId =  12;
+    cupon.bussinessId = 12;
     //$('#WaitModal').modal('show');
     $.ajax({
         type: "POST",
@@ -81,14 +95,62 @@ function AddCupon() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            
+
             $('#AddCuponModal').modal('hide');
             $('#WaitModal').modal('hide');
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log("faliure in ajax call for - " + xhr.status);
-            
+
         }
 
     });
+}
+
+function GetBussiness() {
+    $('#WaitModal').modal('show');
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/BussinessServices.asmx/FindBussinessByOwner",
+        data: JSON.stringify({}),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            bussinesses = JSON.parse(data.d);
+            $('#WaitModal').modal('hide');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
+    $('#WaitModal').modal('hide');
+}
+
+function ShowBussiness() {
+    document.getElementById("cupons_div").innerHTML = "";
+    var geocoder = new google.maps.Geocoder();
+    for (var i = 0; i < bussinesses.length; i++) {
+        var address;
+        var myLatlng = new google.maps.LatLng(bussinesses[i].Location.Latitude, bussinesses[i].Location.Longtitude);
+        geocoder.geocode({ 'latLng': myLatlng }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                    address = results[0].formatted_address;
+                }
+            }
+        });
+        var j = '<div class="col-sm-6 col-lg-6 col-md-6" onclick="GetBussinessDetails(' + bussinesses[i].Name + ')> <div class="thumbnail"> <img src="http://placehold.it/320x150" alt=""> <div class="caption">' +
+        ' <h4><a href="#">' + bussinesses[i].Name + '</a> </h4> <p>' + bussinesses[i].Description + '</p>' + '<p>' + address + '</p>' +
+        '</div> </div> </div>';
+        document.getElementById("cupons_div").innerHTML += j;
+    }
+}
+
+function GetCuponsForOwner() {
+    bussinessCupons = [];
+    for (var i = 0; i < bussinesses.length; i++) {
+        GetCuponForBussiness(bussinesses.Id,0);
+    }
+    ShowCupons(bussinesses);
 }

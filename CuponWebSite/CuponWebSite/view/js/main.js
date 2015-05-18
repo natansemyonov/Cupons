@@ -41,11 +41,29 @@ function SetView(view){
 SetAccount(12);
 
 function SetAccount(accountId){
-	//ajax for user profile
-	$("#accountImg").attr("src","http://placehold.it/120x120");
-	$("#accountName").text("Ido Hubara");
-	$("#accountMail").text("idohubara@gmail.com");
-	$("#accountView").click();
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/UserServices.asmx/FindUserByID",
+        data: JSON.stringify({ "id": userID }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.d) {
+                var d = JSON.parse(data.d);
+                $("#accountImg").attr("src", "http://placehold.it/120x120");
+                $("#accountName").text(d.userName);
+                $("#accountMail").text(d.Email);
+                $("#accountView").click(SetView('profile'));
+                document.getElementById("head_login").setAttribute("hidden", true);
+                document.getElementById("head_account").removeAttribute("hidden");
+                SetView("products");
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
 }
 
 function register() {
@@ -79,29 +97,7 @@ function register() {
         }
     });
     //set account tab
-    $.ajax({
-        type: "POST",
-        url: "http://localhost:20353/Controller/CuponSystemWebService.asmx/FindUserByID",
-        data: JSON.stringify({ "id": userID }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        async: false,
-        success: function (data) {
-            if (data.d) {
-                var d = JSON.parse(data.d);
-                $("#accountImg").attr("src", "http://placehold.it/120x120");
-                $("#accountName").text(d.userName);
-                $("#accountMail").text(d.Email);
-                $("#accountView").click();
-                document.getElementById("head_login").setAttribute("hidden", true);
-                document.getElementById("head_account").removeAttribute("hidden");
-                SetView("products");
-            }
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log("faliure in ajax call for - " + xhr.status);
-        }
-    });
+    
 }
 
 function login() {
@@ -110,7 +106,7 @@ function login() {
     var password = document.getElementById("login-password").value;
     $.ajax({
         type: "POST",
-        url: "http://localhost:20353/Controller/CuponSystemWebService.asmx/AuthenticateUser",
+        url: "http://localhost:20353/Controller/UserServices.asmx/AuthenticateUser",
         data: JSON.stringify({ "userName": userName, "password": password }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -156,8 +152,9 @@ function login() {
 function signout() {
     deleteCookie("user");
     deleteCookie("pass");
+    document.getElementById("head_account").setAttribute("hidden", true);
+    document.getElementById("head_login").removeAttribute("hidden");
 }
-
 function Search() {
     SearchByLocation({ "longitude": 31.1254, "latitude": 32.1234 }, 10);
 }

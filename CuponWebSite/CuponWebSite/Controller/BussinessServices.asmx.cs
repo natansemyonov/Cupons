@@ -15,7 +15,7 @@ namespace CuponWebSite.Controller
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-    // [System.Web.Script.Services.ScriptService]
+     [System.Web.Script.Services.ScriptService]
     public class BussinessServices : System.Web.Services.WebService
     {
 
@@ -108,7 +108,11 @@ namespace CuponWebSite.Controller
                     BussinessCupons = data.BussinessCupons,
                     BussinessOwner = data.BussinessOwner
                 };
-                return JsonConvert.SerializeObject(bussiness, Formatting.Indented);
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                return JsonConvert.SerializeObject(bussiness, Formatting.Indented,settings);
             }
         }
     }
