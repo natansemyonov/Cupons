@@ -63,7 +63,7 @@ function ShowCupons(cuponList) {
     document.getElementById("cupons_div").innerHTML = "";
     for (var i = 0; i < cuponList.length; i++) {
         var j = '<div class="col-sm-4 col-lg-4 col-md-4" onclick="ShowCuponModal(' + cuponList[i].Id +
-            ')"> <div class="thumbnail"> <img src="images/Coupon.png" width="320" height="150" alt=""> <div class="caption">' +
+            ')"> <div class="thumbnail"> <img src="http://placehold.it/320x150" alt=""> <div class="caption">' +
             '<h4 class="pull-right">'+cuponList[i].Price+'</h4> <h4><a href="#">' + cuponList[i].Name + 
             '</a> </h4> <p>'+cuponList[i].Description + '</p>' +
             '</div> <div class="ratings"> <p class="pull-right"></p> '+stars(cuponList[i].Rate)+'</div> </div> </div>';
