@@ -27,3 +27,13 @@ C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\bin\Newtonsoft.Json.xml
 C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.csprojResolveAssemblyReference.cache
 C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.dll
 C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.pdb
+D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\bin\CuponWebSite.dll.config
+D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\bin\CuponWebSite.dll
+D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\bin\CuponWebSite.pdb
+D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\bin\EntityFramework.dll
+D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\bin\Newtonsoft.Json.dll
+D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\bin\EntityFramework.xml
+D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\bin\Newtonsoft.Json.xml
+D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.csprojResolveAssemblyReference.cache
+D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.dll
+D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.pdb

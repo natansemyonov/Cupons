@@ -123,6 +123,36 @@ namespace CuponWebSite.Controller
             }
         }
 
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+            BodyStyle = WebMessageBodyStyle.Wrapped,
+            ResponseFormat = WebMessageFormat.Json)]
+        public String GetAllUnAprrovedCupons()
+        {
+            List<Cupon> cuponsList = new List<Cupon>();
+            using (ModelContainer entities = new ModelContainer())
+            {
+                var data = entities.Cupons.OfType<BussinessCupon>().Where(x=> x.Approved == false).ToList();
+                if (data.Count == 0)
+                    return "";
+                cuponsList.AddRange(data.Select(cupon => new Cupon
+                {
+                    Name = cupon.Name,
+                    Description = cupon.Description,
+                    Category = cupon.Category,
+                    Location = cupon.Location,
+                    OriginalPrice = cupon.OriginalPrice,
+                    Price = cupon.Price,
+                    Rate = cupon.Rate,
+                    ExpirationDate = cupon.ExpirationDate,
+                    Approved = cupon.Approved,
+                    Id = cupon.Id
+                }).Where(x => x.Approved).Reverse().Take(100));
+                return JsonConvert.SerializeObject(cuponsList, Formatting.Indented);
+            }
+        }
+
         [WebMethod]
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
