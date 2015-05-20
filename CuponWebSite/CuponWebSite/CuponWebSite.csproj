@@ -81,11 +81,19 @@
     <Content Include="Controller\CuponSystemWebService.asmx" />
     <Content Include="view\css\bootstrap.css" />
     <Content Include="view\css\bootstrap.min.css" />
+    <Content Include="view\css\full-width-pics.css" />
     <Content Include="view\css\main.css" />
+    <Content Include="view\css\metisMenu.css" />
+    <Content Include="view\css\sb-admin-2.css" />
     <Content Include="view\css\shop-homepage.css" />
     <Content Include="view\css\slider.css" />
     <Content Include="view\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="view\Home.html" />
+    <Content Include="view\images\background.jpg" />
+    <Content Include="view\images\Business.jpg" />
+    <Content Include="view\images\Coupon.png" />
     <Content Include="view\images\Female_User.jpg" />
+    <Content Include="view\images\Logo.png" />
     <Content Include="view\images\Male_User.jpg" />
     <Content Include="view\index.html" />
     <Content Include="Model.edmx.sql" />
@@ -96,6 +104,8 @@
     <Content Include="view\js\cupon.js" />
     <Content Include="view\js\jquery.js" />
     <Content Include="view\js\main.js" />
+    <Content Include="view\js\metisMenu.js" />
+    <Content Include="view\js\sb-admin-2.js" />
     <Content Include="view\SysAdmin.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
