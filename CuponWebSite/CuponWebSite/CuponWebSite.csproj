@@ -76,6 +76,7 @@
     </Content>
     <Content Include="Controller\BussinessServices.asmx" />
     <Content Include="Controller\CuponServices.asmx" />
+    <Content Include="Controller\PurchasedCuponsService.asmx" />
     <Content Include="Controller\UserServices.asmx" />
     <Content Include="view\BussinessOwner.html" />
     <Content Include="Controller\CuponSystemWebService.asmx" />
@@ -123,6 +124,10 @@
     </Compile>
     <Compile Include="Controller\CuponServices.asmx.cs">
       <DependentUpon>CuponServices.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controller\PurchasedCuponsService.asmx.cs">
+      <DependentUpon>PurchasedCuponsService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controller\UserServices.asmx.cs">

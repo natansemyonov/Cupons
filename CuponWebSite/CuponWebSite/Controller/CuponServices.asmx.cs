@@ -20,22 +20,22 @@ namespace CuponWebSite.Controller
     [System.Web.Script.Services.ScriptService]
     public class CuponServices : System.Web.Services.WebService
     {
-
+        #region -------- Cupons---------------
         [WebMethod]
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
         public bool AddCupon(string name, string description, string originalPrice, string price, string rate, string expirationDate, string category, string approved, string latitude, string longtitude)
         {
-            double OriginalPrice = double.Parse(originalPrice);
-            double Price = double.Parse(price);
-            Rate Rate = (Rate)int.Parse(rate);
-            DateTime ExpirationDate = DateTime.Parse(expirationDate);
-            Category Category = (Category)int.Parse(category);
-            bool Approved = bool.Parse(approved);
-            Location Location = new Location();
-            Location.Latitude = int.Parse(latitude);
-            Location.Longtitude = int.Parse(longtitude);
+            double p_OriginalPrice = double.Parse(originalPrice);
+            double p_Price = double.Parse(price);
+            Rate p_Rate = (Rate)int.Parse(rate);
+            DateTime p_ExpirationDate = DateTime.Parse(expirationDate);
+            Category p_Category = (Category)int.Parse(category);
+            bool p_Approved = bool.Parse(approved);
+            Location p_Location = new Location();
+            p_Location.Latitude = double.Parse(latitude);
+            p_Location.Longtitude = double.Parse(longtitude);
             using (ModelContainer entities = new ModelContainer())
             {
                 var data = entities.Cupons.Where(x => x.Name == name).ToList();
@@ -45,13 +45,13 @@ namespace CuponWebSite.Controller
                  {
                      Name = name,
                      Description = description,
-                     Category = Category,
-                     Location = Location,
-                     OriginalPrice = OriginalPrice,
-                     Price = Price,
-                     Rate = Rate,
-                     ExpirationDate = ExpirationDate,
-                     Approved = Approved
+                     Category = p_Category,
+                     Location = p_Location,
+                     OriginalPrice = p_OriginalPrice,
+                     Price = p_Price,
+                     Rate = p_Rate,
+                     ExpirationDate = p_ExpirationDate,
+                     Approved = p_Approved
                  };
                 entities.Cupons.Add(cupon);
                 entities.SaveChanges();
@@ -66,10 +66,10 @@ namespace CuponWebSite.Controller
         ResponseFormat = WebMessageFormat.Json)]
         public bool DeleteCupon(string cuponId)
         {
-            int CuponID = int.Parse(cuponId);
+            int p_CuponID = int.Parse(cuponId);
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Cupons.First(x => x.Id == CuponID);
+                var data = entities.Cupons.First(x => x.Id == p_CuponID);
                 if (data == null)
                     return false;
                 entities.Cupons.Remove(data);
@@ -84,30 +84,30 @@ namespace CuponWebSite.Controller
         ResponseFormat = WebMessageFormat.Json)]
         public bool UpdateCupon(string cuponId, string name, string description, string originalPrice, string price, string rate, string expirationDate, string category, string approved, string latitude, string longtitude)
         {
-            int CuponID = int.Parse(cuponId);
-            double OriginalPrice = double.Parse(originalPrice);
-            double Price = double.Parse(price);
-            Rate Rate = (Rate)int.Parse(rate);
-            DateTime ExpirationDate = DateTime.Parse(expirationDate);
-            Category Category = (Category)int.Parse(category);
-            bool Approved = bool.Parse(approved);
-            Location Location = new Location();
-            Location.Latitude = int.Parse(latitude);
-            Location.Longtitude = int.Parse(longtitude);
+            int p_CuponID = int.Parse(cuponId);
+            double p_OriginalPrice = double.Parse(originalPrice);
+            double p_Price = double.Parse(price);
+            Rate p_Rate = (Rate)int.Parse(rate);
+            DateTime p_ExpirationDate = DateTime.Parse(expirationDate);
+            Category p_Category = (Category)int.Parse(category);
+            bool p_Approved = bool.Parse(approved);
+            Location p_Location = new Location();
+            p_Location.Latitude = double.Parse(latitude);
+            p_Location.Longtitude = double.Parse(longtitude);
             using (ModelContainer entities = new ModelContainer())
             {
-                var cupon = entities.Cupons.First(x => x.Id == CuponID);
+                var cupon = entities.Cupons.First(x => x.Id == p_CuponID);
                 if (cupon == null)
                     return false;
                 cupon.Name = name;
                 cupon.Description = description;
-                cupon.Category = Category;
-                cupon.Location = Location;
-                cupon.OriginalPrice = OriginalPrice;
-                cupon.Price = Price;
-                cupon.Rate = Rate;
-                cupon.ExpirationDate = ExpirationDate;
-                cupon.Approved = Approved;
+                cupon.Category = p_Category;
+                cupon.Location = p_Location;
+                cupon.OriginalPrice = p_OriginalPrice;
+                cupon.Price = p_Price;
+                cupon.Rate = p_Rate;
+                cupon.ExpirationDate = p_ExpirationDate;
+                cupon.Approved = p_Approved;
 
                 entities.SaveChanges();
                 return true;
@@ -178,11 +178,11 @@ namespace CuponWebSite.Controller
         ResponseFormat = WebMessageFormat.Json)]
         public String FindCuponById(string cuponId)
         {
-            int CuponID = int.Parse(cuponId);
+            int p_CuponID = int.Parse(cuponId);
             Cupon cupon;
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Cupons.First(x => x.Id == CuponID);
+                var data = entities.Cupons.First(x => x.Id == p_CuponID);
                 if (data == null)
                     return "";
                 cupon = new Cupon
@@ -237,13 +237,13 @@ namespace CuponWebSite.Controller
         ResponseFormat = WebMessageFormat.Json)]
         public String FindCuponByLocation(string latitude, string longtitude)
         {
-            Location Location = new Location();
-            Location.Latitude = int.Parse(latitude);
-            Location.Longtitude = int.Parse(longtitude);
+            Location p_Location = new Location();
+            p_Location.Latitude = double.Parse(latitude);
+            p_Location.Longtitude = double.Parse(longtitude);
             List<Cupon> cuponsList = new List<Cupon>();
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Cupons.Where(x => x.Location.Latitude == Location.Latitude & x.Location.Longtitude == Location.Longtitude).ToList();
+                var data = entities.Cupons.Where(x => x.Location.Latitude == p_Location.Latitude & x.Location.Longtitude == p_Location.Longtitude).ToList();
                 if (data.Count == 0)
                     return "";
                 cuponsList.AddRange(data.Select(cupon => new Cupon
@@ -269,11 +269,11 @@ namespace CuponWebSite.Controller
         ResponseFormat = WebMessageFormat.Json)]
         public string FindCuponByPreference(string ctegory)
         {
-            Category Category = (Category)int.Parse(ctegory);
+            Category p_Category = (Category)int.Parse(ctegory);
             List<Cupon> cuponsList = new List<Cupon>();
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Cupons.Where(x => x.Category == Category).ToList();
+                var data = entities.Cupons.Where(x => x.Category == p_Category).ToList();
                 if (data.Count == 0)
                     return "";
                 cuponsList.AddRange(data.Select(cupon => new Cupon
@@ -299,10 +299,10 @@ namespace CuponWebSite.Controller
         ResponseFormat = WebMessageFormat.Json)]
         public bool ApproveCupon(string cuponId)
         {
-            int CuponID = int.Parse(cuponId);
+            int p_CuponID = int.Parse(cuponId);
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Cupons.First(x => x.Id == CuponID);
+                var data = entities.Cupons.First(x => x.Id == p_CuponID);
                 if (data == null)
                     return false;
                 data.Approved = true;
@@ -310,6 +310,7 @@ namespace CuponWebSite.Controller
                 return true;
             }
         }
+        #endregion -------- Cupons---------------
 
         #region --------Bussiness Cupons---------------
         [WebMethod]
@@ -384,153 +385,6 @@ namespace CuponWebSite.Controller
             }
         }
         #endregion --------Bussiness Cupons---------------
-
-        #region ---------Purchased Cupons --------
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public string PurchaseCupon(int cuponId, int userId)
-        {
-            using (ModelContainer entities = new ModelContainer())
-            {
-                Random rnd = new Random();
-                string serial = "" + rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9) + "-" +
-                                rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9) + "-" + rnd.Next(0, 9) +
-                                rnd.Next(0, 9) + rnd.Next(0, 9) + rnd.Next(0, 9);
-                User user = entities.Users.First(x => x.Id == userId);
-                if (user == null) return JsonConvert.SerializeObject(false, Formatting.Indented);
-                user = entities.Users.OfType<BasicUser>().First(x => x.Id == userId);
-                Cupon cupon = entities.Cupons.First(x => x.Id == cuponId);
-                if (cupon == null) return JsonConvert.SerializeObject(false, Formatting.Indented);
-                PurchasedCupon purchasedCupon = new PurchasedCupon
-                {
-                    SerialKey = serial,
-                    State = CuponState.Pending,
-                    Rate = Rate.NA,
-                    BasicUser = (BasicUser)user,
-                    BussinessCupon = (BussinessCupon)cupon
-                };
-                entities.PurchasedCupons.Add(purchasedCupon);
-                entities.SaveChanges();
-                //SendEmail(user.Email,serial);
-                return JsonConvert.SerializeObject(serial, Formatting.Indented);
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public string FindPurchasedCuponBySerialKey(string serialKey)
-        {
-            PurchasedCupon purchasedCupon;
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var data = entities.PurchasedCupons.First(x => x.SerialKey == serialKey);
-                if (data == null)
-                    return "";
-                purchasedCupon = new PurchasedCupon
-                {
-                    Id = data.Id,
-                    SerialKey = data.SerialKey,
-                    Rate = data.Rate,
-                    State = data.State,
-                    BasicUser = data.BasicUser,
-                    BussinessCupon = data.BussinessCupon
-                };
-                return JsonConvert.SerializeObject(purchasedCupon, Formatting.Indented);
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public bool UseCupon(int purchasedCuponId)
-        {
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var data = entities.PurchasedCupons.First(x => x.Id == purchasedCuponId);
-                if (data == null) return false;
-
-                data.State = CuponState.Used;
-
-                entities.SaveChanges();
-                return true;
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public bool RateCupon(int purchasedCuponId, Rate rate)
-        {
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var data = entities.PurchasedCupons.First(x => x.Id == purchasedCuponId);
-                if (data == null) return false;
-
-                data.Rate = rate;
-
-                entities.SaveChanges();
-                return true;
-            }
-        }
-
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public String CuponHistory(int basicUserId)
-        {
-            List<PurchasedCupon> purchasedCuponsList = new List<PurchasedCupon>();
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var data = entities.PurchasedCupons.Where(x => x.BasicUser.Id == basicUserId).ToList();
-                if (data.Count == 0)
-                    return "";
-                purchasedCuponsList.AddRange(data.Select(purchasedCupon => new PurchasedCupon
-                {
-                    Id = purchasedCupon.Id,
-                    SerialKey = purchasedCupon.SerialKey,
-                    State = purchasedCupon.State,
-                    Rate = purchasedCupon.Rate,
-                    BasicUser = purchasedCupon.BasicUser,
-                    BussinessCupon = purchasedCupon.BussinessCupon
-                }));
-                return JsonConvert.SerializeObject(purchasedCuponsList, Formatting.Indented);
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public String BussinessCuponHistory(int bussinessId)
-        {
-            List<PurchasedCupon> purchasedCuponsList = new List<PurchasedCupon>();
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var data = entities.PurchasedCupons.Where(x => x.BussinessCupon.Bussiness.Id == bussinessId).ToList();
-                if (data.Count == 0)
-                    return "";
-                purchasedCuponsList.AddRange(data.Select(purchasedCupon => new PurchasedCupon
-                {
-                    Id = purchasedCupon.Id,
-                    SerialKey = purchasedCupon.SerialKey,
-                    State = purchasedCupon.State,
-                    Rate = purchasedCupon.Rate,
-                    BasicUser = purchasedCupon.BasicUser,
-                    BussinessCupon = purchasedCupon.BussinessCupon
-                }));
-                return JsonConvert.SerializeObject(purchasedCuponsList, Formatting.Indented);
-            }
-        }
-
-        #endregion ---------Purchased Cupons --------
 
         #region --------Social Network Cupons---------------
         [WebMethod]
