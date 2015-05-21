@@ -167,7 +167,7 @@ namespace CuponWebSite.Controller
                     ExpirationDate = cupon.ExpirationDate,
                     Approved = cupon.Approved,
                     Id = cupon.Id
-                }).Where(x => x.Approved).Reverse().Take(100));
+                }).Reverse().Take(100));
                 return JsonConvert.SerializeObject(cuponsList, Formatting.Indented);
             }
         }

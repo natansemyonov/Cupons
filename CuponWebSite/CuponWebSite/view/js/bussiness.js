@@ -123,7 +123,7 @@ function GetBussiness() {
     $.ajax({
         type: "POST",
         url: "http://localhost:20353/Controller/BussinessServices.asmx/FindBussinessByOwner",
-        data: JSON.stringify({"ownerID":8}),
+        data: JSON.stringify({"ownerID":1503}),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: false,
