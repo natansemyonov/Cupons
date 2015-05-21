@@ -30,7 +30,7 @@ namespace CuponWebSite.Controller
                 User data = entities.Users.Where(x => x.UserName == userName && x.Password == password).First();
                 if (data != null)
                     return data.Id.ToString();
-                return "false";
+                return JsonConvert.SerializeObject(false, Formatting.Indented);
             }
         }
 
@@ -44,7 +44,7 @@ namespace CuponWebSite.Controller
             {
                 var data = entities.Users.OfType<BussinessOwner>().Where(x => x.UserName == userName).ToList();
                 if (data.Count != 0)
-                    return "false";
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 BussinessOwner user = new BussinessOwner
                 {
                     UserName = userName,
@@ -95,7 +95,7 @@ namespace CuponWebSite.Controller
             {
                 var user = entities.Users.OfType<BasicUser>().First(x => x.UserName == userName & x.Email == email);
                 if (user == null)
-                    return "";
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 bUser = new BasicUser
                 {
                     Id = user.Id,
@@ -124,7 +124,7 @@ namespace CuponWebSite.Controller
             {
                 var user = entities.Users.First(x => x.Id == i);
                 if (user == null)
-                    return "";
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 bUser = new BasicUser
                 {
                     Id = user.Id,
@@ -140,7 +140,7 @@ namespace CuponWebSite.Controller
                 return JsonConvert.SerializeObject(bUser, Formatting.Indented);
             }
         }
-
+        
         [WebMethod]
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
@@ -178,7 +178,7 @@ namespace CuponWebSite.Controller
                 }
                 var user = entities.Users.First(x => x.Id == p_UserID);
                 if (user == null)
-                    return "False";
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 user.Password = res.ToString();
                 entities.SaveChanges();
                 return res.ToString();
@@ -228,7 +228,7 @@ namespace CuponWebSite.Controller
                 };
                 var data = entities.Users.OfType<BasicUser>().Where(x => x.UserName == userName).ToList();
                 if (data.Count != 0)
-                    return "false";
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 BasicUser basicUser = new BasicUser
                 {
                     UserName = userName,

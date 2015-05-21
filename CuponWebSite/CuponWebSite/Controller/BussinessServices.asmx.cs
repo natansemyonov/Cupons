@@ -103,14 +103,14 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public String FindBussinessByName(string bussinessName)
+        public string FindBussinessByName(string bussinessName)
         {
             Cupon cupon;
             using (ModelContainer entities = new ModelContainer())
             {
                 var data = entities.Bussinesses.First(x => x.Name == bussinessName);
                 if (data == null)
-                    return "";
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 Bussiness bussiness = new Bussiness
                 {
                     Name = data.Name,
@@ -133,9 +133,8 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public String FindBussinessByOwner(string ownerID)
+        public string FindBussinessOfOwner(string ownerID)
         {
-            Cupon cupon;
             int p_OwnerID = int.Parse(ownerID);
 
             using (ModelContainer entities = new ModelContainer())
@@ -143,6 +142,27 @@ namespace CuponWebSite.Controller
                 var data = entities.Bussinesses.Where(x => x.BussinessOwner.Id == p_OwnerID);
                 if (!data.Any())
                     return "";
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                return JsonConvert.SerializeObject(data, Formatting.Indented, settings);
+            }
+        }
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        ResponseFormat = WebMessageFormat.Json)]
+        public string FindBussinessByCategory(string category)
+        {
+            Category p_Category = (Category)int.Parse(category);
+
+            using (ModelContainer entities = new ModelContainer())
+            {
+                var data = entities.Bussinesses.Where(x => x.Category == p_Category).ToList();
+                if (!data.Any())
+                    return JsonConvert.SerializeObject(false, Formatting.Indented); 
                 JsonSerializerSettings settings = new JsonSerializerSettings
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
