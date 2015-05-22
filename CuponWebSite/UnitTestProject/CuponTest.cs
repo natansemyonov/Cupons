@@ -8,13 +8,13 @@ namespace UnitTestProject
     [TestClass]
     public class CuponTest
     {
-        private Cupon _cupon;
+        private BussinessCupon _cupon;
         [TestInitialize]
         public void TestInit()
         {
             using (ModelContainer m = new ModelContainer())
             {
-                Cupon u = new Cupon()
+                BussinessCupon u = new BussinessCupon()
                 {
                     Name = "Free Pizza",
                     Approved = true,
@@ -26,7 +26,7 @@ namespace UnitTestProject
                     Price = 0.0,
                     Rate = Rate.NA
                 };
-                _cupon = m.Cupons.Add(u);
+                _cupon = (BussinessCupon)m.Cupons.Add(u);
                 m.SaveChanges();
             }
         }
@@ -37,7 +37,7 @@ namespace UnitTestProject
             using (ModelContainer m = new ModelContainer())
             {
                 var i = m.Cupons.Count();
-                Cupon u = new Cupon()
+                BussinessCupon u = new BussinessCupon()
                 {
                     Name = "Free Pizza",
                     Approved = true,
@@ -61,7 +61,7 @@ namespace UnitTestProject
             using (ModelContainer m = new ModelContainer())
             {
                 var i = m.Cupons.Count();
-                Cupon u = new Cupon()
+                BussinessCupon u = new BussinessCupon()
                 {
                     Name = "Free Pizza",
                     Approved = true,
@@ -90,7 +90,7 @@ namespace UnitTestProject
                 _cupon.Category = Category.Pleasure;
                 m.Cupons.Attach(_cupon);
                 m.SaveChanges();
-                Cupon u = m.Cupons.First(x => x.Id == _cupon.Id);
+                BussinessCupon u = m.Cupons.OfType<BussinessCupon>().First(x => x.Id == _cupon.Id);
                 Assert.AreEqual(_cupon.Category, u.Category);
             }
         }

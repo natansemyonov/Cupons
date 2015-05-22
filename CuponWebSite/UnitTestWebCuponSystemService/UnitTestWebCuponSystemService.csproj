@@ -53,11 +53,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Service References\CuponSystemWebServiceReference\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -66,40 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\CuponSystemWebServiceReference\CuponSystemWebService.wsdl" />
-    <None Include="Service References\CuponSystemWebServiceReference\UnitTestWebCuponSystemService.CuponSystemWebServiceReference.AddBasicUserResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CuponSystemWebServiceReference\UnitTestWebCuponSystemService.CuponSystemWebServiceReference.AddBussinessOwnerResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CuponSystemWebServiceReference\UnitTestWebCuponSystemService.CuponSystemWebServiceReference.AddBussinessResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CuponSystemWebServiceReference\UnitTestWebCuponSystemService.CuponSystemWebServiceReference.AddSystemAdminResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CuponSystemWebServiceReference\UnitTestWebCuponSystemService.CuponSystemWebServiceReference.AuthenticateUserResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\CuponSystemWebServiceReference\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CuponSystemWebServiceReference\CuponSystemWebService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CuponSystemWebServiceReference\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CuponSystemWebServiceReference\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CuponSystemWebServiceReference\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

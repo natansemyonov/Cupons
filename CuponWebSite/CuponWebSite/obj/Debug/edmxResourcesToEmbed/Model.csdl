@@ -40,15 +40,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="Name" Nullable="false" />
-    <Property Type="String" Name="Description" Nullable="false" />
-    <Property Type="Double" Name="OriginalPrice" Nullable="false" />
-    <Property Type="Double" Name="Price" Nullable="false" />
-    <Property Type="Model.Rate" Name="Rate" Nullable="false" />
-    <Property Type="DateTime" Name="ExpirationDate" Nullable="false" />
-    <Property Type="Model.Category" Name="Category" Nullable="false" />
-    <Property Type="Boolean" Name="Approved" Nullable="false" />
-    <Property Name="Location" Type="Model.Location" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
   </EntityType>
   <EnumType Name="Category">
     <Member Name="Resturants" />
@@ -75,28 +67,37 @@
     <Member Name="Used" />
   </EnumType>
   <EntityType Name="SocialNetworkCupon" BaseType="Model.Cupon">
-    <Property Type="String" Name="URL" Nullable="false" />
-    <Property Type="String" Name="PhoneNumber" Nullable="false" />
+    <Property Type="String" Name="URL" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="User" Relationship="Model.UserSocialNetworkCupon" FromRole="SocialNetworkCupon" ToRole="User" />
   </EntityType>
   <EntityType Name="BussinessCupon" BaseType="Model.Cupon">
     <NavigationProperty Name="Bussiness" Relationship="Model.BussinessBussinessCupon" FromRole="BussinessCupon" ToRole="Bussiness" />
     <NavigationProperty Name="PurchasedCupons" Relationship="Model.BussinessCuponPurchasedCupon" FromRole="BussinessCupon" ToRole="PurchasedCupon" />
+    <Property Name="Description" Type="String" Nullable="false" />
+    <Property Name="OriginalPrice" Type="Double" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="Rate" Type="Model.Rate" Nullable="false" />
+    <Property Name="ExpirationDate" Type="DateTime" Nullable="false" />
+    <Property Name="Category" Type="Model.Category" Nullable="false" />
+    <Property Name="Approved" Type="Boolean" Nullable="false" />
+    <Property Name="Location" Type="Model.Location" Nullable="false" />
+    <Property Name="Photo" Type="String" Nullable="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="UserName" Nullable="false" />
-    <Property Type="String" Name="Password" Nullable="false" />
-    <Property Type="String" Name="Email" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="SocialNetworkCupons" Relationship="Model.UserSocialNetworkCupon" FromRole="User" ToRole="SocialNetworkCupon" />
+    <Property Name="Photo" Type="String" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
   </EntityType>
   <EntityType Name="BasicUser" BaseType="Model.User">
     <Property Type="Model.Gender" Name="Gender" Nullable="false" />
-    <Property Type="String" Name="PhoneNumber" Nullable="false" />
-    <Property Type="DateTime" Name="BirthDate" Nullable="false" />
+    <Property Type="String" Name="PhoneNumber" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Type="DateTime" Name="BirthDate" Nullable="false" Precision="3" />
     <Property Name="Location" Type="Model.Location" Nullable="false" />
     <NavigationProperty Name="Preferences" Relationship="Model.BasicUserPreference" FromRole="BasicUser" ToRole="Preference" />
     <NavigationProperty Name="PurchasedCupons" Relationship="Model.BasicUserPurchasedCupon" FromRole="BasicUser" ToRole="PurchasedCupon" />
@@ -110,12 +111,13 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="Name" Nullable="false" />
-    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Type="Model.Category" Name="Category" Nullable="false" />
     <Property Name="Location" Type="Model.Location" Nullable="false" />
     <NavigationProperty Name="BussinessOwner" Relationship="Model.BussinessOwnerBussiness" FromRole="Bussiness" ToRole="BussinessOwner" />
     <NavigationProperty Name="BussinessCupons" Relationship="Model.BussinessBussinessCupon" FromRole="Bussiness" ToRole="BussinessCupon" />
+    <Property Name="Photo" Type="String" Nullable="false" />
   </EntityType>
   <Association Name="BussinessOwnerBussiness">
     <End Type="Model.BussinessOwner" Role="BussinessOwner" Multiplicity="1" />
@@ -142,7 +144,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="SerialKey" Nullable="false" />
+    <Property Type="String" Name="SerialKey" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Type="Model.CuponState" Name="State" Nullable="false" />
     <Property Type="Model.Rate" Name="Rate" Nullable="false" />
     <NavigationProperty Name="BasicUser" Relationship="Model.BasicUserPurchasedCupon" FromRole="PurchasedCupon" ToRole="BasicUser" />

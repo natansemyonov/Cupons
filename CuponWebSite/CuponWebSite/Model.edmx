@@ -67,15 +67,6 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="OriginalPrice" Type="float" Nullable="false" />
-    <Property Name="Price" Type="float" Nullable="false" />
-    <Property Name="Rate" Type="int" Nullable="false" />
-    <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
-    <Property Name="Category" Type="int" Nullable="false" />
-    <Property Name="Approved" Type="bit" Nullable="false" />
-    <Property Name="Location_Longtitude" Type="float" Nullable="false" />
-    <Property Name="Location_Latitude" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -85,6 +76,7 @@
     <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Photo" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Bussinesses">
     <Key>
@@ -96,6 +88,7 @@
     <Property Name="Category" Type="int" Nullable="false" />
     <Property Name="Location_Longtitude" Type="float" Nullable="false" />
     <Property Name="Location_Latitude" Type="float" Nullable="false" />
+    <Property Name="Photo" Type="nvarchar(max)" Nullable="false" />
     <Property Name="BussinessOwner_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Preferences">
@@ -127,6 +120,16 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OriginalPrice" Type="float" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="Rate" Type="int" Nullable="false" />
+    <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
+    <Property Name="Category" Type="int" Nullable="false" />
+    <Property Name="Approved" Type="bit" Nullable="false" />
+    <Property Name="Location_Longtitude" Type="float" Nullable="false" />
+    <Property Name="Location_Latitude" Type="float" Nullable="false" />
+    <Property Name="Photo" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Bussiness_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -146,7 +149,6 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="URL" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="User_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -342,16 +344,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" />
-          <Property Type="String" Name="Description" Nullable="false" />
-          <Property Type="Double" Name="OriginalPrice" Nullable="false" />
-          <Property Type="Double" Name="Price" Nullable="false" />
-          <Property Type="Model.Rate" Name="Rate" Nullable="false" />
-          <Property Type="DateTime" Name="ExpirationDate" Nullable="false" />
-          <Property Type="Model.Category" Name="Category" Nullable="false" />
-          <Property Type="Boolean" Name="Approved" Nullable="false" />
-          <Property Name="Location" Type="Model.Location" Nullable="false" />
-        </EntityType>
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          </EntityType>
         <EnumType Name="Category">
           <Member Name="Resturants" />
           <Member Name="Shopping" />
@@ -377,28 +371,37 @@
           <Member Name="Used" />
         </EnumType>
         <EntityType Name="SocialNetworkCupon" BaseType="Model.Cupon">
-          <Property Type="String" Name="URL" Nullable="false" />
-          <Property Type="String" Name="PhoneNumber" Nullable="false" />
+          <Property Type="String" Name="URL" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="User" Relationship="Model.UserSocialNetworkCupon" FromRole="SocialNetworkCupon" ToRole="User" />
         </EntityType>
         <EntityType Name="BussinessCupon" BaseType="Model.Cupon">
           <NavigationProperty Name="Bussiness" Relationship="Model.BussinessBussinessCupon" FromRole="BussinessCupon" ToRole="Bussiness" />
           <NavigationProperty Name="PurchasedCupons" Relationship="Model.BussinessCuponPurchasedCupon" FromRole="BussinessCupon" ToRole="PurchasedCupon" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="OriginalPrice" Type="Double" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Rate" Type="Model.Rate" Nullable="false" />
+          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" />
+          <Property Name="Category" Type="Model.Category" Nullable="false" />
+          <Property Name="Approved" Type="Boolean" Nullable="false" />
+          <Property Name="Location" Type="Model.Location" Nullable="false" />
+          <Property Name="Photo" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="UserName" Nullable="false" />
-          <Property Type="String" Name="Password" Nullable="false" />
-          <Property Type="String" Name="Email" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="SocialNetworkCupons" Relationship="Model.UserSocialNetworkCupon" FromRole="User" ToRole="SocialNetworkCupon" />
+          <Property Name="Photo" Type="String" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
         </EntityType>
         <EntityType Name="BasicUser" BaseType="Model.User">
           <Property Type="Model.Gender" Name="Gender" Nullable="false" />
-          <Property Type="String" Name="PhoneNumber" Nullable="false" />
-          <Property Type="DateTime" Name="BirthDate" Nullable="false" />
+          <Property Type="String" Name="PhoneNumber" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="DateTime" Name="BirthDate" Nullable="false" Precision="3" />
           <Property Name="Location" Type="Model.Location" Nullable="false" />
           <NavigationProperty Name="Preferences" Relationship="Model.BasicUserPreference" FromRole="BasicUser" ToRole="Preference" />
           <NavigationProperty Name="PurchasedCupons" Relationship="Model.BasicUserPurchasedCupon" FromRole="BasicUser" ToRole="PurchasedCupon" />
@@ -413,12 +416,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" />
-          <Property Type="String" Name="Description" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Type="Model.Category" Name="Category" Nullable="false" />
           <Property Name="Location" Type="Model.Location" Nullable="false" />
           <NavigationProperty Name="BussinessOwner" Relationship="Model.BussinessOwnerBussiness" FromRole="Bussiness" ToRole="BussinessOwner" />
           <NavigationProperty Name="BussinessCupons" Relationship="Model.BussinessBussinessCupon" FromRole="Bussiness" ToRole="BussinessCupon" />
+          <Property Name="Photo" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="BussinessOwnerBussiness">
           <End Type="Model.BussinessOwner" Role="BussinessOwner" Multiplicity="1" />
@@ -445,7 +449,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="SerialKey" Nullable="false" />
+          <Property Type="String" Name="SerialKey" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Type="Model.CuponState" Name="State" Nullable="false" />
           <Property Type="Model.Rate" Name="Rate" Nullable="false" />
           <NavigationProperty Name="BasicUser" Relationship="Model.BasicUserPurchasedCupon" FromRole="PurchasedCupon" ToRole="BasicUser" />
@@ -474,6 +478,11 @@
         <MappingFragment StoreEntitySet="Cupons">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.BussinessCupon)">
+        <MappingFragment StoreEntitySet="Cupons_BussinessCupon">
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="OriginalPrice" ColumnName="OriginalPrice" />
           <ScalarProperty Name="Price" ColumnName="Price" />
@@ -485,18 +494,13 @@
             <ScalarProperty Name="Longtitude" ColumnName="Location_Longtitude" />
             <ScalarProperty Name="Latitude" ColumnName="Location_Latitude" />
           </ComplexProperty>
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(Model.BussinessCupon)">
-        <MappingFragment StoreEntitySet="Cupons_BussinessCupon">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(Model.SocialNetworkCupon)">
         <MappingFragment StoreEntitySet="Cupons_SocialNetworkCupon">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="URL" ColumnName="URL" />
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -507,6 +511,7 @@
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(Model.BussinessOwner)">
@@ -543,6 +548,7 @@
             <ScalarProperty Name="Longtitude" ColumnName="Location_Longtitude" />
             <ScalarProperty Name="Latitude" ColumnName="Location_Latitude" />
           </ComplexProperty>
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -627,6 +633,8 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
