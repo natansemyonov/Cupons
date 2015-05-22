@@ -34,6 +34,6 @@ D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\bin\EntityFramework.dll
 D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\bin\Newtonsoft.Json.dll
 D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\bin\EntityFramework.xml
 D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\bin\Newtonsoft.Json.xml
-D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.csprojResolveAssemblyReference.cache
 D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.dll
 D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.pdb
+D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\obj\Debug\CuponWebSite.csprojResolveAssemblyReference.cache

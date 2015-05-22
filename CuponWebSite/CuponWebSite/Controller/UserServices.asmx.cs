@@ -19,19 +19,18 @@ namespace CuponWebSite.Controller
     [System.Web.Script.Services.ScriptService]
     public class UserServices : System.Web.Services.WebService
     {
-
         [WebMethod]
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool AuthenticateUser(string userName, string password)
+        public string AuthenticateUser(string userName, string password)
         {
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Users.Where(x => x.UserName == userName && x.Password == password).ToList();
-                if (data.Count == 0)
-                    return false;
-                return true;
+                User data = entities.Users.Where(x => x.UserName == userName && x.Password == password).First();
+                if (data != null)
+                    return data.Id.ToString();
+                return JsonConvert.SerializeObject(false, Formatting.Indented);
             }
         }
 
@@ -39,13 +38,13 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool BussinessOwnerRegister(string userName, string password, string email)
+        public string BussinessOwnerRegister(string userName, string password, string email)
         {
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Users.Where(x => x.UserName == userName).ToList();
+                var data = entities.Users.OfType<BussinessOwner>().Where(x => x.UserName == userName).ToList();
                 if (data.Count != 0)
-                    return false;
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 BussinessOwner user = new BussinessOwner
                 {
                     UserName = userName,
@@ -54,7 +53,7 @@ namespace CuponWebSite.Controller
                 };
                 entities.Users.Add(user);
                 entities.SaveChanges();
-                return true;
+                return data[0].Id.ToString();
             }
         }
 
@@ -62,18 +61,23 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool UpdateBasicUser(int userId, string userName, string password, string email, string phoneNumber, Location location)
+        public bool UpdateBasicUser(string userId, string userName, string password, string email, string phoneNumber, string latitude, string longtitude)
         {
+            Location p_Location = new Location();
+            p_Location.Latitude = double.Parse(latitude);
+            p_Location.Longtitude = double.Parse(longtitude);
+            int P_UserID = int.Parse(userId);
+
             using (ModelContainer entities = new ModelContainer())
             {
-                var user = entities.Users.First(x => x.Id == userId);
+                var user = entities.Users.OfType<BasicUser>().First(x => x.Id == P_UserID);
                 if (user == null)
                     return false;
                 user.UserName = userName;
                 user.Password = password;
                 user.Email = email;
                 ((BasicUser)user).PhoneNumber = phoneNumber;
-                ((BasicUser)user).Location = location;
+                ((BasicUser)user).Location = p_Location;
 
                 entities.SaveChanges();
                 return true;
@@ -89,9 +93,9 @@ namespace CuponWebSite.Controller
             BasicUser bUser;
             using (ModelContainer entities = new ModelContainer())
             {
-                var user = entities.Users.First(x => x.UserName == userName & x.Email == email);
+                var user = entities.Users.OfType<BasicUser>().First(x => x.UserName == userName & x.Email == email);
                 if (user == null)
-                    return "";
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 bUser = new BasicUser
                 {
                     Id = user.Id,
@@ -120,7 +124,7 @@ namespace CuponWebSite.Controller
             {
                 var user = entities.Users.First(x => x.Id == i);
                 if (user == null)
-                    return "";
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 bUser = new BasicUser
                 {
                     Id = user.Id,
@@ -136,16 +140,17 @@ namespace CuponWebSite.Controller
                 return JsonConvert.SerializeObject(bUser, Formatting.Indented);
             }
         }
-
+        
         [WebMethod]
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool ChangePassword(int userId, string newPassword)
+        public bool ChangePassword(string userId, string newPassword)
         {
+            int p_UserID = int.Parse(userId);
             using (ModelContainer entities = new ModelContainer())
             {
-                var user = entities.Users.First(x => x.Id == userId);
+                var user = entities.Users.First(x => x.Id == p_UserID);
                 if (user == null)
                     return false;
                 user.Password = newPassword;
@@ -158,8 +163,9 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public string GenerateNewPassword(int userId)
+        public string GenerateNewPassword(string userId)
         {
+            int p_UserID = int.Parse(userId);
             using (ModelContainer entities = new ModelContainer())
             {
                 int length = 8;
@@ -170,9 +176,9 @@ namespace CuponWebSite.Controller
                 {
                     res.Append(valid[rnd.Next(valid.Length)]);
                 }
-                var user = entities.Users.First(x => x.Id == userId);
+                var user = entities.Users.First(x => x.Id == p_UserID);
                 if (user == null)
-                    return "False";
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 user.Password = res.ToString();
                 entities.SaveChanges();
                 return res.ToString();
@@ -183,22 +189,24 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool AddPreference(Category category, int userId)
+        public bool AddPreference(string category, string userId)
         {
+            int p_UserID = int.Parse(userId);
+            Category p_Category = (Category)int.Parse(category);
             using (ModelContainer entities = new ModelContainer())
             {
-                var user = entities.Users.First(x => x.Id == userId);
+                var user = entities.Users.OfType<BasicUser>().First(x => x.Id == p_UserID);
                 if (user == null)
                     return false;
-                var data = entities.Preferences.Where(x => x.Category == category & x.BasicUser.Id == userId).ToList();
+                var data = entities.Preferences.Where(x => x.Category == p_Category & x.BasicUser.Id == p_UserID).ToList();
                 if (data.Count != 0)
                     return false;
                 Preference preference = new Preference
                 {
-                    Category = category,
-                    BasicUser = (BasicUser)user
+                    Category = p_Category,
+                    BasicUser = user
                 };
-                ((BasicUser)user).Preferences.Add(preference);
+                user.Preferences.Add(preference);
                 entities.SaveChanges();
                 return true;
             }
@@ -218,9 +226,9 @@ namespace CuponWebSite.Controller
                     Latitude = double.Parse(latitude),
                     Longtitude = double.Parse(longitude)
                 };
-                var data = entities.Users.Where(x => x.UserName == userName).ToList();
+                var data = entities.Users.OfType<BasicUser>().Where(x => x.UserName == userName).ToList();
                 if (data.Count != 0)
-                    return "false";
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 BasicUser basicUser = new BasicUser
                 {
                     UserName = userName,
@@ -231,7 +239,7 @@ namespace CuponWebSite.Controller
                     BirthDate = DateTime.Parse(birthDate),
                     Location = location
                 };
-                basicUser = (BasicUser)entities.Users.Add(basicUser);
+                entities.Users.Add(basicUser);
                 entities.SaveChanges();
                 return basicUser.Id.ToString();
             }

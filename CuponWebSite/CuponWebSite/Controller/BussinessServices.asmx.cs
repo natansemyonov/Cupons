@@ -23,22 +23,28 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool AddBussiness(string name, string description, Category category, Location location, int bussinessOwnerId)
+        public bool AddBussiness(string name, string description, string category, string latitude, string longtitude, string bussinessOwnerId)
         {
+            Location p_Location = new Location();
+            p_Location.Latitude = double.Parse(latitude);
+            p_Location.Longtitude = double.Parse(longtitude);
+            Category p_Category = (Category)int.Parse(category);
+            int p_bussinessOwnerId = int.Parse(bussinessOwnerId);
+
             using (ModelContainer entities = new ModelContainer())
             {
                 var data = entities.Bussinesses.Where(x => x.Name == name).ToList();
                 if (data.Count != 0)
                     return false;
-                var bussinessOwner = entities.Users.First(x => x.Id == bussinessOwnerId);
+                var bussinessOwner = entities.Users.OfType<BussinessOwner>().First(x => x.Id == p_bussinessOwnerId);
                 if (bussinessOwner == null)
                     return false;
                 Bussiness bussiness = new Bussiness
                 {
                     Name = name,
                     Description = description,
-                    Category = category,
-                    Location = location,
+                    Category = p_Category,
+                    Location = p_Location,
                     BussinessOwner = (BussinessOwner)bussinessOwner
                 };
                 ((BussinessOwner)bussinessOwner).Bussinesses.Add(bussiness);
@@ -51,11 +57,12 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool DeleteBussiness(int bussinessId)
+        public bool DeleteBussiness(string bussinessId)
         {
+            int p_bussinessId = int.Parse(bussinessId);
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Bussinesses.First(x => x.Id == bussinessId);
+                var data = entities.Bussinesses.First(x => x.Id == p_bussinessId);
                 if (data == null)
                     return false;
                 entities.Bussinesses.Remove(data);
@@ -68,18 +75,24 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool UpdateBussiness(int bussinessId, string name, string description, Category category, Location location)
+        public bool UpdateBussiness(string bussinessId, string name, string description, string category, string latitude, string longtitude)
         {
+            Location p_Location = new Location();
+            p_Location.Latitude = double.Parse(latitude);
+            p_Location.Longtitude = double.Parse(longtitude);
+            Category p_Category = (Category)int.Parse(category);
+            int p_bussinessId = int.Parse(bussinessId);
+
             using (ModelContainer entities = new ModelContainer())
             {
-                var bussiness = entities.Bussinesses.First(x => x.Id == bussinessId);
+                var bussiness = entities.Bussinesses.First(x => x.Id == p_bussinessId);
                 if (bussiness == null)
                     return false;
                 bussiness.Name = name;
                 bussiness.Description = description;
-                bussiness.Category = category;
-                bussiness.Location = location;
-                bussiness.Id = bussinessId;
+                bussiness.Category = p_Category;
+                bussiness.Location = p_Location;
+                bussiness.Id = p_bussinessId;
 
                 entities.SaveChanges();
                 return true;
@@ -90,14 +103,14 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public String FindBussinessByName(string bussinessName)
+        public string FindBussinessByName(string bussinessName)
         {
             Cupon cupon;
             using (ModelContainer entities = new ModelContainer())
             {
                 var data = entities.Bussinesses.First(x => x.Name == bussinessName);
                 if (data == null)
-                    return "";
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 Bussiness bussiness = new Bussiness
                 {
                     Name = data.Name,
@@ -120,14 +133,36 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public String FindBussinessByOwner(int ownerID)
+        public string FindBussinessOfOwner(string ownerID)
         {
-            Cupon cupon;
+            int p_OwnerID = int.Parse(ownerID);
+
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Bussinesses.Where(x => x.BussinessOwner.Id == ownerID);
+                var data = entities.Bussinesses.Where(x => x.BussinessOwner.Id == p_OwnerID);
                 if (!data.Any())
                     return "";
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                return JsonConvert.SerializeObject(data, Formatting.Indented, settings);
+            }
+        }
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        ResponseFormat = WebMessageFormat.Json)]
+        public string FindBussinessByCategory(string category)
+        {
+            Category p_Category = (Category)int.Parse(category);
+
+            using (ModelContainer entities = new ModelContainer())
+            {
+                var data = entities.Bussinesses.Where(x => x.Category == p_Category).ToList();
+                if (!data.Any())
+                    return JsonConvert.SerializeObject(false, Formatting.Indented); 
                 JsonSerializerSettings settings = new JsonSerializerSettings
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
