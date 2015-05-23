@@ -38,7 +38,7 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public string BussinessOwnerRegister(string userName, string password, string email)
+        public string BussinessOwnerRegister(string userName, string password, string email, string photo)
         {
             using (ModelContainer entities = new ModelContainer())
             {
@@ -49,7 +49,8 @@ namespace CuponWebSite.Controller
                 {
                     UserName = userName,
                     Password = password,
-                    Email = email
+                    Email = email,
+                    Photo = photo
                 };
                 entities.Users.Add(user);
                 entities.SaveChanges();
@@ -61,7 +62,8 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool UpdateBasicUser(string userId, string userName, string password, string email, string phoneNumber, string latitude, string longtitude)
+        public bool UpdateBasicUser(string userId, string userName, string password, string email, string phoneNumber,
+            string latitude, string longtitude, string photo)
         {
             Location p_Location = new Location();
             p_Location.Latitude = double.Parse(latitude);
@@ -76,8 +78,9 @@ namespace CuponWebSite.Controller
                 user.UserName = userName;
                 user.Password = password;
                 user.Email = email;
-                ((BasicUser)user).PhoneNumber = phoneNumber;
-                ((BasicUser)user).Location = p_Location;
+                user.Photo = photo;
+                user.PhoneNumber = phoneNumber;
+                user.Location = p_Location;
 
                 entities.SaveChanges();
                 return true;
@@ -101,12 +104,12 @@ namespace CuponWebSite.Controller
                     Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
-                    PhoneNumber = ((BasicUser)user).PhoneNumber,
-                    Location = ((BasicUser)user).Location,
+                    PhoneNumber = user.PhoneNumber,
+                    Location = user.Location,
                     Password = user.Password,
-                    BirthDate = ((BasicUser)user).BirthDate,
-                    Gender = ((BasicUser)user).Gender,
-                    Preferences = ((BasicUser)user).Preferences
+                    BirthDate = user.BirthDate,
+                    Gender = user.Gender,
+                    Preferences = user.Preferences
                 };
                 return JsonConvert.SerializeObject(bUser, Formatting.Indented);
             }
@@ -116,13 +119,13 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public string FindUserByID(string id)
+        public string FindBasicUserByID(string id)
         {
             int i = int.Parse(id);
             BasicUser bUser;
             using (ModelContainer entities = new ModelContainer())
             {
-                var user = entities.Users.First(x => x.Id == i);
+                var user = entities.Users.OfType<BasicUser>().First(x => x.Id == i);
                 if (user == null)
                     return JsonConvert.SerializeObject(false, Formatting.Indented);
                 bUser = new BasicUser
@@ -130,17 +133,42 @@ namespace CuponWebSite.Controller
                     Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
-                    PhoneNumber = ((BasicUser)user).PhoneNumber,
-                    Location = ((BasicUser)user).Location,
+                    Photo = user.Photo,
+                    PhoneNumber = user.PhoneNumber,
+                    Location = user.Location,
                     Password = user.Password,
-                    BirthDate = ((BasicUser)user).BirthDate,
-                    Gender = ((BasicUser)user).Gender,
-                    Preferences = ((BasicUser)user).Preferences
+                    BirthDate = user.BirthDate,
+                    Gender = user.Gender,
+                    Preferences = user.Preferences
                 };
                 return JsonConvert.SerializeObject(bUser, Formatting.Indented);
             }
         }
-        
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        ResponseFormat = WebMessageFormat.Json)]
+        public string FindBussinessOwnerByID(string id)
+        {
+            int i = int.Parse(id);
+            BasicUser bUser;
+            using (ModelContainer entities = new ModelContainer())
+            {
+                var user = entities.Users.OfType<BussinessOwner>().First(x => x.Id == i);
+                if (user == null)
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
+                bUser = new BasicUser
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Photo = user.Photo,
+                };
+                return JsonConvert.SerializeObject(bUser, Formatting.Indented);
+            }
+        }
+
         [WebMethod]
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
@@ -217,7 +245,7 @@ namespace CuponWebSite.Controller
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
         public string BasicUserRegister(string userName, string password, string email, string gender,
-            string phoneNumber, string birthDate, string longitude, string latitude)
+            string phoneNumber, string birthDate, string longitude, string latitude, string photo)
         {
             using (ModelContainer entities = new ModelContainer())
             {
@@ -237,7 +265,8 @@ namespace CuponWebSite.Controller
                     Gender = (Gender)int.Parse(gender),
                     PhoneNumber = phoneNumber,
                     BirthDate = DateTime.Parse(birthDate),
-                    Location = location
+                    Location = location,
+                    Photo = photo
                 };
                 entities.Users.Add(basicUser);
                 entities.SaveChanges();

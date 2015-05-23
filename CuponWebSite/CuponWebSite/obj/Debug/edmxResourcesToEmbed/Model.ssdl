@@ -62,15 +62,6 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="OriginalPrice" Type="float" Nullable="false" />
-    <Property Name="Price" Type="float" Nullable="false" />
-    <Property Name="Rate" Type="int" Nullable="false" />
-    <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
-    <Property Name="Category" Type="int" Nullable="false" />
-    <Property Name="Approved" Type="bit" Nullable="false" />
-    <Property Name="Location_Longtitude" Type="float" Nullable="false" />
-    <Property Name="Location_Latitude" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -80,6 +71,7 @@
     <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Photo" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Bussinesses">
     <Key>
@@ -91,6 +83,7 @@
     <Property Name="Category" Type="int" Nullable="false" />
     <Property Name="Location_Longtitude" Type="float" Nullable="false" />
     <Property Name="Location_Latitude" Type="float" Nullable="false" />
+    <Property Name="Photo" Type="nvarchar(max)" Nullable="false" />
     <Property Name="BussinessOwner_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Preferences">
@@ -122,6 +115,16 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OriginalPrice" Type="float" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="Rate" Type="int" Nullable="false" />
+    <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
+    <Property Name="Category" Type="int" Nullable="false" />
+    <Property Name="Approved" Type="bit" Nullable="false" />
+    <Property Name="Location_Longtitude" Type="float" Nullable="false" />
+    <Property Name="Location_Latitude" Type="float" Nullable="false" />
+    <Property Name="Photo" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Bussiness_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -141,7 +144,6 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="URL" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="User_Id" Type="int" Nullable="false" />
   </EntityType>

@@ -24,17 +24,8 @@ namespace UnitTestProject
                 _user = m.Users.Add(use);
                 SocialNetworkCupon u = new SocialNetworkCupon()
                 {
-                    Name = "Free Pizza",
-                    Approved = true,
-                    Category = Category.Resturants,
-                    Description = "Free Pizza",
-                    ExpirationDate = DateTime.Now,
-                    OriginalPrice = 45.0,
-                    Location = new Location() { Longtitude = 31.1254, Latitude = 32.1234 },
-                    Price = 0.0,
-                    Rate = Rate.NA,
+                    Name = "Free Pizza",           
                     URL = "I dont Know",
-                    PhoneNumber="054-4543222"
                 };
                 _cupon = (SocialNetworkCupon)m.Cupons.Add(u);
                 _user.SocialNetworkCupons.Add(u);
@@ -52,16 +43,7 @@ namespace UnitTestProject
                 SocialNetworkCupon u = new SocialNetworkCupon()
                 {
                     Name = "Free Pizza",
-                    Approved = true,
-                    Category = Category.Resturants,
-                    Description = "Free Pizza",
-                    ExpirationDate = DateTime.Now,
-                    OriginalPrice = 45.0,
-                    Location = new Location() { Longtitude = 31.1254, Latitude = 32.1234 },
-                    Price = 0.0,
-                    Rate = Rate.NA,
-                    URL = "",
-                    PhoneNumber = ""
+                    URL = ""
                 };
                 m.Cupons.Add(u);
                 _user.SocialNetworkCupons.Add(u);
@@ -80,16 +62,7 @@ namespace UnitTestProject
                 SocialNetworkCupon u = new SocialNetworkCupon()
                 {
                     Name = "Free Pizza",
-                    Approved = true,
-                    Category = Category.Resturants,
-                    Description = "Free Pizza",
-                    ExpirationDate = DateTime.Now,
-                    OriginalPrice = 45.0,
-                    Location = new Location() { Longtitude = 31.1254, Latitude = 32.1234 },
-                    Price = 0.0,
-                    Rate = Rate.NA,
-                    URL = "I dont care",
-                    PhoneNumber = "054-4543222"
+                    URL = "I dont care"
                 };
                 m.Cupons.Add(u);
                 _user.SocialNetworkCupons.Add(u);
@@ -103,19 +76,19 @@ namespace UnitTestProject
             }
         }
 
-        [TestMethod]
-        public void UpdateSocialNetworkCupon()
-        {
-            using (ModelContainer m = new ModelContainer())
-            {
-                Category old = _cupon.Category;
-                _cupon.Category = Category.Pleasure;
-                m.Cupons.Attach(_cupon);
-                m.SaveChanges();
-                SocialNetworkCupon u = m.Cupons.OfType<SocialNetworkCupon>().First(x => x.Id == _cupon.Id);
-                Assert.AreEqual(_cupon.Category, u.Category);
-            }
-        }
+        //[TestMethod]
+        //public void UpdateSocialNetworkCupon()
+        //{
+        //    using (ModelContainer m = new ModelContainer())
+        //    {
+        //        Category old = _cupon.Category;
+        //        _cupon.Category = Category.Pleasure;
+        //        m.Cupons.Attach(_cupon);
+        //        m.SaveChanges();
+        //        SocialNetworkCupon u = m.Cupons.OfType<SocialNetworkCupon>().First(x => x.Id == _cupon.Id);
+        //        Assert.AreEqual(_cupon.Category, u.Category);
+        //    }
+        //}
 
         [TestMethod]
         public void SelectSocialNetworkCupon()

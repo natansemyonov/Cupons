@@ -28,7 +28,8 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool AddBussinessCupon(string name, string description, double originalPrice, double price, Rate rate, DateTime expirationDate, Category category, bool approved, Location location, int bussinessId)
+        public bool AddBussinessCupon(string name, string description, double originalPrice, double price,
+            Rate rate, DateTime expirationDate, Category category, bool approved, Location location, string photo, int bussinessId)
         {
             using (ModelContainer entities = new ModelContainer())
             {
@@ -48,12 +49,12 @@ namespace CuponWebSite.Controller
                     Rate = rate,
                     ExpirationDate = expirationDate,
                     Approved = approved,
+                    Photo = photo,
                     Bussiness = bussiness
                 };
                 entities.Cupons.Add(cupon);
                 entities.SaveChanges();
                 return true;
-
             }
         }
 
@@ -66,7 +67,7 @@ namespace CuponWebSite.Controller
             List<BussinessCupon> cuponsList = new List<BussinessCupon>();
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Cupons.Where(x => ((BussinessCupon)x).Bussiness.Id == bussinessId).ToList();
+                var data = entities.Cupons.OfType<BussinessCupon>().Where(x => ((BussinessCupon)x).Bussiness.Id == bussinessId).ToList();
                 if (data.Count == 0)
                     return "";
                 cuponsList.AddRange(data.Select(cupon => new BussinessCupon
@@ -81,6 +82,7 @@ namespace CuponWebSite.Controller
                     ExpirationDate = cupon.ExpirationDate,
                     Approved = cupon.Approved,
                     Id = cupon.Id,
+                    Photo = cupon.Photo,
                     Bussiness = ((BussinessCupon)cupon).Bussiness,
                     PurchasedCupons = ((BussinessCupon)cupon).PurchasedCupons
                 }));
@@ -106,15 +108,6 @@ namespace CuponWebSite.Controller
                 SocialNetworkCupon SNCupon = new SocialNetworkCupon()
                 {
                     Name = name,
-                    Description = description,
-                    Category = category,
-                    Location = location,
-                    OriginalPrice = originalPrice,
-                    Price = price,
-                    Rate = rate,
-                    ExpirationDate = expirationDate,
-                    Approved = approved,
-                    PhoneNumber = phoneNumber,
                     URL = url,
                     User = user
                 };

@@ -23,7 +23,7 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool AddBussiness(string name, string description, string category, string latitude, string longtitude, string bussinessOwnerId)
+        public bool AddBussiness(string name, string description, string category, string latitude, string longtitude, string photo, string bussinessOwnerId)
         {
             Location p_Location = new Location();
             p_Location.Latitude = double.Parse(latitude);
@@ -45,6 +45,7 @@ namespace CuponWebSite.Controller
                     Description = description,
                     Category = p_Category,
                     Location = p_Location,
+                    Photo = photo,
                     BussinessOwner = (BussinessOwner)bussinessOwner
                 };
                 ((BussinessOwner)bussinessOwner).Bussinesses.Add(bussiness);
@@ -75,7 +76,7 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool UpdateBussiness(string bussinessId, string name, string description, string category, string latitude, string longtitude)
+        public bool UpdateBussiness(string bussinessId, string name, string description, string category, string latitude, string longtitude, string photo)
         {
             Location p_Location = new Location();
             p_Location.Latitude = double.Parse(latitude);
@@ -93,6 +94,7 @@ namespace CuponWebSite.Controller
                 bussiness.Category = p_Category;
                 bussiness.Location = p_Location;
                 bussiness.Id = p_bussinessId;
+                bussiness.Photo = photo;
 
                 entities.SaveChanges();
                 return true;
@@ -105,7 +107,6 @@ namespace CuponWebSite.Controller
         ResponseFormat = WebMessageFormat.Json)]
         public string FindBussinessByName(string bussinessName)
         {
-            Cupon cupon;
             using (ModelContainer entities = new ModelContainer())
             {
                 var data = entities.Bussinesses.First(x => x.Name == bussinessName);
@@ -117,6 +118,7 @@ namespace CuponWebSite.Controller
                     Description = data.Description,
                     Category = data.Category,
                     Location = data.Location,
+                    Photo = data.Photo,
                     Id = data.Id,
                     BussinessCupons = data.BussinessCupons,
                     BussinessOwner = data.BussinessOwner

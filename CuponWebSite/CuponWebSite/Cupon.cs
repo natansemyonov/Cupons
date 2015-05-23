@@ -14,21 +14,7 @@ namespace CuponWebSite
     
     public partial class Cupon
     {
-        public Cupon()
-        {
-            this.Location = new Location();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public double OriginalPrice { get; set; }
-        public double Price { get; set; }
-        public Rate Rate { get; set; }
-        public System.DateTime ExpirationDate { get; set; }
-        public Category Category { get; set; }
-        public bool Approved { get; set; }
-    
-        public Location Location { get; set; }
     }
 }

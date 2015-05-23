@@ -6,6 +6,11 @@
         <MappingFragment StoreEntitySet="Cupons">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.BussinessCupon)">
+        <MappingFragment StoreEntitySet="Cupons_BussinessCupon">
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="OriginalPrice" ColumnName="OriginalPrice" />
           <ScalarProperty Name="Price" ColumnName="Price" />
@@ -17,18 +22,13 @@
             <ScalarProperty Name="Longtitude" ColumnName="Location_Longtitude" />
             <ScalarProperty Name="Latitude" ColumnName="Location_Latitude" />
           </ComplexProperty>
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(Model.BussinessCupon)">
-        <MappingFragment StoreEntitySet="Cupons_BussinessCupon">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(Model.SocialNetworkCupon)">
         <MappingFragment StoreEntitySet="Cupons_SocialNetworkCupon">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="URL" ColumnName="URL" />
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -39,6 +39,7 @@
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(Model.BussinessOwner)">
@@ -75,6 +76,7 @@
             <ScalarProperty Name="Longtitude" ColumnName="Location_Longtitude" />
             <ScalarProperty Name="Latitude" ColumnName="Location_Latitude" />
           </ComplexProperty>
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
