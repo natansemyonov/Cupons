@@ -38,13 +38,15 @@ function SetView(view){
 	document.getElementById(view).removeAttribute("hidden");
 }
 
-SetAccount(12);
+SetAccount();
 
-function SetAccount(accountId){
+function SetAccount() {
+
+    var accountId = window.location.search.substring(1);
     $.ajax({
         type: "POST",
         url: "http://localhost:20353/Controller/UserServices.asmx/FindUserByID",
-        data: JSON.stringify({ "id": userID }),
+        data: JSON.stringify({ "id": accountId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: false,
@@ -152,8 +154,7 @@ function login() {
 function signout() {
     deleteCookie("user");
     deleteCookie("pass");
-    document.getElementById("head_account").setAttribute("hidden", true);
-    document.getElementById("head_login").removeAttribute("hidden");
+    window.location.href = "Home.html";
 }
 function Search() {
     SearchByLocation({ "longitude": 31.1254, "latitude": 32.1234 }, 10);
