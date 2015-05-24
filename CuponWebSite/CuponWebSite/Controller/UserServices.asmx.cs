@@ -139,9 +139,14 @@ namespace CuponWebSite.Controller
                     Password = user.Password,
                     BirthDate = user.BirthDate,
                     Gender = user.Gender,
-                    Preferences = user.Preferences
+                    Preferences = user.Preferences,
+                    PurchasedCupons = user.PurchasedCupons
                 };
-                return JsonConvert.SerializeObject(bUser, Formatting.Indented);
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                return JsonConvert.SerializeObject(bUser, Formatting.Indented,settings);
             }
         }
 
@@ -228,7 +233,11 @@ namespace CuponWebSite.Controller
                     return false;
                 var data = entities.Preferences.Where(x => x.Category == p_Category & x.BasicUser.Id == p_UserID).ToList();
                 if (data.Count != 0)
-                    return false;
+                {
+                    entities.Preferences.Remove(data[0]);
+                    entities.SaveChanges();
+                    return true;
+                }
                 Preference preference = new Preference
                 {
                     Category = p_Category,

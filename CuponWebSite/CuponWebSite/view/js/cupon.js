@@ -89,7 +89,7 @@ function stars(rating) {
 function ShowCuponModal(cuponId) {
     $.ajax({
         type: "POST",
-        url: "http://localhost:20353/Controller/CuponServices.asmx/FindCuponById",
+        url: "http://localhost:20353/Controller/CuponServices.asmx/FindCuponsById",
         data: JSON.stringify({ "cuponId": cuponId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
