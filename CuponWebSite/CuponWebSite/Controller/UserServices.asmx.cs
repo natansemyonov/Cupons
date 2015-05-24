@@ -54,7 +54,7 @@ namespace CuponWebSite.Controller
                 };
                 entities.Users.Add(user);
                 entities.SaveChanges();
-                return data[0].Id.ToString();
+                return user.Id.ToString();
             }
         }
 

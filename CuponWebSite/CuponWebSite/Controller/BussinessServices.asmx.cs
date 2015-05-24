@@ -46,6 +46,7 @@ namespace CuponWebSite.Controller
                     Category = p_Category,
                     Location = p_Location,
                     Photo = photo,
+                    Approved = false,
                     BussinessOwner = (BussinessOwner)bussinessOwner
                 };
                 ((BussinessOwner)bussinessOwner).Bussinesses.Add(bussiness);
@@ -67,6 +68,24 @@ namespace CuponWebSite.Controller
                 if (data == null)
                     return false;
                 entities.Bussinesses.Remove(data);
+                entities.SaveChanges();
+                return true;
+            }
+        }
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        ResponseFormat = WebMessageFormat.Json)]
+        public bool ApproveBussiness(string bussinessId)
+        {
+            int p_bussinessId = int.Parse(bussinessId);
+            using (ModelContainer entities = new ModelContainer())
+            {
+                var data = entities.Bussinesses.First(x => x.Id == p_bussinessId);
+                if (data == null)
+                    return false;
+                data.Approved = true;
                 entities.SaveChanges();
                 return true;
             }
@@ -165,6 +184,25 @@ namespace CuponWebSite.Controller
                 var data = entities.Bussinesses.Where(x => x.Category == p_Category).ToList();
                 if (!data.Any())
                     return JsonConvert.SerializeObject(false, Formatting.Indented); 
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                return JsonConvert.SerializeObject(data, Formatting.Indented, settings);
+            }
+        }
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        ResponseFormat = WebMessageFormat.Json)]
+        public string GetAllUnapprovedBussiness()
+        {
+            using (ModelContainer entities = new ModelContainer())
+            {
+                var data = entities.Bussinesses.Where(x => x.Approved == false).ToList();
+                if (!data.Any())
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 JsonSerializerSettings settings = new JsonSerializerSettings
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore

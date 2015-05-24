@@ -51,6 +51,7 @@
     <Member Name="Pleasure" />
   </EnumType>
   <EnumType Name="Rate">
+    <Member Name="Zero" />
     <Member Name="One" />
     <Member Name="Two" />
     <Member Name="Three" />
@@ -73,15 +74,15 @@
   <EntityType Name="BussinessCupon" BaseType="Model.Cupon">
     <NavigationProperty Name="Bussiness" Relationship="Model.BussinessBussinessCupon" FromRole="BussinessCupon" ToRole="Bussiness" />
     <NavigationProperty Name="PurchasedCupons" Relationship="Model.BussinessCuponPurchasedCupon" FromRole="BussinessCupon" ToRole="PurchasedCupon" />
-    <Property Name="Description" Type="String" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="OriginalPrice" Type="Double" Nullable="false" />
     <Property Name="Price" Type="Double" Nullable="false" />
     <Property Name="Rate" Type="Model.Rate" Nullable="false" />
-    <Property Name="ExpirationDate" Type="DateTime" Nullable="false" />
+    <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Category" Type="Model.Category" Nullable="false" />
     <Property Name="Approved" Type="Boolean" Nullable="false" />
     <Property Name="Location" Type="Model.Location" Nullable="false" />
-    <Property Name="Photo" Type="String" Nullable="false" />
+    <Property Name="Photo" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -117,7 +118,8 @@
     <Property Name="Location" Type="Model.Location" Nullable="false" />
     <NavigationProperty Name="BussinessOwner" Relationship="Model.BussinessOwnerBussiness" FromRole="Bussiness" ToRole="BussinessOwner" />
     <NavigationProperty Name="BussinessCupons" Relationship="Model.BussinessBussinessCupon" FromRole="Bussiness" ToRole="BussinessCupon" />
-    <Property Name="Photo" Type="String" Nullable="false" />
+    <Property Name="Photo" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Type="Boolean" Name="Approved" Nullable="false" />
   </EntityType>
   <Association Name="BussinessOwnerBussiness">
     <End Type="Model.BussinessOwner" Role="BussinessOwner" Multiplicity="1" />

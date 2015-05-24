@@ -4,22 +4,35 @@
     document.getElementById("about").setAttribute("hidden", true);
     document.getElementById("Login").setAttribute("hidden", true);
     document.getElementById("Contact").setAttribute("hidden", true);
+    document.getElementById("BussinessOwner").setAttribute("hidden", true);
+    document.getElementById("bLogin").setAttribute("hidden", true);
+    document.getElementById("bRegister").setAttribute("hidden", true);
     if (view.indexOf("box")>-1) {
         document.getElementById("Login").removeAttribute("hidden");
     }
+    if (view == "bLogin" || view == "bRegister")
+        document.getElementById("BussinessOwner").removeAttribute("hidden");
     document.getElementById(view).removeAttribute("hidden");
 }
-
-function register() {
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(register);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function register(position) {
+    var d = new Date($('#birthdate').val());
     var user = new Object();
     user.userName = $('#username').val();
     user.password = $('#password').val();
     user.email = $('#email').val();
-    user.gender = $('#gender').val();
+    user.gender = $('#gender').val() == "Male" ? 0 : 1;
     user.phoneNumber = $('#phone').val();
-    user.birthDate = $('#birthdate').val();
-    user.longitude = "31.123";
-    user.latitude = "7.1343";
+    user.birthDate = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
+    user.photo = "images/Male_User.jpg";
+    user.longitude = position.coords.longitude;
+    user.latitude = position.coords.latitude;
     $.ajax({
         type: "POST",
         url: "http://localhost:20353/Controller/UserServices.asmx/BasicUserRegister",
@@ -32,10 +45,13 @@ function register() {
                 setCookie("user", user.userName, 365);
                 setCookie("pass", user.password, 365);
                 setCookie("id", data.d, 365);
+                window.location.href = "index.html?" + data.d;
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log("faliure in ajax call for - " + xhr.status);
+            $('#signupalert').html("Error: " + xhr.status);
+            $('#signupalert').css("display", "block");
         }
     });
     //set account tab
@@ -89,6 +105,59 @@ function login() {
         }
     });
 
+}
+function registerBO() {
+    var user = new Object();
+    user.userName = $('#username').val();
+    user.password = $('#password').val();
+    user.email = $('#email').val(); 
+    user.photo = "images/Business.jpg";
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/UserServices.asmx/BussinessOwnerRegister",
+        data: JSON.stringify(user),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.d) {
+                setCookie("user", user.userName, 365);
+                setCookie("pass", user.password, 365);
+                setCookie("id", data.d, 365);
+                window.location.href = "BussinessOwner.html?" + data.d;
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+            $('#signupalert').html("Error: " + xhr.status);
+            $('#signupalert').css("display", "block");
+        }
+    });
+    //set account tab
+
+}
+
+function loginBO() {
+    var userName = document.getElementById("login-username").value;
+    var password = document.getElementById("login-password").value;
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/UserServices.asmx/AuthenticateUser",
+        data: JSON.stringify({ "userName": userName, "password": password }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.d) {
+                setCookie("user", userName, 365);
+                setCookie("pass", password, 365);
+                window.location.href = "BussinessOwner.html?" + data.d;
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
 }
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();

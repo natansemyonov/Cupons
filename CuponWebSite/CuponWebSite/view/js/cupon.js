@@ -5,7 +5,7 @@ function SearchByLocation(coords, radius) {
     $('#WaitModal').modal('show');
     $.ajax({
         type: "POST",
-        url: "http://localhost:20353/Controller/CuponSystemWebService.asmx/FindCuponByLocation",
+        url: "http://localhost:20353/Controller/CuponServices.asmx/FindCuponByLocation",
         data: JSON.stringify({ "latitude":coords.latitude,"longtitude":coords.longitude }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -24,7 +24,7 @@ function GetAllCupons() {
     $('#WaitModal').modal('show');
     $.ajax({
         type: "POST",
-        url: "http://localhost:20353/Controller/CuponServices.asmx/GetAllCupons",
+        url: "http://localhost:20353/Controller/CuponServices.asmx/GetAllBussinessCupons",
         
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -43,8 +43,8 @@ function GetCupons(catId) {
     $('#WaitModal').modal('show');
         $.ajax({
             type: "POST",
-            url: "http://localhost:20353/Controller/CuponSystemWebService.asmx/FindCuponByPreference",
-            data: JSON.stringify({ "c": catId }),
+            url: "http://localhost:20353/Controller/CuponServices.asmx/FindCuponByPreference",
+            data: JSON.stringify({ "ctegory": catId }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
@@ -53,7 +53,7 @@ function GetCupons(catId) {
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log("faliure in ajax call for - " + xhr.status);
-
+            
             }
 
         });
@@ -63,7 +63,7 @@ function ShowCupons(cuponList) {
     document.getElementById("cupons_div").innerHTML = "";
     for (var i = 0; i < cuponList.length; i++) {
         var j = '<div class="col-sm-4 col-lg-4 col-md-4" onclick="ShowCuponModal(' + cuponList[i].Id +
-            ')"> <div class="thumbnail"> <img src="http://placehold.it/320x150" alt=""> <div class="caption">' +
+            ')"> <div class="thumbnail"> <img src="images/Coupon.png" alt=""> <div class="caption">' +
             '<h4 class="pull-right">'+cuponList[i].Price+'</h4> <h4><a href="#">' + cuponList[i].Name + 
             '</a> </h4> <p>'+cuponList[i].Description + '</p>' +
             '</div> <div class="ratings"> <p class="pull-right"></p> '+stars(cuponList[i].Rate)+'</div> </div> </div>';
@@ -73,12 +73,15 @@ function ShowCupons(cuponList) {
 
 function stars(rating) {
     var s = '<p> ';
+    if (rating<6)
     for (var j = 0; j < 5; j++) {
         if (j < rating)
             s += '<span class="glyphicon glyphicon-star"></span>';
         else
             s += '<span class="glyphicon glyphicon-star-empty"></span>';
-
+    }
+    else {
+        s += "N/A";
     }
     return s + '</p>';
 }
@@ -86,7 +89,7 @@ function stars(rating) {
 function ShowCuponModal(cuponId) {
     $.ajax({
         type: "POST",
-        url: "http://localhost:20353/Controller/CuponSystemWebService.asmx/FindCuponById",
+        url: "http://localhost:20353/Controller/CuponServices.asmx/FindCuponById",
         data: JSON.stringify({ "cuponId": cuponId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -126,10 +129,9 @@ function ShowCuponModal(cuponId) {
 }
 
 function BuyCupon(cuponId) {
-    var uId = getCookie("id");
     var purchase = new Object();
-    purchase.cuponId = 347;
-    purchase.userId = 21;
+    purchase.cuponId = cuponId;
+    purchase.userId = window.location.search.substring(1);
     $.ajax({
         type: "POST",
         url: "http://localhost:20353/Controller/CuponServices.asmx/PurchaseCupon",
@@ -141,8 +143,10 @@ function BuyCupon(cuponId) {
             if (!d) {
                 return;
             }
+            var s = '<br/>Your Serial Key is <br/><b>'+d+'</b><br/><br/>Order details were sent to your email account.';
             $('#CuponModal').modal('hide');
-            $('#generalModalBody').html(d);
+            $('#generalModalTitle').html('Purchase Succedded!');
+            $('#generalModalBody').html(s);
             $('#GeneralModal').modal('show');
 
         },

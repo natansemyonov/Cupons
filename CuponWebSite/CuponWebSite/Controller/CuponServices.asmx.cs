@@ -406,7 +406,11 @@ namespace CuponWebSite.Controller
                     Bussiness = cupon.Bussiness,
                     PurchasedCupons = cupon.PurchasedCupons
                 }));
-                return JsonConvert.SerializeObject(cuponsList, Formatting.Indented);
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                return JsonConvert.SerializeObject(cuponsList, Formatting.Indented, settings);
             }
         }
         #endregion --------Bussiness Cupons---------------
