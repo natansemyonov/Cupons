@@ -9,6 +9,7 @@ namespace UnitTestWebCuponSystemService
     {
 
         [TestMethod]
+        [AspNetDevelopmentServerHost("D:/CuponsRepository/Cupons/CuponWebSite/CuponWebSite")]
         public void TestAuthenticateUser()
         {
             
