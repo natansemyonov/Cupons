@@ -7,11 +7,11 @@ namespace UnitTestWebCuponSystemService
     [TestClass]
     public class Users
     {
-        //CuponSystemWebServiceReference webservice;
 
         [TestMethod]
-        public void TestMethod1()
+        public void TestAuthenticateUser()
         {
+            
         }
     }
 }

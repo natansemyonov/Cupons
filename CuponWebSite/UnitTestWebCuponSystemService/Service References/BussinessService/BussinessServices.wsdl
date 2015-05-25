@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="AddBussiness">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="category" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="latitude" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="longtitude" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="photo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bussinessOwnerId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddBussinessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddBussinessResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteBussiness">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bussinessId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteBussinessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteBussinessResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateBussiness">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bussinessId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="category" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="latitude" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="longtitude" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="photo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateBussinessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateBussinessResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindBussinessByName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bussinessName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindBussinessByNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindBussinessByNameResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindBussinessOfOwner">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ownerID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindBussinessOfOwnerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindBussinessOfOwnerResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindBussinessByCategory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="category" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindBussinessByCategoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindBussinessByCategoryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AddBussinessSoapIn">
+    <wsdl:part name="parameters" element="tns:AddBussiness" />
+  </wsdl:message>
+  <wsdl:message name="AddBussinessSoapOut">
+    <wsdl:part name="parameters" element="tns:AddBussinessResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteBussinessSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteBussiness" />
+  </wsdl:message>
+  <wsdl:message name="DeleteBussinessSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteBussinessResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateBussinessSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateBussiness" />
+  </wsdl:message>
+  <wsdl:message name="UpdateBussinessSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateBussinessResponse" />
+  </wsdl:message>
+  <wsdl:message name="FindBussinessByNameSoapIn">
+    <wsdl:part name="parameters" element="tns:FindBussinessByName" />
+  </wsdl:message>
+  <wsdl:message name="FindBussinessByNameSoapOut">
+    <wsdl:part name="parameters" element="tns:FindBussinessByNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="FindBussinessOfOwnerSoapIn">
+    <wsdl:part name="parameters" element="tns:FindBussinessOfOwner" />
+  </wsdl:message>
+  <wsdl:message name="FindBussinessOfOwnerSoapOut">
+    <wsdl:part name="parameters" element="tns:FindBussinessOfOwnerResponse" />
+  </wsdl:message>
+  <wsdl:message name="FindBussinessByCategorySoapIn">
+    <wsdl:part name="parameters" element="tns:FindBussinessByCategory" />
+  </wsdl:message>
+  <wsdl:message name="FindBussinessByCategorySoapOut">
+    <wsdl:part name="parameters" element="tns:FindBussinessByCategoryResponse" />
+  </wsdl:message>
+  <wsdl:portType name="BussinessServicesSoap">
+    <wsdl:operation name="AddBussiness">
+      <wsdl:input message="tns:AddBussinessSoapIn" />
+      <wsdl:output message="tns:AddBussinessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBussiness">
+      <wsdl:input message="tns:DeleteBussinessSoapIn" />
+      <wsdl:output message="tns:DeleteBussinessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBussiness">
+      <wsdl:input message="tns:UpdateBussinessSoapIn" />
+      <wsdl:output message="tns:UpdateBussinessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindBussinessByName">
+      <wsdl:input message="tns:FindBussinessByNameSoapIn" />
+      <wsdl:output message="tns:FindBussinessByNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindBussinessOfOwner">
+      <wsdl:input message="tns:FindBussinessOfOwnerSoapIn" />
+      <wsdl:output message="tns:FindBussinessOfOwnerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindBussinessByCategory">
+      <wsdl:input message="tns:FindBussinessByCategorySoapIn" />
+      <wsdl:output message="tns:FindBussinessByCategorySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BussinessServicesSoap" type="tns:BussinessServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddBussiness">
+      <soap:operation soapAction="http://tempuri.org/AddBussiness" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBussiness">
+      <soap:operation soapAction="http://tempuri.org/DeleteBussiness" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBussiness">
+      <soap:operation soapAction="http://tempuri.org/UpdateBussiness" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBussinessByName">
+      <soap:operation soapAction="http://tempuri.org/FindBussinessByName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBussinessOfOwner">
+      <soap:operation soapAction="http://tempuri.org/FindBussinessOfOwner" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBussinessByCategory">
+      <soap:operation soapAction="http://tempuri.org/FindBussinessByCategory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BussinessServicesSoap12" type="tns:BussinessServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddBussiness">
+      <soap12:operation soapAction="http://tempuri.org/AddBussiness" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBussiness">
+      <soap12:operation soapAction="http://tempuri.org/DeleteBussiness" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBussiness">
+      <soap12:operation soapAction="http://tempuri.org/UpdateBussiness" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBussinessByName">
+      <soap12:operation soapAction="http://tempuri.org/FindBussinessByName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBussinessOfOwner">
+      <soap12:operation soapAction="http://tempuri.org/FindBussinessOfOwner" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBussinessByCategory">
+      <soap12:operation soapAction="http://tempuri.org/FindBussinessByCategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BussinessServices">
+    <wsdl:port name="BussinessServicesSoap" binding="tns:BussinessServicesSoap">
+      <soap:address location="http://localhost:20353/Controller/BussinessServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="BussinessServicesSoap12" binding="tns:BussinessServicesSoap12">
+      <soap12:address location="http://localhost:20353/Controller/BussinessServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

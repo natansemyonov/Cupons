@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -53,6 +54,23 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Service References\BussinessService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\CuponService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\UserService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Bussiness.cs" />
+    <Compile Include="Cupons.cs" />
     <Compile Include="Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,6 +79,164 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Service References\BussinessService\BussinessServices.wsdl" />
+    <None Include="Service References\BussinessService\UnitTestWebCuponSystemService.BussinessService.AddBussinessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BussinessService\UnitTestWebCuponSystemService.BussinessService.DeleteBussinessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BussinessService\UnitTestWebCuponSystemService.BussinessService.FindBussinessByCategoryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BussinessService\UnitTestWebCuponSystemService.BussinessService.FindBussinessByNameResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BussinessService\UnitTestWebCuponSystemService.BussinessService.FindBussinessOfOwnerResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BussinessService\UnitTestWebCuponSystemService.BussinessService.UpdateBussinessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\CuponServices.wsdl" />
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.AddBussinessCuponResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.AddSocialNetworkCuponResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.ApproveCuponResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.BussinessCuponHistoryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.CreateSocialNetworkCuponResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.CuponHistoryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.DeleteCuponResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.FindCuponByBussinessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.FindCuponByPreferenceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.FindCuponsByIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.FindCuponsByLocationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.FindCuponsByNameAndDescriptionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.FindPurchasedCuponBySerialKeyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.GetAllBussinessCuponsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.GetAllUnAprrovedCuponsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.PurchaseCuponResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.RateCuponResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.UpdateCuponResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CuponService\UnitTestWebCuponSystemService.CuponService.UseCuponResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserService\UnitTestWebCuponSystemService.UserService.AddPreferenceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserService\UnitTestWebCuponSystemService.UserService.AuthenticateUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserService\UnitTestWebCuponSystemService.UserService.BasicUserRegisterResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserService\UnitTestWebCuponSystemService.UserService.BussinessOwnerRegisterResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserService\UnitTestWebCuponSystemService.UserService.ChangePasswordResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserService\UnitTestWebCuponSystemService.UserService.FindBasicUserByIDResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserService\UnitTestWebCuponSystemService.UserService.FindBasicUserByName_EmailResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserService\UnitTestWebCuponSystemService.UserService.FindBussinessOwnerByIDResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserService\UnitTestWebCuponSystemService.UserService.GenerateNewPasswordResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserService\UnitTestWebCuponSystemService.UserService.UpdateBasicUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserService\UserServices.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\BussinessService\" />
+    <WCFMetadataStorage Include="Service References\CuponService\" />
+    <WCFMetadataStorage Include="Service References\UserService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BussinessService\BussinessServices.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BussinessService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BussinessService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BussinessService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserService\UserServices.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CuponService\CuponServices.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CuponService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CuponService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CuponService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

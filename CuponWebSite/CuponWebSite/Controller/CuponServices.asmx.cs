@@ -25,47 +25,6 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool AddBussinessCupon(string name, string description, string originalPrice, string price, string rate,
-            string expirationDate, string category, string approved, string latitude, string longtitude,  string photo)
-        {
-            double p_OriginalPrice = double.Parse(originalPrice);
-            double p_Price = double.Parse(price);
-            Rate p_Rate = (Rate)int.Parse(rate);
-            DateTime p_ExpirationDate = DateTime.Parse(expirationDate);
-            Category p_Category = (Category)int.Parse(category);
-            bool p_Approved = bool.Parse(approved);
-            Location p_Location = new Location();
-            p_Location.Latitude = double.Parse(latitude);
-            p_Location.Longtitude = double.Parse(longtitude);
-            using (ModelContainer entities = new ModelContainer())
-            {
-                var data = entities.Cupons.Where(x => x.Name == name).ToList();
-                if (data.Count != 0)
-                    return false;
-                BussinessCupon cupon = new BussinessCupon()
-                 {
-                     Name = name,
-                     Description = description,
-                     Category = p_Category,
-                     Location = p_Location,
-                     OriginalPrice = p_OriginalPrice,
-                     Price = p_Price,
-                     Rate = p_Rate,
-                     ExpirationDate = p_ExpirationDate,
-                     Photo = photo,
-                     Approved = p_Approved
-                 };
-                entities.Cupons.Add(cupon);
-                entities.SaveChanges();
-                return true;
-
-            }
-        }
-
-        [WebMethod]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
         public bool DeleteCupon(string cuponId)
         {
             int p_CuponID = int.Parse(cuponId);
