@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 05/23/2015 12:25:31
+-- Date Created: 05/25/2015 13:10:53
 -- Generated from EDMX file: C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
---USE [Database];
+USE [Database];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -17,11 +17,8 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_BussinessOwnerBussiness]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Bussinesses] DROP CONSTRAINT [FK_BussinessOwnerBussiness];
-GO
-IF OBJECT_ID(N'[dbo].[FK_BussinessBussinessCupon]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Cupons_BussinessCupon] DROP CONSTRAINT [FK_BussinessBussinessCupon];
+IF OBJECT_ID(N'[dbo].[FK_BasicUser_inherits_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users_BasicUser] DROP CONSTRAINT [FK_BasicUser_inherits_User];
 GO
 IF OBJECT_ID(N'[dbo].[FK_BasicUserPreference]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Preferences] DROP CONSTRAINT [FK_BasicUserPreference];
@@ -29,20 +26,20 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_BasicUserPurchasedCupon]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PurchasedCupons] DROP CONSTRAINT [FK_BasicUserPurchasedCupon];
 GO
-IF OBJECT_ID(N'[dbo].[FK_BussinessCuponPurchasedCupon]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[PurchasedCupons] DROP CONSTRAINT [FK_BussinessCuponPurchasedCupon];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserSocialNetworkCupon]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Cupons_SocialNetworkCupon] DROP CONSTRAINT [FK_UserSocialNetworkCupon];
-GO
-IF OBJECT_ID(N'[dbo].[FK_BussinessOwner_inherits_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users_BussinessOwner] DROP CONSTRAINT [FK_BussinessOwner_inherits_User];
+IF OBJECT_ID(N'[dbo].[FK_BussinessBussinessCupon]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Cupons_BussinessCupon] DROP CONSTRAINT [FK_BussinessBussinessCupon];
 GO
 IF OBJECT_ID(N'[dbo].[FK_BussinessCupon_inherits_Cupon]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Cupons_BussinessCupon] DROP CONSTRAINT [FK_BussinessCupon_inherits_Cupon];
 GO
-IF OBJECT_ID(N'[dbo].[FK_BasicUser_inherits_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users_BasicUser] DROP CONSTRAINT [FK_BasicUser_inherits_User];
+IF OBJECT_ID(N'[dbo].[FK_BussinessCuponPurchasedCupon]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PurchasedCupons] DROP CONSTRAINT [FK_BussinessCuponPurchasedCupon];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BussinessOwner_inherits_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users_BussinessOwner] DROP CONSTRAINT [FK_BussinessOwner_inherits_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BussinessOwnerBussiness]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Bussinesses] DROP CONSTRAINT [FK_BussinessOwnerBussiness];
 GO
 IF OBJECT_ID(N'[dbo].[FK_SocialNetworkCupon_inherits_Cupon]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Cupons_SocialNetworkCupon] DROP CONSTRAINT [FK_SocialNetworkCupon_inherits_Cupon];
@@ -50,19 +47,25 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_SystemAdmin_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_SystemAdmin] DROP CONSTRAINT [FK_SystemAdmin_inherits_User];
 GO
+IF OBJECT_ID(N'[dbo].[FK_UserSocialNetworkCupon]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Cupons_SocialNetworkCupon] DROP CONSTRAINT [FK_UserSocialNetworkCupon];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Bussinesses]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Bussinesses];
+GO
 IF OBJECT_ID(N'[dbo].[Cupons]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Cupons];
 GO
-IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Users];
+IF OBJECT_ID(N'[dbo].[Cupons_BussinessCupon]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Cupons_BussinessCupon];
 GO
-IF OBJECT_ID(N'[dbo].[Bussinesses]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Bussinesses];
+IF OBJECT_ID(N'[dbo].[Cupons_SocialNetworkCupon]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Cupons_SocialNetworkCupon];
 GO
 IF OBJECT_ID(N'[dbo].[Preferences]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Preferences];
@@ -70,17 +73,14 @@ GO
 IF OBJECT_ID(N'[dbo].[PurchasedCupons]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PurchasedCupons];
 GO
-IF OBJECT_ID(N'[dbo].[Users_BussinessOwner]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Users_BussinessOwner];
-GO
-IF OBJECT_ID(N'[dbo].[Cupons_BussinessCupon]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Cupons_BussinessCupon];
+IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users];
 GO
 IF OBJECT_ID(N'[dbo].[Users_BasicUser]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users_BasicUser];
 GO
-IF OBJECT_ID(N'[dbo].[Cupons_SocialNetworkCupon]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Cupons_SocialNetworkCupon];
+IF OBJECT_ID(N'[dbo].[Users_BussinessOwner]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users_BussinessOwner];
 GO
 IF OBJECT_ID(N'[dbo].[Users_SystemAdmin]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users_SystemAdmin];
@@ -116,6 +116,7 @@ CREATE TABLE [dbo].[Bussinesses] (
     [Location_Longtitude] float  NOT NULL,
     [Location_Latitude] float  NOT NULL,
     [Photo] nvarchar(max)  NOT NULL,
+    [Approved] bit  NOT NULL,
     [BussinessOwner_Id] int  NOT NULL
 );
 GO
