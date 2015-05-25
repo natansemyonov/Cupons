@@ -356,7 +356,7 @@
                             </div>
                         </div>
                         <!--/.media -->
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                        <p>28 years old, Kibutznik, and loves to program. In his spare time loves to cook, bake and watch TV. Ido is one of the founding member of the Application.</p>
                     </div>
                 </div>
                 <!--/.col-lg-4 -->
@@ -380,7 +380,7 @@
                             </div>
                         </div>
                         <!--/.media -->
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                        <p>25 years old. Loves cats, music and reading. Noa is one of the founding members of the Applicaation.</p>
                     </div>
                 </div>
                 <!--/.col-lg-4 -->
@@ -421,12 +421,7 @@
                             <div class="media-body">
                                 <h4>Saar Tal</h4>
                                 <h5>Founder and CEO</h5>
-                                <ul class="tag clearfix">
-                                    <li class="btn"><a href="#">Web</a></li>
-                                    <li class="btn"><a href="#">Ui</a></li>
-                                    <li class="btn"><a href="#">Ux</a></li>
-                                    <li class="btn"><a href="#">Photoshop</a></li>
-                                </ul>
+
                                 <ul class="social_icons">
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -435,7 +430,7 @@
                             </div>
                         </div>
                         <!--/.media -->
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                        <p>26 years old. Loves music, watching TV and going to the beach. Saar is one of the founding member if the Application. </p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 col-md-offset-2">
@@ -472,91 +467,175 @@
             <!-- left column -->
             <div class="col-md-3">
                 <div class="text-center">
-                    <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+                    <img src="//placehold.it/100" id="profileImage" class="avatar img-circle" alt="avatar">
                     <h6>Upload a different photo...</h6>
 
                     <input type="file" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <button class="btn btn-primary" id="editBtn" onclick="$('#ChangePassword').hide();$('#profileDetails').show();">Change Password</button>
+                    </div>
+                </div><div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <button class="btn btn-primary" id="passBtn" onclick="$('#profileDetails').hide();$('#ChangePassword').show();">Change Password</button>
+                    </div>
                 </div>
             </div>
 
             <!-- edit form column -->
             <div class="col-md-9 personal-info">
-                <div class="alert alert-info alert-dismissable">
+                <div class="alert alert-info alert-dismissable" hidden>
                     <a class="panel-close close" data-dismiss="alert">×</a>
                     <i class="fa fa-coffee"></i>
                     This is an <strong>.alert</strong>. Use this to show important messages to the user.
                 </div>
                 <h3>Personal info</h3>
-
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">First name:</label>
-                        <div class="col-lg-8">
-                            <input class="form-control" type="text" value="Jane">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">Last name:</label>
-                        <div class="col-lg-8">
-                            <input class="form-control" type="text" value="Bishop">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">Company:</label>
-                        <div class="col-lg-8">
-                            <input class="form-control" type="text" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">Email:</label>
-                        <div class="col-lg-8">
-                            <input class="form-control" type="text" value="janesemail@gmail.com">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">Time Zone:</label>
-                        <div class="col-lg-8">
-                            <div class="ui-select">
-                                <select id="user_time_zone" class="form-control">
-                                    <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                                    <option value="Alaska">(GMT-09:00) Alaska</option>
-                                    <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-                                    <option value="Arizona">(GMT-07:00) Arizona</option>
-                                    <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-                                    <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
-                                    <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-                                    <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-                                </select>
+                <div class="row" id="profileMain">
+                    <div class="col-lg-8">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                My Cupons
                             </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Cupon Name</th>
+                                                <th>Bussiness</th>
+                                                <th>Serial Key</th>
+                                                <th>Expiration Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="CuponsTable">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.col-lg-6 -->
+                    <!-- /.col-lg-8 -->
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-bell fa-fw"></i>Preferences
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="list-group" id="prefList">
+                                    <a href="#" onclick="UpdatePreference(0);" class="list-group-item">
+                                        <i class="fa fa-money fa-fw"></i>Resturants
+                                        <span class="pull-right text-muted small" id="pref0">
+                                            <em>X</em>
+                                        </span>
+                                    </a>
+                                    <a href="#" onclick="UpdatePreference(1);" class="list-group-item">
+                                        <i class="fa fa-money fa-fw"></i>Shopping
+                                        <span class="pull-right text-muted small" id="pref1">
+                                            <em>X</em>
+                                        </span>
+                                    </a> 
+                                    <a href="#" onclick="UpdatePreference(2);" class="list-group-item">
+                                        <i class="fa fa-money fa-fw"></i>Health Care
+                                        <span class="pull-right text-muted small"  id="pref2">
+                                            <em>X</em>
+                                        </span>
+                                    </a>
+                                    <a href="#" onclick="UpdatePreference(3);" class="list-group-item">
+                                        <i class="fa fa-money fa-fw"></i>Office & Electronics
+                                        <span class="pull-right text-muted small"  id="pref3">
+                                            <em>X</em>
+                                        </span>
+                                    </a>
+                                    <a href="#" onclick="UpdatePreference(4);" class="list-group-item">
+                                        <i class="fa fa-money fa-fw"></i>Vacations
+                                        <span class="pull-right text-muted small"  id="pref4">
+                                            <em>X</em>
+                                        </span>
+                                    </a>
+                                    <a href="#" onclick="UpdatePreference(5);" class="list-group-item">
+                                        <i class="fa fa-money fa-fw"></i>Pleasure
+                                        <span class="pull-right text-muted small" id="pref5">
+                                            <em>X</em>
+                                        </span>
+                                    </a>
+                                </div>
+                                <!-- /.list-group -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+
+                    </div>
+                    <!-- /.col-lg-4 -->
+                </div>
+                <div id="ChangePassword" class="form-horizontal" hidden>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Old Password:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="password" id="oldPass">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Username:</label>
+                        <label class="col-md-3 control-label">New Password:</label>
                         <div class="col-md-8">
-                            <input class="form-control" type="text" value="janeuser">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Password:</label>
-                        <div class="col-md-8">
-                            <input class="form-control" type="password" value="11111122333">
+                            <input class="form-control" type="password" id="newPass" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">Confirm password:</label>
                         <div class="col-md-8">
-                            <input class="form-control" type="password" value="11111122333">
+                            <input class="form-control" type="password" id="newPassConfirm">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-8">
-                            <input type="button" class="btn btn-primary" value="Save Changes">
+                            <input type="button" class="btn btn-primary" onclick="UpdatePassword();" value="Save Changes">
                             <span></span>
-                            <input type="reset" class="btn btn-default" value="Cancel">
+                            <input type="reset" class="btn btn-default" onclick="SetView('products');" value="Cancel">
                         </div>
                     </div>
-                </form>
+                </div>
+
+                <div class="form-horizontal" id="profileDetails" role="form" hidden>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Username:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" id="profileUserName" value="janeuser">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Email:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" id="profileEmail" value="janesemail@gmail.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Birth Date:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="date" id="profileBirthDate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8">
+                            <input type="button" class="btn btn-primary" onclick="UpdateProfile();" value="Save Changes">
+                            <span></span>
+                            <input type="reset" class="btn btn-default" onclick="SetView('products');" value="Cancel">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

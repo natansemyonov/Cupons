@@ -1,14 +1,14 @@
 
 -- --------------------------------------------------
--- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
+-- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 05/22/2015 18:08:53
--- Generated from EDMX file: D:\CuponsRepository\Cupons\CuponWebSite\CuponWebSite\Model.edmx
+-- Date Created: 05/23/2015 12:25:31
+-- Generated from EDMX file: C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [Database];
+--USE [Database];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -17,8 +17,11 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_BasicUser_inherits_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users_BasicUser] DROP CONSTRAINT [FK_BasicUser_inherits_User];
+IF OBJECT_ID(N'[dbo].[FK_BussinessOwnerBussiness]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Bussinesses] DROP CONSTRAINT [FK_BussinessOwnerBussiness];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BussinessBussinessCupon]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Cupons_BussinessCupon] DROP CONSTRAINT [FK_BussinessBussinessCupon];
 GO
 IF OBJECT_ID(N'[dbo].[FK_BasicUserPreference]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Preferences] DROP CONSTRAINT [FK_BasicUserPreference];
@@ -26,20 +29,20 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_BasicUserPurchasedCupon]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PurchasedCupons] DROP CONSTRAINT [FK_BasicUserPurchasedCupon];
 GO
-IF OBJECT_ID(N'[dbo].[FK_BussinessBussinessCupon]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Cupons_BussinessCupon] DROP CONSTRAINT [FK_BussinessBussinessCupon];
-GO
-IF OBJECT_ID(N'[dbo].[FK_BussinessCupon_inherits_Cupon]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Cupons_BussinessCupon] DROP CONSTRAINT [FK_BussinessCupon_inherits_Cupon];
-GO
 IF OBJECT_ID(N'[dbo].[FK_BussinessCuponPurchasedCupon]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PurchasedCupons] DROP CONSTRAINT [FK_BussinessCuponPurchasedCupon];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserSocialNetworkCupon]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Cupons_SocialNetworkCupon] DROP CONSTRAINT [FK_UserSocialNetworkCupon];
 GO
 IF OBJECT_ID(N'[dbo].[FK_BussinessOwner_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_BussinessOwner] DROP CONSTRAINT [FK_BussinessOwner_inherits_User];
 GO
-IF OBJECT_ID(N'[dbo].[FK_BussinessOwnerBussiness]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Bussinesses] DROP CONSTRAINT [FK_BussinessOwnerBussiness];
+IF OBJECT_ID(N'[dbo].[FK_BussinessCupon_inherits_Cupon]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Cupons_BussinessCupon] DROP CONSTRAINT [FK_BussinessCupon_inherits_Cupon];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BasicUser_inherits_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users_BasicUser] DROP CONSTRAINT [FK_BasicUser_inherits_User];
 GO
 IF OBJECT_ID(N'[dbo].[FK_SocialNetworkCupon_inherits_Cupon]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Cupons_SocialNetworkCupon] DROP CONSTRAINT [FK_SocialNetworkCupon_inherits_Cupon];
@@ -47,25 +50,19 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_SystemAdmin_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_SystemAdmin] DROP CONSTRAINT [FK_SystemAdmin_inherits_User];
 GO
-IF OBJECT_ID(N'[dbo].[FK_UserSocialNetworkCupon]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Cupons_SocialNetworkCupon] DROP CONSTRAINT [FK_UserSocialNetworkCupon];
-GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Bussinesses]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Bussinesses];
-GO
 IF OBJECT_ID(N'[dbo].[Cupons]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Cupons];
 GO
-IF OBJECT_ID(N'[dbo].[Cupons_BussinessCupon]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Cupons_BussinessCupon];
+IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users];
 GO
-IF OBJECT_ID(N'[dbo].[Cupons_SocialNetworkCupon]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Cupons_SocialNetworkCupon];
+IF OBJECT_ID(N'[dbo].[Bussinesses]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Bussinesses];
 GO
 IF OBJECT_ID(N'[dbo].[Preferences]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Preferences];
@@ -73,14 +70,17 @@ GO
 IF OBJECT_ID(N'[dbo].[PurchasedCupons]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PurchasedCupons];
 GO
-IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Users];
+IF OBJECT_ID(N'[dbo].[Users_BussinessOwner]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users_BussinessOwner];
+GO
+IF OBJECT_ID(N'[dbo].[Cupons_BussinessCupon]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Cupons_BussinessCupon];
 GO
 IF OBJECT_ID(N'[dbo].[Users_BasicUser]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users_BasicUser];
 GO
-IF OBJECT_ID(N'[dbo].[Users_BussinessOwner]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Users_BussinessOwner];
+IF OBJECT_ID(N'[dbo].[Cupons_SocialNetworkCupon]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Cupons_SocialNetworkCupon];
 GO
 IF OBJECT_ID(N'[dbo].[Users_SystemAdmin]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users_SystemAdmin];
@@ -262,7 +262,6 @@ ADD CONSTRAINT [FK_BussinessOwnerBussiness]
     REFERENCES [dbo].[Users_BussinessOwner]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BussinessOwnerBussiness'
 CREATE INDEX [IX_FK_BussinessOwnerBussiness]
@@ -277,7 +276,6 @@ ADD CONSTRAINT [FK_BussinessBussinessCupon]
     REFERENCES [dbo].[Bussinesses]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BussinessBussinessCupon'
 CREATE INDEX [IX_FK_BussinessBussinessCupon]
@@ -292,7 +290,6 @@ ADD CONSTRAINT [FK_BasicUserPreference]
     REFERENCES [dbo].[Users_BasicUser]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BasicUserPreference'
 CREATE INDEX [IX_FK_BasicUserPreference]
@@ -307,7 +304,6 @@ ADD CONSTRAINT [FK_BasicUserPurchasedCupon]
     REFERENCES [dbo].[Users_BasicUser]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BasicUserPurchasedCupon'
 CREATE INDEX [IX_FK_BasicUserPurchasedCupon]
@@ -322,7 +318,6 @@ ADD CONSTRAINT [FK_BussinessCuponPurchasedCupon]
     REFERENCES [dbo].[Cupons_BussinessCupon]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BussinessCuponPurchasedCupon'
 CREATE INDEX [IX_FK_BussinessCuponPurchasedCupon]
@@ -337,7 +332,6 @@ ADD CONSTRAINT [FK_UserSocialNetworkCupon]
     REFERENCES [dbo].[Users]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserSocialNetworkCupon'
 CREATE INDEX [IX_FK_UserSocialNetworkCupon]

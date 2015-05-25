@@ -52,6 +52,10 @@ footer {
     margin: 50px 0;
 }
 
+.background-image {
+    background-image: url(../images/background.jpg);
+}
+
 @media(max-width:768px) {
     section {
         padding-top: 25px;

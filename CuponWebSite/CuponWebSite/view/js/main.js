@@ -38,26 +38,29 @@ function SetView(view){
 	document.getElementById(view).removeAttribute("hidden");
 }
 
-SetAccount(12);
+SetAccount();
 
-function SetAccount(accountId){
+function SetAccount() {
+
+    var accountId = window.location.search.substring(1);
     $.ajax({
         type: "POST",
-        url: "http://localhost:20353/Controller/UserServices.asmx/FindUserByID",
-        data: JSON.stringify({ "id": userID }),
+        url: "http://localhost:20353/Controller/UserServices.asmx/FindBasicUserByID",
+        data: JSON.stringify({ "id": accountId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: false,
         success: function (data) {
             if (data.d) {
                 var d = JSON.parse(data.d);
-                $("#accountImg").attr("src", "http://placehold.it/120x120");
+                $("#accountImg").attr("src", d.Photo);
                 $("#accountName").text(d.userName);
                 $("#accountMail").text(d.Email);
-                $("#accountView").click(SetView('profile'));
+                $("#accountView").click(function () { SetView("profile"); });
                 document.getElementById("head_login").setAttribute("hidden", true);
                 document.getElementById("head_account").removeAttribute("hidden");
                 SetView("products");
+                SetProfileData(d);
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -152,8 +155,7 @@ function login() {
 function signout() {
     deleteCookie("user");
     deleteCookie("pass");
-    document.getElementById("head_account").setAttribute("hidden", true);
-    document.getElementById("head_login").removeAttribute("hidden");
+    window.location.href = "Home.html";
 }
 function Search() {
     SearchByLocation({ "longitude": 31.1254, "latitude": 32.1234 }, 10);
@@ -180,3 +182,54 @@ function getCookie(cname) {
 function deleteCookie (cname) {
     document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 };
+
+function UpdatePassword() {
+    
+}
+
+function SetProfileData(profile) {
+    $("#CuponsTable").html("");
+    $("#profileEmail").val(profile.Email);
+    $("#profileUserName").val(profile.UIEventserName);
+    $("#profileImage").attr("src", profile.Photo);
+    $("#profileBirthDate").val(profile.Birthdate);
+    for (var i = 0; i < profile.PurchasedCupons.length; i++) {
+        var newEntry = "<tr class='"+((profile.PurchasedCupons[i].state==0)?"pending":"used")+"'><td>" + (i + 1) + "</td><td>" + profile.PurchasedCupons[i].BussinessCupon.Name +
+            "</td><td>" + profile.PurchasedCupons[i].BussinessCupon.Bussiness.Name + "</td><td>" +
+            profile.PurchasedCupons[i].SerialKey + "</td><td>" +
+            new Date(profile.PurchasedCupons[i].BussinessCupon.ExpirationDate).toLocaleDateString()  + "</td></tr>";
+        $("#CuponsTable").append(newEntry);
+    }
+    for (var i = 0; i < 6; i++) {
+        $("#pref" + i).html("<em>X</em>");
+    }
+    for (var i = 0; i < profile.Preferences.length; i++) {
+        $("#pref" + profile.Preferences[i].Category).html("<em>V</em>");
+    }
+}
+
+function UpdateProfile() {
+    
+}
+
+function UpdatePreference(pref) {
+    
+    var accountId = window.location.search.substring(1);
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/UserServices.asmx/AddPreference",
+        data: JSON.stringify({ "category": pref,"userId":accountId }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.d) {
+                SetAccount();
+                SetView('profile');
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
+}

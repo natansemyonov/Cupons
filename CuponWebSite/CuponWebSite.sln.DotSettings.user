@@ -12,6 +12,10 @@
 	
 	
 	
+	
+	
+	
+	
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=239FE7CE4FC84151992C649645569ACD/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=239FE7CE4FC84151992C649645569ACD/BuildPolicy/@EntryValue">WholeSolution</s:String>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=239FE7CE4FC84151992C649645569ACD/Name/@EntryValue">UpdateBussiness</s:String>
@@ -43,7 +47,11 @@
 	
 	
 	
+	
+	
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=5349184AD07E49F588AC307D41C0EDB5/Name/@EntryValue">All tests from UnitTestProject</s:String>
+	
+	
 	
 	
 	

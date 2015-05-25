@@ -25,6 +25,7 @@ namespace CuponWebSite
         public string Description { get; set; }
         public Category Category { get; set; }
         public string Photo { get; set; }
+        public bool Approved { get; set; }
     
         public Location Location { get; set; }
     

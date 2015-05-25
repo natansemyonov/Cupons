@@ -191,12 +191,12 @@
                                             <i class="fa fa-tasks fa-5x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <div class="huge">12</div>
+                                            <div class="huge" id="numOfUnapprovedBussinesses">12</div>
                                             <div>Bussiness Requests!</div>
                                         </div>
                                     </div>
                                 </div>
-                                <a href="#">
+                                <a href="#" onclick="ApproveBussinesses()">
                                     <div class="panel-footer">
                                         <span class="pull-left">View Details</span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -408,38 +408,54 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="CuponModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="CuponName">Modal</h4>
+    <div class="modal fade" id="CuponModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="CuponName">Modal</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <span><b>Description:&nbsp</b></span>
+                            <span id="cuponDescription"></span>
+                            <br />
+                            <span><b>Location:&nbsp</b></span>
+                            <span id="cuponLocation"></span>
+                            <br />
+                            <span><b>Expiration Date:&nbsp</b></span>
+                            <span id="cuponExpiration"></span>
                         </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <span><b>Description:&nbsp</b></span>
-                                    <span id="cuponDescription"></span>
-                                    <br />
-                                    <span><b>Location:&nbsp</b></span>
-                                    <span id="cuponLocation"></span>
-                                    <br />
-                                    <span><b>Expiration Date:&nbsp</b></span>
-                                    <span id="cuponExpiration"></span>
-                                </div>
-                                <div class="col-md-2">
-                                    <span id="cuponOriginalPrice" style="color: red; text-decoration: line-through; font-size: larger;"></span>
-                                    <span id="cuponPrice" style="color: green; text-decoration: none; font-size: larger;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" id="PurchaseButton" class="btn btn-primary">Buy</button>
+                        <div class="col-md-2">
+                            <span id="cuponOriginalPrice" style="color: red; text-decoration: line-through; font-size: larger;"></span>
+                            <span id="cuponPrice" style="color: green; text-decoration: none; font-size: larger;"></span>
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="PurchaseButton" class="btn btn-primary">Approve Cupon</button>
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="modal fade" id="GeneralModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="generalModalTitle">Modal</h4>
+                </div>
+                <div class="modal-body" id="generalModalBody">
+                </div>
+                <div class="modal-footer" id="generalModalFooter">
+                    <button type="button" class="btn btn-default" id="generalModalCloseButton" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <input type="hidden" id="bussinessIdHidden"/>
+        </div>
+    </div>
             <!-- jQuery -->
 
             <!-- Bootstrap Core JavaScript -->

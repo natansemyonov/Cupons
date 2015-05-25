@@ -68,6 +68,7 @@
     <EntitySetMapping Name="Bussinesses">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Bussiness)">
         <MappingFragment StoreEntitySet="Bussinesses">
+          <ScalarProperty Name="Approved" ColumnName="Approved" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Description" ColumnName="Description" />

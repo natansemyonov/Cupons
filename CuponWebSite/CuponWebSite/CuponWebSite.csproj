@@ -102,6 +102,7 @@
     <Content Include="view\js\bootstrap.min.js" />
     <Content Include="view\js\bussiness.js" />
     <Content Include="view\js\cupon.js" />
+    <Content Include="view\js\Home.js" />
     <Content Include="view\js\jquery.js" />
     <Content Include="view\js\main.js" />
     <Content Include="view\js\metisMenu.js" />
