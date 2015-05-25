@@ -215,3 +215,32 @@ function showdPosition(position) {
         });
     });
 }
+
+function NewSocialCupon() {
+    var accountId = window.location.search.substring(1);
+    var name = $('#SocialName').val();
+    var url = $('#SocialLink').val();
+    $('#SocialCupon').modal('hide');
+    $('#WaitModal').modal('show');
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/CuponServices.asmx/CreateSocialNetworkCupon",
+        data: JSON.stringify({ "userId": accountId, "name": name, "url": url }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data.d) {
+                $('#generalModalTitle').html("New Social Cupon");
+                $('#generalModalBody').html("Your new cupon was successfully added to our DB");
+                $('#GeneralModal').modal('show');
+            }
+            $('#WaitModal').modal('hide');
+            
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+            
+        }
+
+    });
+}

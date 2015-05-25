@@ -49,41 +49,8 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">System Admin
+                    <li ><a href="#" onclick="sysAdminLogin()">System Admin
                                              <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="navbar-content">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            Username:
-                                        </div>
-                                        <div class="col-md-7">
-                                            <input type="text"/>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            Password:
-                                        </div>
-                                        <div class="col-md-7">
-                                            <input type="password"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="navbar-footer">
-                                    <div class="navbar-footer-content">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <a href="#" class="btn btn-default btn-sm pull-right" onclick="SignInAdmin()">Sign In</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </div>
@@ -140,7 +107,7 @@
                                         Not a memeber yet? <a onclick="SetView('signupbox');">Click Here</a>
                                     </div>
                                 </div>
-                                <hr/>
+                                <hr />
                                 <div>
                                     Enter as bussiness owner <a onclick="SetView('bLogin')">Here</a>
                                 </div>
@@ -330,7 +297,7 @@
                                         <input type="text" class="form-control" id="Text5" placeholder="Email Address" />
                                     </div>
                                 </div>
-                                
+
 
                                 <div class="form-group">
                                     <!-- Button -->
@@ -487,10 +454,10 @@
         </div>
     </section>
     <section id="Contact" hidden class="background-image">
-        <div class="row" >
-                        <div class="col-md-2"></div>
+        <div class="row">
+            <div class="col-md-2"></div>
 
-            <div class="col-md-2" style="background-color: #ffffff;opacity:0.6;">
+            <div class="col-md-2" style="background-color: #ffffff; opacity: 0.6;">
                 <div class="">
                     <h2>Call Us</h2>
                     <p>+972 (0) 12 3456 789</p>
@@ -504,7 +471,7 @@
                     <p>Beer Sheva, Israel</p>
                 </div>
             </div>
-            <div class="col-md-6" >
+            <div class="col-md-6">
                 <form class="contact-form" method="post" action="mailto:idohubara@gmail.com">
                     <div class="row">
                         <div class="col-md-6">
@@ -537,7 +504,23 @@
         </footer>
 
     </div>
+    <div class="modal fade" id="GeneralModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="generalModalTitle">Modal</h4>
+                </div>
+                <div class="modal-body" id="generalModalBody">
+                </div>
+                <div class="modal-footer" id="generalModalFooter">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="js/Home.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>
