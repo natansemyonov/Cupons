@@ -38,6 +38,36 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
+        public string AuthenticateOwner(string userName, string password)
+        {
+            using (ModelContainer entities = new ModelContainer())
+            {
+                User data = entities.Users.OfType<BussinessOwner>().First(x => x.UserName == userName && x.Password == password);
+                if (data != null)
+                    return data.Id.ToString();
+                return JsonConvert.SerializeObject(false, Formatting.Indented);
+            }
+        }
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        ResponseFormat = WebMessageFormat.Json)]
+        public string AuthenticateSystemAdmin(string userName, string password)
+        {
+            using (ModelContainer entities = new ModelContainer())
+            {
+                User data = entities.Users.OfType<SystemAdmin>().First(x => x.UserName == userName && x.Password == password);
+                if (data != null)
+                    return data.Id.ToString();
+                return JsonConvert.SerializeObject(false, Formatting.Indented);
+            }
+        }
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        ResponseFormat = WebMessageFormat.Json)]
         public string BussinessOwnerRegister(string userName, string password, string email, string photo)
         {
             using (ModelContainer entities = new ModelContainer())

@@ -140,7 +140,7 @@
                     <a href="#" class="list-group-item" onclick="GetCupons(5);">Pleasure</a>
                 </div>
                 <hr>
-                <a class="btn" href="BussinessOwner.html">bussiness</a>
+                <a class="btn btn-default" onclick="$('#SocialCupon').modal('show');">Add a Cupon From Social Network</a>
             </div>
 
             <div class="col-md-9">
@@ -477,7 +477,8 @@
                     <div class="col-md-8">
                         <button class="btn btn-primary" id="editBtn" onclick="$('#ChangePassword').hide();$('#profileDetails').show();">Change Password</button>
                     </div>
-                </div><div class="form-group">
+                </div>
+                <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">
                         <button class="btn btn-primary" id="passBtn" onclick="$('#profileDetails').hide();$('#ChangePassword').show();">Change Password</button>
@@ -715,6 +716,36 @@
                 </div>
                 <div class="modal-footer" id="generalModalFooter">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="modal fade" id="SocialCupon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add New Cupon</h4>
+                    <em>Add Cupon from social networks</em>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <label class="col-md-3 control-label">Cupon Name:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" id="SocialName" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 control-label">Cupon Link:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" id="SocialLink" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" id="Div3">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="button" class="btn btn-primary" onclick="NewSocialCupon();" value="Save Changes" />
+                    
                 </div>
             </div>
         </div>

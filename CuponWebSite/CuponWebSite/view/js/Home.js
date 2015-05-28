@@ -14,6 +14,19 @@
         document.getElementById("BussinessOwner").removeAttribute("hidden");
     document.getElementById(view).removeAttribute("hidden");
 }
+
+function sysAdminLogin() {
+    $('#generalModalTitle').html('System Administrator Login');
+    var j = '<div class="row"><div class="col-md-4">Username:</div>'+
+        '<div class="col-md-8"><input id="sysUser" type="text" /></div>' +
+        '</div><div class="row"><div class="col-md-4">Password:</div>' +
+        '<div class="col-md-8"><input id="sysPass" type="password" /></div></div>';
+    $('#generalModalBody').html(j);
+    $('#generalModalFooter').html('<button type="button" class="btn btn-default" data-dismiss="modal">' +
+        'Close</button><button type="button" class="btn btn-default" data-dismiss="modal" onclick="SignInAdmin()">Login</button>');
+    $('#GeneralModal').modal('show');
+}
+
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(register);
@@ -182,5 +195,24 @@ function deleteCookie(cname) {
 };
 
 function SignInAdmin() {
-    
+    var userName = document.getElementById("sysUser").value;
+    var password = document.getElementById("sysPass").value;
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/UserServices.asmx/AuthenticateSystemAdmin",
+        data: JSON.stringify({ "userName": userName, "password": password }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.d) {
+                setCookie("user", userName, 365);
+                setCookie("pass", password, 365);
+                window.location.href = "sysAdmin.html?" + data.d;
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
 }
