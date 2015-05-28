@@ -104,14 +104,21 @@ namespace CuponWebSite.Controller
                     Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
+                    Photo = user.Photo,
                     PhoneNumber = user.PhoneNumber,
                     Location = user.Location,
                     Password = user.Password,
                     BirthDate = user.BirthDate,
                     Gender = user.Gender,
-                    Preferences = user.Preferences
+                    Preferences = user.Preferences,
+                    PurchasedCupons = user.PurchasedCupons,
+                    SocialNetworkCupons = user.SocialNetworkCupons
                 };
-                return JsonConvert.SerializeObject(bUser, Formatting.Indented);
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                return JsonConvert.SerializeObject(bUser, Formatting.Indented, settings);
             }
         }
 
@@ -140,7 +147,8 @@ namespace CuponWebSite.Controller
                     BirthDate = user.BirthDate,
                     Gender = user.Gender,
                     Preferences = user.Preferences,
-                    PurchasedCupons = user.PurchasedCupons
+                    PurchasedCupons = user.PurchasedCupons,
+                    SocialNetworkCupons = user.SocialNetworkCupons
                 };
                 JsonSerializerSettings settings = new JsonSerializerSettings
                 {

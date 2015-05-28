@@ -1,0 +1,12 @@
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\UnitTestProject1.dll
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\UnitTestProject1.pdb
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\CuponWebSite.dll
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\EntityFramework.dll
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\Newtonsoft.Json.dll
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\CuponWebSite.pdb
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\EntityFramework.xml
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\Newtonsoft.Json.xml
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\obj\Debug\WebServiceUnitTestProject.csprojResolveAssemblyReference.cache
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\obj\Debug\UnitTestProject1.dll
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\obj\Debug\UnitTestProject1.pdb
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\UnitTestProject1.dll.config

@@ -4,3 +4,9 @@ D:\CuponsRepository\Cupons\CuponWebSite\UnitTestWebCuponSystemService\bin\Debug\
 D:\CuponsRepository\Cupons\CuponWebSite\UnitTestWebCuponSystemService\obj\Debug\UnitTestWebCuponSystemService.dll
 D:\CuponsRepository\Cupons\CuponWebSite\UnitTestWebCuponSystemService\obj\Debug\UnitTestWebCuponSystemService.pdb
 D:\CuponsRepository\Cupons\CuponWebSite\UnitTestWebCuponSystemService\obj\Debug\UnitTestWebCuponSystemService.csprojResolveAssemblyReference.cache
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestWebCuponSystemService\bin\Debug\CuponWebSite.dll
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestWebCuponSystemService\bin\Debug\EntityFramework.dll
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestWebCuponSystemService\bin\Debug\Newtonsoft.Json.dll
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestWebCuponSystemService\bin\Debug\CuponWebSite.pdb
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestWebCuponSystemService\bin\Debug\EntityFramework.xml
+D:\CuponsRepository\Cupons\CuponWebSite\UnitTestWebCuponSystemService\bin\Debug\Newtonsoft.Json.xml
