@@ -1,5 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:Int64 x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=05C5A2EBC5EF4BDAA5D340FEF4EE03F5/GroupingIndex/@EntryValue">2</s:Int64>
+	
+	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=05C5A2EBC5EF4BDAA5D340FEF4EE03F5/ShowTime/@EntryValue">False</s:Boolean>
 	
 	
 	
@@ -20,7 +21,7 @@
 	
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=239FE7CE4FC84151992C649645569ACD/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=239FE7CE4FC84151992C649645569ACD/BuildPolicy/@EntryValue">WholeSolution</s:String>
-	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=239FE7CE4FC84151992C649645569ACD/Name/@EntryValue">UpdateBussiness</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=239FE7CE4FC84151992C649645569ACD/Name/@EntryValue">Session #2</s:String>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=239FE7CE4FC84151992C649645569ACD/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements /&gt;&lt;/Session&gt;</s:String>
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=3DAC84AD443D441AA843A61625D6D5DB/ShowTime/@EntryValue">False</s:Boolean>
 	
@@ -30,15 +31,14 @@
 	
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=4AB74A7A5279459CBC1AB9F867535CD7/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=4AB74A7A5279459CBC1AB9F867535CD7/BuildPolicy/@EntryValue">WholeSolution</s:String>
-	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=4AB74A7A5279459CBC1AB9F867535CD7/Name/@EntryValue">AddUser</s:String>
-	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=4AB74A7A5279459CBC1AB9F867535CD7/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements&gt;&lt;UnitTestElement Provider="MSTest" Id="MsTest:UnitTestProject.SystemAdminTests" type="MsTestTestClassElement" TypeName="UnitTestProject.SystemAdminTests" Project="74013C29-0A33-4121-8C92-BE35AFC363F9" /&gt;&lt;/Elements&gt;&lt;/Session&gt;</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=4AB74A7A5279459CBC1AB9F867535CD7/Name/@EntryValue">Session #4</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=4AB74A7A5279459CBC1AB9F867535CD7/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements /&gt;&lt;/Session&gt;</s:String>
 	
 	
 	
 	
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=5349184AD07E49F588AC307D41C0EDB5/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=5349184AD07E49F588AC307D41C0EDB5/BuildPolicy/@EntryValue">WholeSolution</s:String>
-	<s:Int64 x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=5349184AD07E49F588AC307D41C0EDB5/GroupingIndex/@EntryValue">2</s:Int64>
 	
 	
 	
@@ -53,7 +53,11 @@
 	
 	
 	
-	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=5349184AD07E49F588AC307D41C0EDB5/Name/@EntryValue">All tests from UnitTestProject</s:String>
+	
+	
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=5349184AD07E49F588AC307D41C0EDB5/Name/@EntryValue">Session #5</s:String>
+	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=5349184AD07E49F588AC307D41C0EDB5/ShowTime/@EntryValue">False</s:Boolean>
+	
 	
 	
 	
@@ -72,12 +76,12 @@
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=05C5A2EBC5EF4BDAA5D340FEF4EE03F5/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=05C5A2EBC5EF4BDAA5D340FEF4EE03F5/BuildPolicy/@EntryValue">WholeSolution</s:String>
 	
-	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=05C5A2EBC5EF4BDAA5D340FEF4EE03F5/Name/@EntryValue">All tests from UnitTestProject #2</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=05C5A2EBC5EF4BDAA5D340FEF4EE03F5/Name/@EntryValue">Session</s:String>
 	
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=05C5A2EBC5EF4BDAA5D340FEF4EE03F5/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements /&gt;&lt;/Session&gt;</s:String>
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=3DAC84AD443D441AA843A61625D6D5DB/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=3DAC84AD443D441AA843A61625D6D5DB/BuildPolicy/@EntryValue">WholeSolution</s:String>
-	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=3DAC84AD443D441AA843A61625D6D5DB/Name/@EntryValue">AddUser</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=3DAC84AD443D441AA843A61625D6D5DB/Name/@EntryValue">Session #3</s:String>
 	
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=3DAC84AD443D441AA843A61625D6D5DB/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements /&gt;&lt;/Session&gt;</s:String>
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=7C9A6A3EBC164ED89BA0D4FB6FD1CE81/@KeyIndexDefined">True</s:Boolean>
