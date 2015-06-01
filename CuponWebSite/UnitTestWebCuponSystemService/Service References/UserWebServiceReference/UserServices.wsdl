@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="AuthenticateUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticateUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticateUserResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BussinessOwnerRegister">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="photo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BussinessOwnerRegisterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BussinessOwnerRegisterResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateBasicUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="latitude" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="longtitude" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="photo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateBasicUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateBasicUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindBasicUserByName_Email">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindBasicUserByName_EmailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindBasicUserByName_EmailResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindBasicUserByID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindBasicUserByIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindBasicUserByIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindBussinessOwnerByID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindBussinessOwnerByIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindBussinessOwnerByIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangePassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="newPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangePasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChangePasswordResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateNewPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateNewPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerateNewPasswordResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddPreference">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="category" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddPreferenceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddPreferenceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BasicUserRegister">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="gender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="birthDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="longitude" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="latitude" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="photo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BasicUserRegisterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BasicUserRegisterResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AuthenticateUserSoapIn">
+    <wsdl:part name="parameters" element="tns:AuthenticateUser" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateUserSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthenticateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="BussinessOwnerRegisterSoapIn">
+    <wsdl:part name="parameters" element="tns:BussinessOwnerRegister" />
+  </wsdl:message>
+  <wsdl:message name="BussinessOwnerRegisterSoapOut">
+    <wsdl:part name="parameters" element="tns:BussinessOwnerRegisterResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateBasicUserSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateBasicUser" />
+  </wsdl:message>
+  <wsdl:message name="UpdateBasicUserSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateBasicUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="FindBasicUserByName_EmailSoapIn">
+    <wsdl:part name="parameters" element="tns:FindBasicUserByName_Email" />
+  </wsdl:message>
+  <wsdl:message name="FindBasicUserByName_EmailSoapOut">
+    <wsdl:part name="parameters" element="tns:FindBasicUserByName_EmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="FindBasicUserByIDSoapIn">
+    <wsdl:part name="parameters" element="tns:FindBasicUserByID" />
+  </wsdl:message>
+  <wsdl:message name="FindBasicUserByIDSoapOut">
+    <wsdl:part name="parameters" element="tns:FindBasicUserByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="FindBussinessOwnerByIDSoapIn">
+    <wsdl:part name="parameters" element="tns:FindBussinessOwnerByID" />
+  </wsdl:message>
+  <wsdl:message name="FindBussinessOwnerByIDSoapOut">
+    <wsdl:part name="parameters" element="tns:FindBussinessOwnerByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangePassword" />
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangePasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateNewPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerateNewPassword" />
+  </wsdl:message>
+  <wsdl:message name="GenerateNewPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerateNewPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddPreferenceSoapIn">
+    <wsdl:part name="parameters" element="tns:AddPreference" />
+  </wsdl:message>
+  <wsdl:message name="AddPreferenceSoapOut">
+    <wsdl:part name="parameters" element="tns:AddPreferenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="BasicUserRegisterSoapIn">
+    <wsdl:part name="parameters" element="tns:BasicUserRegister" />
+  </wsdl:message>
+  <wsdl:message name="BasicUserRegisterSoapOut">
+    <wsdl:part name="parameters" element="tns:BasicUserRegisterResponse" />
+  </wsdl:message>
+  <wsdl:portType name="UserServicesSoap">
+    <wsdl:operation name="AuthenticateUser">
+      <wsdl:input message="tns:AuthenticateUserSoapIn" />
+      <wsdl:output message="tns:AuthenticateUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BussinessOwnerRegister">
+      <wsdl:input message="tns:BussinessOwnerRegisterSoapIn" />
+      <wsdl:output message="tns:BussinessOwnerRegisterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBasicUser">
+      <wsdl:input message="tns:UpdateBasicUserSoapIn" />
+      <wsdl:output message="tns:UpdateBasicUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindBasicUserByName_Email">
+      <wsdl:input message="tns:FindBasicUserByName_EmailSoapIn" />
+      <wsdl:output message="tns:FindBasicUserByName_EmailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindBasicUserByID">
+      <wsdl:input message="tns:FindBasicUserByIDSoapIn" />
+      <wsdl:output message="tns:FindBasicUserByIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindBussinessOwnerByID">
+      <wsdl:input message="tns:FindBussinessOwnerByIDSoapIn" />
+      <wsdl:output message="tns:FindBussinessOwnerByIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <wsdl:input message="tns:ChangePasswordSoapIn" />
+      <wsdl:output message="tns:ChangePasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateNewPassword">
+      <wsdl:input message="tns:GenerateNewPasswordSoapIn" />
+      <wsdl:output message="tns:GenerateNewPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPreference">
+      <wsdl:input message="tns:AddPreferenceSoapIn" />
+      <wsdl:output message="tns:AddPreferenceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BasicUserRegister">
+      <wsdl:input message="tns:BasicUserRegisterSoapIn" />
+      <wsdl:output message="tns:BasicUserRegisterSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UserServicesSoap" type="tns:UserServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AuthenticateUser">
+      <soap:operation soapAction="http://tempuri.org/AuthenticateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BussinessOwnerRegister">
+      <soap:operation soapAction="http://tempuri.org/BussinessOwnerRegister" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBasicUser">
+      <soap:operation soapAction="http://tempuri.org/UpdateBasicUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBasicUserByName_Email">
+      <soap:operation soapAction="http://tempuri.org/FindBasicUserByName_Email" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBasicUserByID">
+      <soap:operation soapAction="http://tempuri.org/FindBasicUserByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBussinessOwnerByID">
+      <soap:operation soapAction="http://tempuri.org/FindBussinessOwnerByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <soap:operation soapAction="http://tempuri.org/ChangePassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateNewPassword">
+      <soap:operation soapAction="http://tempuri.org/GenerateNewPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPreference">
+      <soap:operation soapAction="http://tempuri.org/AddPreference" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BasicUserRegister">
+      <soap:operation soapAction="http://tempuri.org/BasicUserRegister" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="UserServicesSoap12" type="tns:UserServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AuthenticateUser">
+      <soap12:operation soapAction="http://tempuri.org/AuthenticateUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BussinessOwnerRegister">
+      <soap12:operation soapAction="http://tempuri.org/BussinessOwnerRegister" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBasicUser">
+      <soap12:operation soapAction="http://tempuri.org/UpdateBasicUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBasicUserByName_Email">
+      <soap12:operation soapAction="http://tempuri.org/FindBasicUserByName_Email" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBasicUserByID">
+      <soap12:operation soapAction="http://tempuri.org/FindBasicUserByID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBussinessOwnerByID">
+      <soap12:operation soapAction="http://tempuri.org/FindBussinessOwnerByID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <soap12:operation soapAction="http://tempuri.org/ChangePassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateNewPassword">
+      <soap12:operation soapAction="http://tempuri.org/GenerateNewPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPreference">
+      <soap12:operation soapAction="http://tempuri.org/AddPreference" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BasicUserRegister">
+      <soap12:operation soapAction="http://tempuri.org/BasicUserRegister" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserServices">
+    <wsdl:port name="UserServicesSoap" binding="tns:UserServicesSoap">
+      <soap:address location="http://localhost:20353/Controller/UserServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="UserServicesSoap12" binding="tns:UserServicesSoap12">
+      <soap12:address location="http://localhost:20353/Controller/UserServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

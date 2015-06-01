@@ -484,7 +484,11 @@ namespace CuponWebSite.Controller
                     BasicUser = data.BasicUser,
                     BussinessCupon = data.BussinessCupon
                 };
-                return JsonConvert.SerializeObject(purchasedCupon, Formatting.Indented);
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                return JsonConvert.SerializeObject(purchasedCupon, Formatting.Indented, settings);
             }
         }
 
@@ -552,7 +556,11 @@ namespace CuponWebSite.Controller
                     BasicUser = purchasedCupon.BasicUser,
                     BussinessCupon = purchasedCupon.BussinessCupon
                 }));
-                return JsonConvert.SerializeObject(purchasedCuponsList, Formatting.Indented);
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                return JsonConvert.SerializeObject(purchasedCuponsList, Formatting.Indented, settings);
             }
         }
 
@@ -578,7 +586,11 @@ namespace CuponWebSite.Controller
                     BasicUser = purchasedCupon.BasicUser,
                     BussinessCupon = purchasedCupon.BussinessCupon
                 }));
-                return JsonConvert.SerializeObject(purchasedCuponsList, Formatting.Indented);
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                return JsonConvert.SerializeObject(purchasedCuponsList, Formatting.Indented, settings);
             }
         }
         #endregion ------------------Purchased Cupons------------
