@@ -101,9 +101,15 @@ namespace CuponWebSite.Controller
                     ExpirationDate = cupon.ExpirationDate,
                     Approved = cupon.Approved,
                     Photo = cupon.Photo,
-                    Id = cupon.Id
+                    Id = cupon.Id,
+                    PurchasedCupons = cupon.PurchasedCupons,
+                    Bussiness = cupon.Bussiness
                 }).Where(x => x.Approved).Reverse().Take(100));
-                return JsonConvert.SerializeObject(cuponsList, Formatting.Indented);
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                return JsonConvert.SerializeObject(cuponsList, Formatting.Indented,settings);
             }
         }
 
@@ -425,6 +431,29 @@ namespace CuponWebSite.Controller
                 entities.Cupons.Add(SNCupon);
                 entities.SaveChanges();
                 return true;
+            }
+        }
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        ResponseFormat = WebMessageFormat.Json)]
+        public String GetAllUnAprrovedSocialCupons()
+        {
+            List<Cupon> cuponsList = new List<Cupon>();
+            using (ModelContainer entities = new ModelContainer())
+            {
+                var data = entities.Cupons.OfType<SocialNetworkCupon>().Where(x=>x.Approved==false).ToList();
+                if (data.Count == 0)
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
+                cuponsList.AddRange(data.Select(cupon => new SocialNetworkCupon()
+                {
+                    Name = cupon.Name,
+                    URL = cupon.URL,
+                    Approved = cupon.Approved,
+                    Id = cupon.Id
+                }).Reverse().Take(100));
+                return JsonConvert.SerializeObject(cuponsList, Formatting.Indented);
             }
         }
         #endregion --------Social Network Cupons---------------

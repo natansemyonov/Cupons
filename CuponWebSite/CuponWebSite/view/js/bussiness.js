@@ -159,6 +159,9 @@ function GetBussiness() {
         dataType: "json",
         async: false,
         success: function (data) {
+            if (data.d == "") {
+                return;
+            }
             bussinesses = JSON.parse(data.d);
             $('#WaitModal').modal('hide');
         },

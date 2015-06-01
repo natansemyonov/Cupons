@@ -27,6 +27,43 @@ function SetDashboard() {
             console.log("faliure in ajax call for - " + xhr.status);
         }
     });
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/CuponServices.asmx/GetAllUnAprrovedSocialCupons",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            var d = (JSON.parse(data.d));
+            $("#numOfSocialCupons").html(d.length);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/CuponServices.asmx/GetAllBussinessCupons",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            $("#topBody").html("");
+            var d = (JSON.parse(data.d));
+            d.sort(function(a, b) {
+                return b.PurchasedCupons.length - a.PurchasedCupons.length;
+            });
+            var cat = ["Resturants","Shopping","HealthCare","Office & Electronics","Vacations","Pleasure"];
+            for (var i = 0; i < d.length; i++) {
+                var j = "<tr><td>" + d[i].PurchasedCupons.length + "</td><td>" + d[i].Name + "</td><td>" + d[i].Bussiness.Name +
+                    "</td><td>" + cat[d[i].Category] + "</td><td>" + d[i].Price + "</td></tr>";
+                document.getElementById("topBody").innerHTML+=j;
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
 }
 
 SetDashboard();
@@ -90,6 +127,7 @@ function ApproveCupons() {
         }
     });
 }
+
 function ShowCupons(cuponList) {
     document.getElementById("CuponsDiv").innerHTML = "";
     for (var i = 0; i < cuponList.length; i++) {
@@ -146,7 +184,7 @@ function ApproveCupon(id) {
     $.ajax({
         type: "POST",
         url: "http://localhost:20353/Controller/CuponServices.asmx/ApproveCupon",
-        data: "{'cuponId':'" + id + "'}",
+        data: "{'cuponId':'" + id +"','adminId':'"+window.location.search.substring(1)+"'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
@@ -264,7 +302,7 @@ function ApproveBussiness(id) {
             $('#generalModalBody').html('Bussiness Approved!');
             $('#GeneralModal').modal('show');
             $('#AddBussinessbutton').remove();
-            $('#generalModalCloseButton').click(function() {
+            $('#generalModalCloseButton').click(function () {
                 $('#GeneralModal').modal('hide');
                 ApproveBussinesses();
             });
@@ -276,3 +314,74 @@ function ApproveBussiness(id) {
 
     });
 }
+
+function ApproveSocialCupons() {
+    SetView("CuponsDiv");
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/CuponServices.asmx/GetAllUnAprrovedSocialCupons",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            ShowSocialCupons(JSON.parse(data.d));
+            $('#WaitModal').modal('hide');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
+}
+function ShowSocialCupons(cuponList) {
+    document.getElementById("CuponsDiv").innerHTML = "";
+    for (var i = 0; i < cuponList.length; i++) {
+        var j = '<div class="col-sm-4 col-lg-4 col-md-4"> <div class="thumbnail"> <img src="images/Coupon.png" alt="">' +
+            ' <h4 ><a href="#" onclick="ShowAddCuponModal(\'' + cuponList[i].Name + '\')">' + cuponList[i].Name +
+            '</a> </h4> <p><a href="http://' + cuponList[i].URL + '" target="_blank">' + cuponList[i].URL + '</a></p>' +
+            '</div> <div class="ratings"> <p class="pull-right"></p></div> </div> </div>';
+        document.getElementById("CuponsDiv").innerHTML += j;
+    }
+}
+
+function ShowAddCuponModal(name) {
+
+    $("#NewCuponName").val(name);
+    $("#AddCuponModal").modal('show');
+}
+
+function AddCuponModal(id) {
+    var cupon = new Object();
+    cupon.name = $('#NewCuponName').val();
+    cupon.description = $('#NewCuponDescription').val();
+    cupon.originalPrice = $('#NewCuponOriginalPrice').val();
+    cupon.price = $('#NewCuponPrice').val();
+    cupon.expirationDate = $('#NewCuponDate').val();
+    cupon.category = $('#NewCuponCategory').val();
+    cupon.longitude = -0.1276250;
+    cupon.latitude = 51.5033630;
+    cupon.bussinessId = $('#bussinessIdHidden').val();
+    cupon.photo = "images/Coupon.png";
+    //$('#WaitModal').modal('show');
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/CuponServices.asmx/AddBussinessCupon",
+        data: JSON.stringify(cupon),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+
+            $('#AddCuponModal').modal('hide');
+            $('#WaitModal').modal('hide');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+
+        }
+
+    });
+}
+
+$(".dropdown-menu li a").click(function () {
+    var selText = $(this).text();
+    $(this).parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+});

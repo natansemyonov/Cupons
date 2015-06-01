@@ -15,6 +15,7 @@ namespace CuponWebSite
     public partial class SocialNetworkCupon : Cupon
     {
         public string URL { get; set; }
+        public bool Approved { get; set; }
     
         public virtual User User { get; set; }
     }

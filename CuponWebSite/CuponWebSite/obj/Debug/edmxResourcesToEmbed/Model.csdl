@@ -70,6 +70,7 @@
   <EntityType Name="SocialNetworkCupon" BaseType="Model.Cupon">
     <Property Type="String" Name="URL" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="User" Relationship="Model.UserSocialNetworkCupon" FromRole="SocialNetworkCupon" ToRole="User" />
+    <Property Type="Boolean" Name="Approved" Nullable="false" />
   </EntityType>
   <EntityType Name="BussinessCupon" BaseType="Model.Cupon">
     <NavigationProperty Name="Bussiness" Relationship="Model.BussinessBussinessCupon" FromRole="BussinessCupon" ToRole="Bussiness" />
