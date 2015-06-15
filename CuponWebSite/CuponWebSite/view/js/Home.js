@@ -155,7 +155,7 @@ function loginBO() {
     var password = document.getElementById("login-password").value;
     $.ajax({
         type: "POST",
-        url: "http://localhost:20353/Controller/UserServices.asmx/AuthenticateUser",
+        url: "http://localhost:20353/Controller/UserServices.asmx/AuthenticateOwner",
         data: JSON.stringify({ "userName": userName, "password": password }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

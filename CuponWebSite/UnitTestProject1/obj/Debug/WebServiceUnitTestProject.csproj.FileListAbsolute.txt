@@ -10,3 +10,15 @@ D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\obj\Debug\WebServiceUni
 D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\obj\Debug\UnitTestProject1.dll
 D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\obj\Debug\UnitTestProject1.pdb
 D:\CuponsRepository\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\UnitTestProject1.dll.config
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\UnitTestProject1.dll.config
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\UnitTestProject1.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\UnitTestProject1.pdb
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\CuponWebSite.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\EntityFramework.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\CuponWebSite.pdb
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject1\bin\Debug\EntityFramework.xml
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject1\obj\Debug\WebServiceUnitTestProject.csprojResolveAssemblyReference.cache
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject1\obj\Debug\UnitTestProject1.dll
+C:\Users\Ido\Documents\Cupons\CuponWebSite\UnitTestProject1\obj\Debug\UnitTestProject1.pdb

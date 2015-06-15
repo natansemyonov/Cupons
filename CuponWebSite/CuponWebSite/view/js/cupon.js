@@ -6,7 +6,7 @@ function SearchByLocation(coords, radius) {
     $.ajax({
         type: "POST",
         url: "http://localhost:20353/Controller/CuponServices.asmx/FindCuponByLocation",
-        data: JSON.stringify({ "latitude":coords.latitude,"longtitude":coords.longitude }),
+        data: JSON.stringify({ "latitude": 31.00000, "longtitude": 34.0000, "distance": $("#radius").val()+5 }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
