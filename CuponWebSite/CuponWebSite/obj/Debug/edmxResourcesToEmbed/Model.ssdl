@@ -5,6 +5,7 @@
     <EntitySet Name="Cupons" EntityType="Model.Store.Cupons" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Cupons_BussinessCupon" EntityType="Model.Store.Cupons_BussinessCupon" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Cupons_SocialNetworkCupon" EntityType="Model.Store.Cupons_SocialNetworkCupon" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Log" EntityType="Model.Store.Log" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Preferences" EntityType="Model.Store.Preferences" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PurchasedCupons" EntityType="Model.Store.PurchasedCupons" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="Model.Store.Users" store:Type="Tables" Schema="dbo" />
@@ -103,6 +104,15 @@
     <Property Name="User_Id" Type="int" Nullable="false" />
     <Property Name="Approved" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Timestamp" Type="datetime" />
+    <Property Name="Type" Type="int" />
+    <Property Name="Data" Type="nvarchar(max)" />
+  </EntityType>
   <EntityType Name="Preferences">
     <Key>
       <PropertyRef Name="Id" />
@@ -136,6 +146,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Alerts" Type="int" Nullable="false" />
     <Property Name="Gender" Type="int" Nullable="false" />
     <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
     <Property Name="BirthDate" Type="datetime" Nullable="false" />

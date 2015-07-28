@@ -1,24 +1,86 @@
 var category;
 GetAllCupons();
+navigator.geolocation.getCurrentPosition(RecommendedCupons);
 
-function SearchByLocation(coords, radius) {
-    $('#WaitModal').modal('show');
+function Search() {
+    var lat = $("#SearchlocationLat").val();
+    var lan = $("#SearchlocationLon").val();
+    var radius = $("#Searchradius").val();
+    var text = $("#SearchText").val();
+    var category = $("#CategorySelector option:selected");
+    var categoryCupons = [];
+    var locationCupons = SearchByLocation(lat, lan, radius);
+    var textCupons = [];
+    if (category.length > 0) {
+        var c = [];
+        for (var i = 0; i < category.length; i++) {
+            c.push(category[i].value);
+        }
+        if (c.indexOf("6")>-1) {
+            c = ["0", "1", "2", "3", "4", "5"];
+        }
+        categoryCupons = SearchByCategory(c);
+    }
+    if (text.length > 0) {
+        
+    }
+    var cupons = arrayUnique(categoryCupons.concat(locationCupons));
+    ShowCupons(cupons);
+}
+
+function arrayUnique(array) {
+    var a = array.concat();
+    for (var i = 0; i < a.length; ++i) {
+        for (var j = i + 1; j < a.length; ++j) {
+            if (a[i] === a[j])
+                a.splice(j--, 1);
+        }
+    }
+
+    return a;
+};
+
+function SearchByLocation(lat, lon, radius) {
     $.ajax({
         type: "POST",
-        url: "http://localhost:20353/Controller/CuponServices.asmx/FindCuponByLocation",
-        data: JSON.stringify({ "latitude": 31.00000, "longtitude": 34.0000, "distance": $("#radius").val()+5 }),
+        url: "http://localhost:20353/Controller/CuponServices.asmx/FindCuponsByLocation",
+        data: JSON.stringify({ "latitude": lat, "longtitude": lon, "distance": radius }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        async: false,
         success: function (data) {
-            ShowCupons(JSON.parse(data.d));
-            $('#WaitModal').modal('hide');
+            if (JSON.parse(data.d))
+                return (JSON.parse(data.d));
+            return [];
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log("faliure in ajax call for - " + xhr.status);
-
+            return [];
         }
-
     });
+}
+
+function SearchByCategory(catIds) {
+    var j = [];
+    for (var i = 0; i < catIds.length; i++) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:20353/Controller/CuponServices.asmx/FindCuponByPreference",
+            data: JSON.stringify({ "ctegory": catIds[i] }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (JSON.parse(data.d))
+                j = arrayUnique(j.concat(JSON.parse(data.d)));
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log("faliure in ajax call for - " + xhr.status);
+            }
+
+        });
+    }
+    return j;
 }
 function GetAllCupons() {
     $('#WaitModal').modal('show');
@@ -62,9 +124,12 @@ function GetCupons(catId) {
 function ShowCupons(cuponList) {
     document.getElementById("cupons_div").innerHTML = "";
     for (var i = 0; i < cuponList.length; i++) {
-        var j = '<div class="col-sm-4 col-lg-4 col-md-4" onclick="ShowCuponModal(' + cuponList[i].Id +
+        var name = cuponList[i].Name;
+        if (cuponList[i].Name.length > 15)
+            name = cuponList[i].Name.substring(0, 12) + "...";
+        var j = '<div class="col-sm-3 col-lg-3 col-md-3" onclick="ShowCuponModal(' + cuponList[i].Id +
             ')"> <div class="thumbnail"> <img src="images/Coupon.png" alt=""> <div class="caption">' +
-            '<h4 class="pull-right">'+cuponList[i].Price+'</h4> <h4><a href="#">' + cuponList[i].Name + 
+            '<h4 class="pull-right">'+cuponList[i].Price+'</h4> <h4><a href="#">' + name + 
             '</a> </h4> <p>'+cuponList[i].Description + '</p>' +
             '</div> <div class="ratings"> <p class="pull-right"></p> '+stars(cuponList[i].Rate)+'</div> </div> </div>';
         document.getElementById("cupons_div").innerHTML += j;
@@ -180,11 +245,12 @@ function showPosition(position) {
 
 function showdPosition(position) {
     var myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    $("#SearchlocationLat").val(position.coords.latitude);
+    $("#SearchlocationLon").val(position.coords.longitude);
     var mapOptions = {
         zoom: 14,
         center: myLatlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
-
     }
     mapholder = document.getElementById('mapCanvas');
     mapholder.style.height = '400px';
@@ -201,7 +267,7 @@ function showdPosition(position) {
     geocoder.geocode({ 'latLng': marker.position }, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             if (results[0]) {
-                document.getElementById("location").value = results[0].formatted_address;
+                document.getElementById("Searchlocation").value = results[0].formatted_address;
             }
         }
     });
@@ -209,7 +275,7 @@ function showdPosition(position) {
         geocoder.geocode({ 'latLng': marker.position }, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[0]) {
-                    document.getElementById("location").value = results[0].formatted_address;
+                    document.getElementById("Searchlocation").value = results[0].formatted_address;
                 }
             }
         });
@@ -243,4 +309,56 @@ function NewSocialCupon() {
         }
 
     });
+}
+
+function RecommendedCupons(position) {
+    var o = new Object();
+    o.type = parseInt($("#radioBtn .active")[0].id.substring(6));
+    if (o.type == 1) {
+        o.data = "{\"Longtitude\":" + position.coords.longitude + ",\"Latitude\":" + position.coords.latitude + "}";
+    } else if (o.type == 2) {
+        o.data = window.location.search.substring(1);
+    } else if (o.type == 3) {
+        o.data = new Object();
+        o.data.id = window.location.search.substring(1);
+        o.data.loc = new Object();
+        o.data.loc.Longtitude = position.coords.longitude;
+        o.data.loc.Latitude = position.coords.latitude;
+        o.data = JSON.stringify(o.data);
+    } else {
+        return;
+    }
+   
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/CuponServices.asmx/GetRecommendation",
+        data: JSON.stringify(o),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data.d == "")
+                return; 
+            ShowRecommendedCupons(JSON.parse(data.d));
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+
+        }
+
+    });
+}
+
+function ShowRecommendedCupons(cuponList) {
+    document.getElementById("Reccupons_div").innerHTML = "<h2>Reccomended Cupons</h2>";
+    for (var i = 0; i < cuponList.length; i++) {
+        var name = cuponList[i].Name;
+        if (cuponList[i].Name.length > 15)
+            name = cuponList[i].Name.substring(0, 12) + "...";
+        var j = '<div class="col-sm-3 col-lg-3 col-md-3" onclick="ShowCuponModal(' + cuponList[i].Id +
+            ')"> <div class="thumbnail"> <img src="images/Coupon.png" alt=""> <div class="caption">' +
+            '<h4 class="pull-right">' + cuponList[i].Price + '</h4> <h4><a href="#">' + name +
+            '</a> </h4> <p>' + cuponList[i].Description + '</p>' +
+            '</div> <div class="ratings"> <p class="pull-right"></p> ' + stars(cuponList[i].Rate) + '</div> </div> </div>';
+        document.getElementById("Reccupons_div").innerHTML += j;
+    }
 }

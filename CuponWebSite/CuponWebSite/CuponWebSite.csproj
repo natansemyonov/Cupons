@@ -136,6 +136,10 @@
       <DependentUpon>CuponServices.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controller\IRecommendation.cs" />
+    <Compile Include="Controller\LocationRecommender.cs" />
+    <Compile Include="Controller\Logger.cs" />
+    <Compile Include="Controller\PreferencesRecommender.cs" />
     <Compile Include="Controller\UserServices.asmx.cs">
       <DependentUpon>UserServices.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -154,6 +158,12 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Location.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Log.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogType.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model.Context.cs">
@@ -179,6 +189,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Rate.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RecommendationType.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="SocialNetworkCupon.cs">

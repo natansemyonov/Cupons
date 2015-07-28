@@ -30,6 +30,7 @@
       <End Role="User" EntitySet="Users" />
       <End Role="SocialNetworkCupon" EntitySet="Cupons" />
     </AssociationSet>
+    <EntitySet Name="Logs" EntityType="Model.Log" />
   </EntityContainer>
   <ComplexType Name="Location">
     <Property Type="Double" Name="Longtitude" Nullable="false" />
@@ -103,6 +104,7 @@
     <Property Name="Location" Type="Model.Location" Nullable="false" />
     <NavigationProperty Name="Preferences" Relationship="Model.BasicUserPreference" FromRole="BasicUser" ToRole="Preference" />
     <NavigationProperty Name="PurchasedCupons" Relationship="Model.BasicUserPurchasedCupon" FromRole="BasicUser" ToRole="PurchasedCupon" />
+    <Property Type="Model.RecommendationType" Name="Alerts" Nullable="false" />
   </EntityType>
   <EntityType Name="BussinessOwner" BaseType="Model.User">
     <NavigationProperty Name="Bussinesses" Relationship="Model.BussinessOwnerBussiness" FromRole="BussinessOwner" ToRole="Bussiness" />
@@ -165,4 +167,25 @@
     <End Type="Model.User" Role="User" Multiplicity="1" />
     <End Type="Model.SocialNetworkCupon" Role="SocialNetworkCupon" Multiplicity="*" />
   </Association>
+  <EnumType Name="RecommendationType">
+    <Member Name="Off" />
+    <Member Name="Location" />
+    <Member Name="Preference" />
+    <Member Name="Combined" />
+  </EnumType>
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="DateTime" Name="Timestamp" Precision="3" />
+    <Property Type="String" Name="Data" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Model.LogType" Name="Type" />
+  </EntityType>
+  <EnumType Name="LogType">
+    <Member Name="Info" />
+    <Member Name="Error" />
+    <Member Name="Debug" />
+    <Member Name="Trace" />
+  </EnumType>
 </Schema>

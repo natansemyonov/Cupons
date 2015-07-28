@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 05/25/2015 13:10:53
+-- Date Created: 06/20/2015 18:40:16
 -- Generated from EDMX file: C:\Users\Ido\Documents\Cupons\CuponWebSite\CuponWebSite\Model.edmx
 -- --------------------------------------------------
 
@@ -177,6 +177,7 @@ GO
 -- Creating table 'Cupons_SocialNetworkCupon'
 CREATE TABLE [dbo].[Cupons_SocialNetworkCupon] (
     [URL] nvarchar(max)  NOT NULL,
+    [Approved] bit  NOT NULL,
     [Id] int  NOT NULL,
     [User_Id] int  NOT NULL
 );
@@ -185,6 +186,13 @@ GO
 -- Creating table 'Users_SystemAdmin'
 CREATE TABLE [dbo].[Users_SystemAdmin] (
     [Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'BussinessCuponPreference'
+CREATE TABLE [dbo].[BussinessCuponPreference] (
+    [BussinessCupon_Id] int  NOT NULL,
+    [Preferences_Id] int  NOT NULL
 );
 GO
 
@@ -250,6 +258,12 @@ GO
 ALTER TABLE [dbo].[Users_SystemAdmin]
 ADD CONSTRAINT [PK_Users_SystemAdmin]
     PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [BussinessCupon_Id], [Preferences_Id] in table 'BussinessCuponPreference'
+ALTER TABLE [dbo].[BussinessCuponPreference]
+ADD CONSTRAINT [PK_BussinessCuponPreference]
+    PRIMARY KEY NONCLUSTERED ([BussinessCupon_Id], [Preferences_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -338,6 +352,29 @@ ADD CONSTRAINT [FK_UserSocialNetworkCupon]
 CREATE INDEX [IX_FK_UserSocialNetworkCupon]
 ON [dbo].[Cupons_SocialNetworkCupon]
     ([User_Id]);
+GO
+
+-- Creating foreign key on [BussinessCupon_Id] in table 'BussinessCuponPreference'
+ALTER TABLE [dbo].[BussinessCuponPreference]
+ADD CONSTRAINT [FK_BussinessCuponPreference_BussinessCupon]
+    FOREIGN KEY ([BussinessCupon_Id])
+    REFERENCES [dbo].[Cupons_BussinessCupon]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Preferences_Id] in table 'BussinessCuponPreference'
+ALTER TABLE [dbo].[BussinessCuponPreference]
+ADD CONSTRAINT [FK_BussinessCuponPreference_Preference]
+    FOREIGN KEY ([Preferences_Id])
+    REFERENCES [dbo].[Preferences]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_BussinessCuponPreference_Preference'
+CREATE INDEX [IX_FK_BussinessCuponPreference_Preference]
+ON [dbo].[BussinessCuponPreference]
+    ([Preferences_Id]);
 GO
 
 -- Creating foreign key on [Id] in table 'Users_BussinessOwner'

@@ -10,6 +10,7 @@
           <EntitySet Name="Cupons" EntityType="Model.Store.Cupons" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Cupons_BussinessCupon" EntityType="Model.Store.Cupons_BussinessCupon" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Cupons_SocialNetworkCupon" EntityType="Model.Store.Cupons_SocialNetworkCupon" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Log" EntityType="Model.Store.Log" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Preferences" EntityType="Model.Store.Preferences" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PurchasedCupons" EntityType="Model.Store.PurchasedCupons" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="Model.Store.Users" store:Type="Tables" Schema="dbo" />
@@ -108,6 +109,15 @@
           <Property Name="User_Id" Type="int" Nullable="false" />
           <Property Name="Approved" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Timestamp" Type="datetime" />
+          <Property Name="Type" Type="int" />
+          <Property Name="Data" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Preferences">
           <Key>
             <PropertyRef Name="Id" />
@@ -141,6 +151,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Alerts" Type="int" Nullable="false" />
           <Property Name="Gender" Type="int" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
           <Property Name="BirthDate" Type="datetime" Nullable="false" />
@@ -336,6 +347,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="SocialNetworkCupon" EntitySet="Cupons" />
           </AssociationSet>
+          <EntitySet Name="Logs" EntityType="Model.Log" />
         </EntityContainer>
         <ComplexType Name="Location" >
           <Property Type="Double" Name="Longtitude" Nullable="false" />
@@ -409,6 +421,7 @@
           <Property Name="Location" Type="Model.Location" Nullable="false" />
           <NavigationProperty Name="Preferences" Relationship="Model.BasicUserPreference" FromRole="BasicUser" ToRole="Preference" />
           <NavigationProperty Name="PurchasedCupons" Relationship="Model.BasicUserPurchasedCupon" FromRole="BasicUser" ToRole="PurchasedCupon" />
+          <Property Type="Model.RecommendationType" Name="Alerts" Nullable="false" />
         </EntityType>
         <EntityType Name="BussinessOwner" BaseType="Model.User">
           <NavigationProperty Name="Bussinesses" Relationship="Model.BussinessOwnerBussiness" FromRole="BussinessOwner" ToRole="Bussiness" />
@@ -472,12 +485,33 @@
           <End Type="Model.User" Role="User" Multiplicity="1" />
           <End Type="Model.SocialNetworkCupon" Role="SocialNetworkCupon" Multiplicity="*" />
         </Association>
+        <EnumType Name="RecommendationType">
+          <Member Name="Off" />
+          <Member Name="Location" />
+          <Member Name="Preference" />
+          <Member Name="Combined" />
+        </EnumType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Timestamp" Precision="3" />
+          <Property Type="String" Name="Data" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Model.LogType" Name="Type" />
+        </EntityType>
+        <EnumType Name="LogType">
+          <Member Name="Info" />
+          <Member Name="Error" />
+          <Member Name="Debug" />
+          <Member Name="Trace" />
+        </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+  <EntityContainerMapping CdmEntityContainer="ModelContainer" StorageEntityContainer="ModelStoreContainer">
     <EntitySetMapping Name="Cupons">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Cupon)">
         <MappingFragment StoreEntitySet="Cupons">
@@ -527,7 +561,8 @@
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(Model.BasicUser)">
         <MappingFragment StoreEntitySet="Users_BasicUser">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Alerts" ColumnName="Alerts" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Gender" ColumnName="Gender" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
           <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
@@ -625,6 +660,16 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="Model.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

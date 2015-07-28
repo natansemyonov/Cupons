@@ -1,4 +1,6 @@
-﻿function SetView(view) {
+﻿navigator.geolocation.getCurrentPosition(setPosition);
+var pos = new Object();
+function SetView(view) {
     document.getElementById("signupbox").setAttribute("hidden", true);
     document.getElementById("loginbox").setAttribute("hidden", true);
     document.getElementById("about").setAttribute("hidden", true);
@@ -78,7 +80,7 @@ function login() {
     $.ajax({
         type: "POST",
         url: "http://localhost:20353/Controller/UserServices.asmx/AuthenticateUser",
-        data: JSON.stringify({ "userName": userName, "password": password }),
+        data: JSON.stringify({ "userName": userName, "password": password, "latitude": pos.latitude, "longitude": pos.longitude }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: false,
@@ -151,8 +153,8 @@ function registerBO() {
 }
 
 function loginBO() {
-    var userName = document.getElementById("login-username").value;
-    var password = document.getElementById("login-password").value;
+    var userName = document.getElementById("bUsername").value;
+    var password = document.getElementById("bPassword").value;
     $.ajax({
         type: "POST",
         url: "http://localhost:20353/Controller/UserServices.asmx/AuthenticateOwner",
@@ -215,4 +217,8 @@ function SignInAdmin() {
             console.log("faliure in ajax call for - " + xhr.status);
         }
     });
+}
+
+function setPosition(position) {
+    pos = position.coords;
 }

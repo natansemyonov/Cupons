@@ -19,17 +19,25 @@ namespace CuponWebSite.Controller
     [System.Web.Script.Services.ScriptService]
     public class UserServices : System.Web.Services.WebService
     {
+        #region Authentications
         [WebMethod]
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public string AuthenticateUser(string userName, string password)
+        public string AuthenticateUser(string userName, string password, double latitude, double longitude)
         {
             using (ModelContainer entities = new ModelContainer())
             {
-                User data = entities.Users.Where(x => x.UserName == userName && x.Password == password).First();
+                BasicUser data = entities.Users.OfType<BasicUser>().First(x => x.UserName == userName && x.Password == password);
                 if (data != null)
+                {
+                    data.Location.Latitude = latitude;
+                    data.Location.Longtitude = longitude;
+                    entities.SaveChanges();
+                    Logger.GetInstance.Log(LogType.Trace, "User " + data.Id + " Authenticated");
                     return data.Id.ToString();
+                }
+                Logger.GetInstance.Log(LogType.Trace, "User authentication failed for " + userName + " with " + password);
                 return JsonConvert.SerializeObject(false, Formatting.Indented);
             }
         }
@@ -44,7 +52,12 @@ namespace CuponWebSite.Controller
             {
                 User data = entities.Users.OfType<BussinessOwner>().First(x => x.UserName == userName && x.Password == password);
                 if (data != null)
+                {
+                    Logger.GetInstance.Log(LogType.Trace, "Owner " + data.Id + " Authenticated");
                     return data.Id.ToString();
+                }
+                Logger.GetInstance.Log(LogType.Trace,
+                    "Owner authentication for " + userName + " with " + password + " failed");
                 return JsonConvert.SerializeObject(false, Formatting.Indented);
             }
         }
@@ -59,11 +72,18 @@ namespace CuponWebSite.Controller
             {
                 User data = entities.Users.OfType<SystemAdmin>().First(x => x.UserName == userName && x.Password == password);
                 if (data != null)
+                {
+                    Logger.GetInstance.Log(LogType.Trace, "Administrator " + data.Id + " Authenticated");
                     return data.Id.ToString();
+                }
+                Logger.GetInstance.Log(LogType.Trace,
+                    "Administrator authentication for " + userName + " with " + password + " failed");
                 return JsonConvert.SerializeObject(false, Formatting.Indented);
             }
         }
+        #endregion
 
+        #region Registraions
         [WebMethod]
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
@@ -75,18 +95,63 @@ namespace CuponWebSite.Controller
                 var data = entities.Users.OfType<BussinessOwner>().Where(x => x.UserName == userName).ToList();
                 if (data.Count != 0)
                     return JsonConvert.SerializeObject(false, Formatting.Indented);
-                BussinessOwner user = new BussinessOwner
+                try
+                {
+                    BussinessOwner user = new BussinessOwner
+                    {
+                        UserName = userName,
+                        Password = password,
+                        Email = email,
+                        Photo = photo
+                    };
+                    entities.Users.Add(user);
+                    entities.SaveChanges();
+                    Logger.GetInstance.Log(LogType.Trace, "User " + user.Id + " successfuly registered");
+                    return user.Id.ToString();
+                }
+                catch (Exception ex)
+                {
+                    Logger.GetInstance.Log(LogType.Trace, "User registration failed due to: " + ex.Message);
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
+                }
+            }
+        }
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        ResponseFormat = WebMessageFormat.Json)]
+        public string BasicUserRegister(string userName, string password, string email, string gender,
+            string phoneNumber, string birthDate, string longitude, string latitude, string photo)
+        {
+            using (ModelContainer entities = new ModelContainer())
+            {
+                Location location = new Location
+                {
+                    Latitude = double.Parse(latitude),
+                    Longtitude = double.Parse(longitude)
+                };
+                var data = entities.Users.OfType<BasicUser>().Where(x => x.UserName == userName).ToList();
+                if (data.Count != 0)
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
+                BasicUser basicUser = new BasicUser
                 {
                     UserName = userName,
                     Password = password,
                     Email = email,
+                    Gender = (Gender)int.Parse(gender),
+                    PhoneNumber = phoneNumber,
+                    BirthDate = DateTime.Parse(birthDate),
+                    Location = location,
                     Photo = photo
                 };
-                entities.Users.Add(user);
+                entities.Users.Add(basicUser);
                 entities.SaveChanges();
-                return user.Id.ToString();
+                return basicUser.Id.ToString();
             }
         }
+        #endregion
+       
 
         [WebMethod]
         [WebInvoke(Method = "POST",
@@ -119,6 +184,25 @@ namespace CuponWebSite.Controller
 
         [WebMethod]
         [WebInvoke(Method = "POST",
+            BodyStyle = WebMessageBodyStyle.Wrapped,
+            ResponseFormat = WebMessageFormat.Json)]
+        public string UpdateAlertMode(int id, int mode)
+        {
+            using (ModelContainer entities = new ModelContainer())
+            {
+                BasicUser data = entities.Users.OfType<BasicUser>().First(x => x.Id == id);
+                if (data != null)
+                {
+                    data.Alerts = (RecommendationType) mode;
+                    entities.SaveChanges();
+                    return data.Id.ToString();
+                }
+                return JsonConvert.SerializeObject(false, Formatting.Indented);
+            }
+        }
+
+        [WebMethod]
+        [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
         public string FindBasicUserByName_Email(string userName, string email)
@@ -142,7 +226,8 @@ namespace CuponWebSite.Controller
                     Gender = user.Gender,
                     Preferences = user.Preferences,
                     PurchasedCupons = user.PurchasedCupons,
-                    SocialNetworkCupons = user.SocialNetworkCupons
+                    SocialNetworkCupons = user.SocialNetworkCupons,
+                    Alerts = user.Alerts
                 };
                 JsonSerializerSettings settings = new JsonSerializerSettings
                 {
@@ -178,7 +263,8 @@ namespace CuponWebSite.Controller
                     Gender = user.Gender,
                     Preferences = user.Preferences,
                     PurchasedCupons = user.PurchasedCupons,
-                    SocialNetworkCupons = user.SocialNetworkCupons
+                    SocialNetworkCupons = user.SocialNetworkCupons,
+                    Alerts = user.Alerts
                 };
                 JsonSerializerSettings settings = new JsonSerializerSettings
                 {
@@ -289,35 +375,15 @@ namespace CuponWebSite.Controller
 
         [WebMethod]
         [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        ResponseFormat = WebMessageFormat.Json)]
-        public string BasicUserRegister(string userName, string password, string email, string gender,
-            string phoneNumber, string birthDate, string longitude, string latitude, string photo)
+            BodyStyle = WebMessageBodyStyle.Wrapped,
+            ResponseFormat = WebMessageFormat.Json)]
+        public string GetLoggingHistory(string adminId)
         {
+            int p_UserID = int.Parse(adminId);
             using (ModelContainer entities = new ModelContainer())
             {
-                Location location = new Location
-                {
-                    Latitude = double.Parse(latitude),
-                    Longtitude = double.Parse(longitude)
-                };
-                var data = entities.Users.OfType<BasicUser>().Where(x => x.UserName == userName).ToList();
-                if (data.Count != 0)
-                    return JsonConvert.SerializeObject(false, Formatting.Indented);
-                BasicUser basicUser = new BasicUser
-                {
-                    UserName = userName,
-                    Password = password,
-                    Email = email,
-                    Gender = (Gender)int.Parse(gender),
-                    PhoneNumber = phoneNumber,
-                    BirthDate = DateTime.Parse(birthDate),
-                    Location = location,
-                    Photo = photo
-                };
-                entities.Users.Add(basicUser);
-                entities.SaveChanges();
-                return basicUser.Id.ToString();
+                var data = entities.Logs.Where(x=>x.Type == LogType.Info).ToList();
+                return JsonConvert.SerializeObject(data, Formatting.Indented);
             }
         }
     }

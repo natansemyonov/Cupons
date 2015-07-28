@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+  <EntityContainerMapping CdmEntityContainer="ModelContainer" StorageEntityContainer="ModelStoreContainer">
     <EntitySetMapping Name="Cupons">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Cupon)">
         <MappingFragment StoreEntitySet="Cupons">
@@ -50,6 +50,7 @@
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(Model.BasicUser)">
         <MappingFragment StoreEntitySet="Users_BasicUser">
+          <ScalarProperty Name="Alerts" ColumnName="Alerts" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Gender" ColumnName="Gender" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
@@ -148,5 +149,15 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="Model.Log">
+        <MappingFragment StoreEntitySet="Log">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

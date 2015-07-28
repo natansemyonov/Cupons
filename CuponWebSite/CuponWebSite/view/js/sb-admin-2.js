@@ -64,6 +64,22 @@ function SetDashboard() {
             console.log("faliure in ajax call for - " + xhr.status);
         }
     });
+    
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/UserServices.asmx/GetLoggingHistory",
+        data: JSON.stringify({ "adminId": window.location.search.substring(1) }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            var d = (JSON.parse(data.d));
+            CreateEventLog(d);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
 }
 
 SetDashboard();
@@ -385,3 +401,43 @@ $(".dropdown-menu li a").click(function () {
     var selText = $(this).text();
     $(this).parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
 });
+
+function CreateEventLog(log) {
+    var logEventList = "";
+    for (var i = 0; i < log.length && i<15; i++) {
+        var now = new Date();
+        var time = new Date(log[0].Timestamp.replace("T"," "));
+        var elapsed = now.getTime() - time.getTime();
+        var timelapse;
+        if (elapsed < 1000 * 60) {//seconds
+            timelapse = Math.floor(elapsed / (1000)) + " seconds ago";
+        }
+        else if (elapsed < 1000 * 60 * 60) {//minutes
+            timelapse = Math.floor(elapsed / (1000 * 60)) + " minutes ago";
+        }
+        else if (now.getDate() == time.getDate() && now.getMonth() == time.getMonth()) {//today
+            timelapse = Math.floor(elapsed / (1000 * 60 * 60)) + " hours ago";
+        }
+        else if (time.getDate() + 1 == now.getDate() && now.getMonth() == time.getMonth()) {
+            timelapse = "Yesterday";
+        }
+        else {
+            timelapse = time.getDate() + "/" + time.getMonth() + "/" + time.getFullYear() +
+                " " + time.getHours() + ":" + time.getMinutes();
+        }
+        var title;
+        if (log[0].Data.length > 15)
+            title = log[0].Data.substring(0, 12) + "...";
+        else {
+            title = log[0].Data;
+        }
+        var icon = "glyphicon glyphicon-envelope";
+        if (log[0].Data.indexOf("approve")!=-1) {
+            icon = "glyphicon glyphicon-ok";
+        }
+        logEventList += '<a title="'+log[0].Data+'" class="list-group-item"><i class="'+icon+'"></i>' +title+
+        '<span class="pull-right text-muted small"><em>' + timelapse + '</em></span></a>';
+       
+    }
+    $("#EventLog").html(logEventList);
+}

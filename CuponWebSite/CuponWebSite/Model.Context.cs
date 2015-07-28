@@ -30,5 +30,6 @@ namespace CuponWebSite
         public DbSet<Bussiness> Bussinesses { get; set; }
         public DbSet<Preference> Preferences { get; set; }
         public DbSet<PurchasedCupon> PurchasedCupons { get; set; }
+        public DbSet<Log> Logs { get; set; }
     }
 }

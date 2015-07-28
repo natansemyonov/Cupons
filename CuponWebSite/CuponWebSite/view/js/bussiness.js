@@ -1,6 +1,7 @@
 ﻿var bussinesses = [];
 var bussinessCupons = [];
 var ownerID;
+var loc;
 main();
 function main() {
     ownerID = window.location.search.substring(1);
@@ -41,6 +42,7 @@ function GetBussinessDetails(name,i) {
         async: false,
         success: function (data) {
             var d = JSON.parse(data.d);
+            loc = d.Location;
             var j = "<div><div><b>Description:</b><p>" + d.Description + "</p></div>"+
             "<div><b>Location:</b><p>"+document.getElementById('address'+i).innerHTML+"</p></div><div>" +
             "<b>Live Cupons:</b><p>" + d.BussinessCupons.length + "</p><b>Old Cupons:</b><p>" + d.BussinessCupons.length + "</p></div></div>";
@@ -125,8 +127,8 @@ function AddCupon() {
     cupon.price = $('#NewCuponPrice').val();
     cupon.expirationDate = $('#NewCuponDate').val();
     cupon.category = $('#NewCuponCategory').val();
-    cupon.longitude = -0.1276250;
-    cupon.latitude = 51.5033630;
+    cupon.longitude = loc.Longtitude;
+    cupon.latitude = loc.Latitude;
     cupon.bussinessId = $('#bussinessIdHidden').val();
     cupon.photo = "images/Coupon.png";
     //$('#WaitModal').modal('show');

@@ -7,6 +7,7 @@ using System.ServiceModel.Web;
 using System.Web;
 using System.Web.Services;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CuponWebSite.Controller
 {
@@ -43,7 +44,7 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool UpdateCupon(string cuponId, string name, string description, string originalPrice, string price, string rate, 
+        public bool UpdateCupon(string cuponId, string name, string description, string originalPrice, string price, string rate,
             string expirationDate, string category, string approved, string latitude, string longtitude, string photo)
         {
             int p_CuponID = int.Parse(cuponId);
@@ -86,7 +87,7 @@ namespace CuponWebSite.Controller
             List<Cupon> cuponsList = new List<Cupon>();
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Cupons.OfType<BussinessCupon>().ToList();
+                var data = entities.Cupons.OfType<BussinessCupon>().Where(x=>x.ExpirationDate>=DateTime.Now).ToList();
                 if (data.Count == 0)
                     return JsonConvert.SerializeObject(false, Formatting.Indented);
                 cuponsList.AddRange(data.Select(cupon => new BussinessCupon
@@ -109,10 +110,72 @@ namespace CuponWebSite.Controller
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 };
-                return JsonConvert.SerializeObject(cuponsList, Formatting.Indented,settings);
+                return JsonConvert.SerializeObject(cuponsList, Formatting.Indented, settings);
             }
         }
 
+        [WebMethod]
+        [WebInvoke(Method = "POST",
+            BodyStyle = WebMessageBodyStyle.Wrapped,
+            ResponseFormat = WebMessageFormat.Json)]
+        public String GetRecommendation(int type, string data)
+        {
+            List<Cupon> cuponsList = new List<Cupon>();
+            using (ModelContainer entities = new ModelContainer())
+            {
+                IRecommendation recommender = new LocationRecommender();
+                Object o = new object();
+                switch ((RecommendationType)type)
+                {
+                    case RecommendationType.Off:
+                        return "";
+                    case RecommendationType.Preference:
+                        int userId = int.Parse(data);
+                        recommender = new PreferencesRecommender();
+                        var user = entities.Users.OfType<BasicUser>().FirstOrDefault(x => x.Id == userId);
+                        if (user == null)
+                            return JsonConvert.SerializeObject(false, Formatting.Indented);
+                        o = user;
+                        break;
+                    case RecommendationType.Location:
+                        Location loc = JsonConvert.DeserializeObject<Location>(data);
+                        recommender = new LocationRecommender();
+                        if (loc == null)
+                            return JsonConvert.SerializeObject(false, Formatting.Indented);
+                        o = loc;
+                        break;
+                    case RecommendationType.Combined:
+                        JObject j = JsonConvert.DeserializeObject(data) as JObject;
+                        userId = int.Parse(j.GetValue("id").ToString());
+                        recommender = new PreferencesRecommender();
+                        user = entities.Users.OfType<BasicUser>().FirstOrDefault(x => x.Id == userId);
+                        if (user == null)
+                            return JsonConvert.SerializeObject(false, Formatting.Indented);
+                        o = user;
+                        List<BussinessCupon> tmp =
+                            JsonConvert.DeserializeObject<List<BussinessCupon>>(recommender.RecommendCupons(o));
+                        loc = JsonConvert.DeserializeObject<Location>(j.GetValue("loc").ToString());
+                        recommender = new LocationRecommender();
+                        if (loc == null)
+                            return JsonConvert.SerializeObject(false, Formatting.Indented);
+                        o = loc;
+                        tmp = tmp.Union(JsonConvert.DeserializeObject<List<BussinessCupon>>(recommender.RecommendCupons(o)), new BussinessCuponComparer()).ToList();
+                        JsonSerializerSettings settings = new JsonSerializerSettings
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        };
+                        return JsonConvert.SerializeObject(tmp, Formatting.Indented, settings);
+                        break;
+                }
+                //cuponsList.AddRange(recommender.RecommendCupons(o).OfType<BussinessCupon>());
+                //JsonSerializerSettings settings = new JsonSerializerSettings
+                //{
+                //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                //};
+                return recommender.RecommendCupons(o);
+                    //JsonConvert.SerializeObject(cuponsList, Formatting.Indented, settings);
+            }
+        }
 
         [WebMethod]
         [WebInvoke(Method = "POST",
@@ -123,9 +186,9 @@ namespace CuponWebSite.Controller
             List<Cupon> cuponsList = new List<Cupon>();
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Cupons.OfType<BussinessCupon>().Where(x=> x.Approved == false).ToList();
+                var data = entities.Cupons.OfType<BussinessCupon>().Where(x => x.Approved == false).ToList();
                 if (data.Count == 0)
-                    return JsonConvert.SerializeObject(false, Formatting.Indented) ;
+                    return JsonConvert.SerializeObject(false, Formatting.Indented);
                 cuponsList.AddRange(data.Select(cupon => new BussinessCupon
                 {
                     Name = cupon.Name,
@@ -219,7 +282,7 @@ namespace CuponWebSite.Controller
 
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Cupons.OfType<BussinessCupon>().Where(x => Math.Pow(Math.Pow(x.Location.Latitude - p_Location.Latitude,2) + Math.Pow(x.Location.Longtitude - p_Location.Longtitude,2),0.5) < p_Distance).ToList();
+                var data = entities.Cupons.OfType<BussinessCupon>().Where(x => Math.Pow(Math.Pow(x.Location.Latitude - p_Location.Latitude, 2) + Math.Pow(x.Location.Longtitude - p_Location.Longtitude, 2), 0.5) < p_Distance).ToList();
                 if (data.Count == 0)
                     return JsonConvert.SerializeObject(false, Formatting.Indented);
                 cuponsList.AddRange(data.Select(cupon => new BussinessCupon
@@ -275,14 +338,14 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool ApproveCupon(string cuponId,string adminId)
+        public bool ApproveCupon(string cuponId, string adminId)
         {
             int p_CuponID = int.Parse(cuponId);
             int p_AdminId = int.Parse(adminId);
 
             using (ModelContainer entities = new ModelContainer())
             {
-                var admin = entities.Users.OfType<SystemAdmin>().First(x=> x.Id == p_AdminId);
+                var admin = entities.Users.OfType<SystemAdmin>().First(x => x.Id == p_AdminId);
                 if (admin == null)
                     return false;
                 var data = entities.Cupons.OfType<BussinessCupon>().First(x => x.Id == p_CuponID);
@@ -290,6 +353,7 @@ namespace CuponWebSite.Controller
                     return false;
                 data.Approved = true;
                 entities.SaveChanges();
+                Logger.GetInstance.Log(LogType.Info,admin.UserName + " has approved cupon " + data.Name);
                 return true;
             }
         }
@@ -338,6 +402,7 @@ namespace CuponWebSite.Controller
                 };
                 entities.Cupons.Add(cupon);
                 entities.SaveChanges();
+                Logger.GetInstance.Log(LogType.Info, bussiness.Name + " added new cupon");
                 return true;
             }
         }
@@ -385,26 +450,35 @@ namespace CuponWebSite.Controller
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         ResponseFormat = WebMessageFormat.Json)]
-        public bool AddSocialNetworkCupon( string url, string userId)
+        public bool AddSocialNetworkCupon(string url, string userId)
         {
             int p_UserID = int.Parse(userId);
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Cupons.OfType<SocialNetworkCupon>().Where(x => x.URL == url).ToList();
-                if (data.Count != 0)
-                    return false;
-                var user = entities.Users.First(x => x.Id == p_UserID);
-                if (user == null) return false;
-                SocialNetworkCupon SNCupon = new SocialNetworkCupon()
+                try
                 {
-                    Name = user.UserName,
-                    URL = url,
-                    User = user
-                };
-                user.SocialNetworkCupons.Add(SNCupon);
-                entities.Cupons.Add(SNCupon);
-                entities.SaveChanges();
-                return true;
+                    var data = entities.Cupons.OfType<SocialNetworkCupon>().Where(x => x.URL == url).ToList();
+                    if (data.Count != 0)
+                        return false;
+                    var user = entities.Users.First(x => x.Id == p_UserID);
+                    if (user == null) return false;
+                    SocialNetworkCupon SNCupon = new SocialNetworkCupon()
+                    {
+                        Name = user.UserName,
+                        URL = url,
+                        User = user
+                    };
+                    user.SocialNetworkCupons.Add(SNCupon);
+                    entities.Cupons.Add(SNCupon);
+                    entities.SaveChanges();
+                    Logger.GetInstance.Log(LogType.Info, "User " + userId + " added new social cupon");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Logger.GetInstance.Log(LogType.Trace, "Adding social cupon failed due to: " + ex.Message);
+                    return false;
+                }
             }
         }
 
@@ -443,7 +517,7 @@ namespace CuponWebSite.Controller
             List<Cupon> cuponsList = new List<Cupon>();
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Cupons.OfType<SocialNetworkCupon>().Where(x=>x.Approved==false).ToList();
+                var data = entities.Cupons.OfType<SocialNetworkCupon>().Where(x => x.Approved == false).ToList();
                 if (data.Count == 0)
                     return JsonConvert.SerializeObject(false, Formatting.Indented);
                 cuponsList.AddRange(data.Select(cupon => new SocialNetworkCupon()
@@ -488,6 +562,7 @@ namespace CuponWebSite.Controller
                 entities.PurchasedCupons.Add(purchasedCupon);
                 entities.SaveChanges();
                 //SendEmail(user.Email,serial);
+                Logger.GetInstance.Log(LogType.Info, user.UserName + " has purchased the cupon " + cupon.Name);
                 return JsonConvert.SerializeObject(serial, Formatting.Indented);
             }
         }
@@ -654,6 +729,22 @@ namespace CuponWebSite.Controller
 
             smtp.Send(userMailMessage);
 
+        }
+    }
+
+    class BussinessCuponComparer : IEqualityComparer<BussinessCupon>
+    {
+        public bool Equals(BussinessCupon x, BussinessCupon y)
+        {
+            return x.Id == y.Id;
+        }
+
+        // If Equals() returns true for a pair of objects 
+        // then GetHashCode() must return the same value for these objects.
+
+        public int GetHashCode(BussinessCupon cupon)
+        {
+            return cupon.GetHashCode();
         }
     }
 }

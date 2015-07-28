@@ -56,6 +56,7 @@ function SetAccount() {
                 $("#accountImg").attr("src", d.Photo);
                 $("#accountName").text(d.userName);
                 $("#accountMail").text(d.Email);
+                $("#alerts" + d.Alerts).removeClass('notActive').addClass('active');
                 $("#accountView").click(function () { SetView("profile"); });
                 document.getElementById("head_login").setAttribute("hidden", true);
                 document.getElementById("head_account").removeAttribute("hidden");
@@ -227,6 +228,24 @@ function UpdatePreference(pref) {
                 SetAccount();
                 SetView('profile');
             }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
+}
+
+function ChangeAlertSetting(mode) {
+    var accountId = window.location.search.substring(1);
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/UserServices.asmx/UpdateAlertMode",
+        data: JSON.stringify({ "id": accountId , "mode":mode}),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            navigator.geolocation.getCurrentPosition(RecommendedCupons);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log("faliure in ajax call for - " + xhr.status);
