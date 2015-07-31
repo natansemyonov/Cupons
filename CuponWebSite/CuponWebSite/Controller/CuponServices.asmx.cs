@@ -36,6 +36,7 @@ namespace CuponWebSite.Controller
                     return false;
                 entities.Cupons.Remove(data);
                 entities.SaveChanges();
+                Logger.GetInstance.Log(LogType.Info, "Cupon " + cuponId + " was deleted");
                 return true;
             }
         }
@@ -72,8 +73,8 @@ namespace CuponWebSite.Controller
                 cupon.ExpirationDate = p_ExpirationDate;
                 cupon.Approved = p_Approved;
                 cupon.Photo = photo;
-
                 entities.SaveChanges();
+                Logger.GetInstance.Log(LogType.Info, "Cupon " + cuponId + " was updated");
                 return true;
             }
         }
@@ -167,13 +168,7 @@ namespace CuponWebSite.Controller
                         return JsonConvert.SerializeObject(tmp, Formatting.Indented, settings);
                         break;
                 }
-                //cuponsList.AddRange(recommender.RecommendCupons(o).OfType<BussinessCupon>());
-                //JsonSerializerSettings settings = new JsonSerializerSettings
-                //{
-                //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                //};
                 return recommender.RecommendCupons(o);
-                    //JsonConvert.SerializeObject(cuponsList, Formatting.Indented, settings);
             }
         }
 
@@ -530,7 +525,7 @@ namespace CuponWebSite.Controller
                 return JsonConvert.SerializeObject(cuponsList, Formatting.Indented);
             }
         }
-        #endregion --------Social Network Cupons---------------
+        #endregion 
 
         #region-------------- Purchased Cupons------------------
         [WebMethod]
@@ -611,8 +606,9 @@ namespace CuponWebSite.Controller
                 if (purchasedCupon == null) return false;
 
                 purchasedCupon.State = CuponState.Used;
-
                 entities.SaveChanges();
+                Logger.GetInstance.Log(LogType.Trace, "Cupon " + CuponId + " was used");
+
                 return true;
             }
         }
@@ -697,7 +693,7 @@ namespace CuponWebSite.Controller
                 return JsonConvert.SerializeObject(purchasedCuponsList, Formatting.Indented, settings);
             }
         }
-        #endregion ------------------Purchased Cupons------------
+        #endregion 
 
         private void SendEmail(string recepientEmail, string body)
         {

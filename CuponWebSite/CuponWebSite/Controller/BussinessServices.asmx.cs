@@ -52,6 +52,7 @@ namespace CuponWebSite.Controller
                 ((BussinessOwner)bussinessOwner).Bussinesses.Add(bussiness);
                 entities.Bussinesses.Add(bussiness);
                 entities.SaveChanges();
+                Logger.GetInstance.Log(LogType.Info, "Bussiness owner " + bussinessOwnerId + " has created the business " + bussiness.Name);
                 return true;
             }
         }
@@ -69,6 +70,7 @@ namespace CuponWebSite.Controller
                     return false;
                 entities.Bussinesses.Remove(data);
                 entities.SaveChanges();
+                Logger.GetInstance.Log(LogType.Info, "Bussiness  " + bussinessId + " has been deleted");
                 return true;
             }
         }
@@ -87,6 +89,7 @@ namespace CuponWebSite.Controller
                     return false;
                 data.Approved = true;
                 entities.SaveChanges();
+                Logger.GetInstance.Log(LogType.Info, "Bussiness " + bussinessId + " has been approved");
                 return true;
             }
         }
