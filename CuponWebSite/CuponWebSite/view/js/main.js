@@ -29,13 +29,13 @@ var target = document.getElementById('searching_spinner_center');
 var spinner = new Spinner(opts).spin(target);
 
 
-function SetView(view){
-	document.getElementById("products").setAttribute("hidden",true);
-	document.getElementById("profile").setAttribute("hidden",true);
-	document.getElementById("search").setAttribute("hidden",true);
-	document.getElementById("about").setAttribute("hidden",true);
-	document.getElementById("login").setAttribute("hidden",true);
-	document.getElementById(view).removeAttribute("hidden");
+function SetView(view) {
+    document.getElementById("products").setAttribute("hidden", true);
+    document.getElementById("profile").setAttribute("hidden", true);
+    document.getElementById("search").setAttribute("hidden", true);
+    document.getElementById("about").setAttribute("hidden", true);
+    document.getElementById("login").setAttribute("hidden", true);
+    document.getElementById(view).removeAttribute("hidden");
 }
 
 SetAccount();
@@ -101,7 +101,7 @@ function register() {
         }
     });
     //set account tab
-    
+
 }
 
 function login() {
@@ -114,7 +114,7 @@ function login() {
         data: JSON.stringify({ "userName": userName, "password": password }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        async:false,
+        async: false,
         success: function (data) {
             if (data.d) {
                 setCookie("user", userName, 365);
@@ -150,7 +150,7 @@ function login() {
             console.log("faliure in ajax call for - " + xhr.status);
         }
     });
-    
+
 }
 
 function signout() {
@@ -180,25 +180,85 @@ function getCookie(cname) {
     return "";
 }
 
-function deleteCookie (cname) {
+function deleteCookie(cname) {
     document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 };
 
 function UpdatePassword() {
-    
+    var accountId = window.location.search.substring(1);
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/UserServices.asmx/FindBasicUserByID",
+        data: JSON.stringify({ "id": accountId }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.d) {
+                var d = JSON.parse(data.d);
+                if (d.Password == $("#oldPass").val()) {
+                    if ($("#newPass").val() == $("#newPassConfirm").val()) {
+                        d.Password = $("#newPass").val();
+                        $.ajax({
+                            type: "POST",
+                            url: "http://localhost:20353/Controller/UserServices.asmx/UpdateBasicUser",
+                            data: JSON.stringify({
+                                "userId": d.Id,
+                                "userName": d.UserName,
+                                "password": d.Password,
+                                "email": d.Email,
+                                "phoneNumber": d.PhoneNumber,
+                                "latitude": d.Location.Latitude,
+                                "longtitude": d.Location.Longtitude,
+                                "photo": d.Photo
+                            }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            async: false,
+                            success: function(data) {
+                                if (data.d) {
+                                    SetView("products");
+                                    SetAccount();
+                                } else {
+                                    document.getElementById("profilealert").innerHTML = "<i class=\"fa fa-coffee\"></i>Error! Something went wrong! Password change failed!";
+                                    $("#profilealert").show();
+                                    $("#profilealert").focus();
+                                }
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {
+                                console.log("faliure in ajax call for - " + xhr.status);
+                            }
+                        });
+
+                    } else {
+                        document.getElementById("profilealert").innerHTML = "<i class=\"fa fa-coffee\"></i>Error! Confirmation password does NOT match new password!";
+                        $("#profilealert").show();
+                        $("#profilealert").focus();
+                    }
+                } else {
+                    document.getElementById("profilealert").innerHTML = "<i class=\"fa fa-coffee\"></i>Error! Incorrect old password!";
+                    $("#profilealert").show();
+                    $("#profilealert").focus();
+                }
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
 }
 
 function SetProfileData(profile) {
     $("#CuponsTable").html("");
     $("#profileEmail").val(profile.Email);
-    $("#profileUserName").val(profile.UIEventserName);
+    $("#profileUserName").val(profile.UserName);
     $("#profileImage").attr("src", profile.Photo);
-    $("#profileBirthDate").val(profile.Birthdate);
+    $("#profilePhone").val(profile.PhoneNumber);
     for (var i = 0; i < profile.PurchasedCupons.length; i++) {
-        var newEntry = "<tr class='"+((profile.PurchasedCupons[i].state==0)?"pending":"used")+"'><td>" + (i + 1) + "</td><td>" + profile.PurchasedCupons[i].BussinessCupon.Name +
+        var newEntry = "<tr class='" + ((profile.PurchasedCupons[i].state == 0) ? "pending" : "used") + "'><td>" + (i + 1) + "</td><td>" + profile.PurchasedCupons[i].BussinessCupon.Name +
             "</td><td>" + profile.PurchasedCupons[i].BussinessCupon.Bussiness.Name + "</td><td>" +
             profile.PurchasedCupons[i].SerialKey + "</td><td>" +
-            new Date(profile.PurchasedCupons[i].BussinessCupon.ExpirationDate).toLocaleDateString()  + "</td></tr>";
+            new Date(profile.PurchasedCupons[i].BussinessCupon.ExpirationDate).toLocaleDateString() + "</td></tr>";
         $("#CuponsTable").append(newEntry);
     }
     for (var i = 0; i < 6; i++) {
@@ -210,16 +270,65 @@ function SetProfileData(profile) {
 }
 
 function UpdateProfile() {
-    
+    var accountId = window.location.search.substring(1);
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:20353/Controller/UserServices.asmx/FindBasicUserByID",
+        data: JSON.stringify({ "id": accountId }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.d) {
+                var d = JSON.parse(data.d);
+                d.UserName = $("#profileUserName").val();
+                d.Email = $("#profileEmail").val();
+                d.PhoneNumber = $("#profilePhone").val();
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:20353/Controller/UserServices.asmx/UpdateBasicUser",
+                    data: JSON.stringify({
+                        "userId": d.Id,
+                        "userName": d.UserName,
+                        "password": d.Password,
+                        "email": d.Email,
+                        "phoneNumber": d.PhoneNumber,
+                        "latitude": d.Location.Latitude,
+                        "longtitude": d.Location.Longtitude,
+                        "photo": d.Photo
+                    }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        if (data.d) {
+                            SetView("products");
+                            SetAccount();
+                        } else {
+                            document.getElementById("profilealert").innerHTML = "<i class=\"fa fa-coffee\"></i>Error! Something went wrong! Password change failed!";
+                            $("#profilealert").show();
+                            $("#profilealert").focus();
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log("faliure in ajax call for - " + xhr.status);
+                    }
+                });
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("faliure in ajax call for - " + xhr.status);
+        }
+    });
 }
 
 function UpdatePreference(pref) {
-    
+
     var accountId = window.location.search.substring(1);
     $.ajax({
         type: "POST",
         url: "http://localhost:20353/Controller/UserServices.asmx/AddPreference",
-        data: JSON.stringify({ "category": pref,"userId":accountId }),
+        data: JSON.stringify({ "category": pref, "userId": accountId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: false,
@@ -240,7 +349,7 @@ function ChangeAlertSetting(mode) {
     $.ajax({
         type: "POST",
         url: "http://localhost:20353/Controller/UserServices.asmx/UpdateAlertMode",
-        data: JSON.stringify({ "id": accountId , "mode":mode}),
+        data: JSON.stringify({ "id": accountId, "mode": mode }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: false,

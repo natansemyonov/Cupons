@@ -507,11 +507,7 @@
 
             <!-- edit form column -->
             <div class="col-md-9 personal-info">
-                <div class="alert alert-info alert-dismissable" hidden>
-                    <a class="panel-close close" data-dismiss="alert">×</a>
-                    <i class="fa fa-coffee"></i>
-                    This is an <strong>.alert</strong>. Use this to show important messages to the user.
-                </div>
+                
                 <h3>Personal info</h3>
                 <div class="row" id="profileMain">
                     <div class="col-lg-8">
@@ -598,6 +594,9 @@
                     </div>
                     <!-- /.col-lg-4 -->
                 </div>
+                <div class="alert alert-danger alert-dismissable" id="profilealert" hidden>
+                   
+                </div>
                 <div id="ChangePassword" class="form-horizontal" hidden>
                     <div class="form-group">
                         <label class="col-md-3 control-label">Old Password:</label>
@@ -642,9 +641,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-3 control-label">Birth Date:</label>
+                        <label class="col-lg-3 control-label">Phone Number:</label>
                         <div class="col-lg-8">
-                            <input class="form-control" type="date" id="profileBirthDate">
+                            <input class="form-control" type="text" id="profilePhone">
                         </div>
                     </div>
                     <div class="form-group">
