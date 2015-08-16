@@ -94,7 +94,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="">
-                                            <div class="input-group">
+                                            <div class="col-md-1"></div>
+                                            <div class="input-group text-center">
                                                 <div id="radioBtn" class="btn-group">
                                                     <a class="btn btn-primary btn-sm notActive" data-toggle="fun" id="alerts0" data-title="O">Off</a>
                                                     <a class="btn btn-primary btn-sm notActive" data-toggle="fun" id="alerts1" data-title="L">Location</a>
@@ -110,7 +111,6 @@
                                     <div class="navbar-footer-content">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <a href="#" class="btn btn-default btn-sm">Change Passowrd</a>
                                             </div>
                                             <div class="col-md-6">
                                                 <a href="#" class="btn btn-default btn-sm pull-right" onclick="signout()">Sign Out</a>
@@ -140,6 +140,10 @@
         <div class="row">
 
             <div class="col-md-3">
+                <div>
+                    <a href="#" id="RecNewButton" class="list-group-item" onclick="RecNewButton_OnClick();">Reccomended</a>
+                </div>
+                <hr/>
                 Categories:
                 <div class="list-group">
                     <a href="#" class="list-group-item" onclick="GetCupons(0);">Restaurants</a>
@@ -187,7 +191,6 @@
                 
                 <div class="row" id="Reccupons_div">
                 </div>
-                <h2>New Cupons</h2>
                 <div class="row" id="cupons_div">
                 </div>
 

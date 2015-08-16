@@ -129,7 +129,7 @@ function login() {
     //set account tab
     $.ajax({
         type: "POST",
-        url: "http://localhost:20353/Controller/CuponSystemWebService.asmx/FindUserByID",
+        url: "http://localhost:20353/Controller/CuponSystemWebService.asmx/FindBasicUserByID",
         data: JSON.stringify({ "id": userID }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -354,7 +354,7 @@ function ChangeAlertSetting(mode) {
         dataType: "json",
         async: false,
         success: function (data) {
-            navigator.geolocation.getCurrentPosition(RecommendedCupons);
+           // navigator.geolocation.getCurrentPosition(RecommendedCupons);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log("faliure in ajax call for - " + xhr.status);

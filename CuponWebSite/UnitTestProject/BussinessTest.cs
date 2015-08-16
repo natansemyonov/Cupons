@@ -96,7 +96,7 @@ namespace UnitTestProject
                 u.Name = "updated";
                 m.Bussinesses.Attach(u);
                 m.SaveChanges();
-                Bussiness u1= m.Bussinesses.First(x => x.Id == u.Id);
+                Bussiness u1 = m.Bussinesses.FirstOrDefault(x => x.Id == u.Id);
                 Assert.AreEqual(u.Name, u1.Name);
             }
         }
@@ -116,7 +116,7 @@ namespace UnitTestProject
                 };
                 u = m.Bussinesses.Add(u);
                 m.SaveChanges();
-                Bussiness u1 = m.Bussinesses.First(x => x.Id == u.Id);
+                Bussiness u1 = m.Bussinesses.FirstOrDefault(x => x.Id == u.Id);
                 Assert.AreEqual(u, u1);
             }
         }

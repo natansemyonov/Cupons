@@ -28,7 +28,7 @@ namespace CuponWebSite.Controller
         {
             using (ModelContainer entities = new ModelContainer())
             {
-                BasicUser data = entities.Users.OfType<BasicUser>().First(x => x.UserName == userName && x.Password == password);
+                BasicUser data = entities.Users.OfType<BasicUser>().FirstOrDefault(x => x.UserName == userName && x.Password == password);
                 if (data != null)
                 {
                     data.Location.Latitude = latitude;
@@ -50,7 +50,7 @@ namespace CuponWebSite.Controller
         {
             using (ModelContainer entities = new ModelContainer())
             {
-                User data = entities.Users.OfType<BussinessOwner>().First(x => x.UserName == userName && x.Password == password);
+                User data = entities.Users.OfType<BussinessOwner>().FirstOrDefault(x => x.UserName == userName && x.Password == password);
                 if (data != null)
                 {
                     Logger.GetInstance.Log(LogType.Trace, "Owner " + data.Id + " Authenticated");
@@ -70,7 +70,7 @@ namespace CuponWebSite.Controller
         {
             using (ModelContainer entities = new ModelContainer())
             {
-                User data = entities.Users.OfType<SystemAdmin>().First(x => x.UserName == userName && x.Password == password);
+                User data = entities.Users.OfType<SystemAdmin>().FirstOrDefault(x => x.UserName == userName && x.Password == password);
                 if (data != null)
                 {
                     Logger.GetInstance.Log(LogType.Trace, "Administrator " + data.Id + " Authenticated");
@@ -167,7 +167,7 @@ namespace CuponWebSite.Controller
 
             using (ModelContainer entities = new ModelContainer())
             {
-                var user = entities.Users.OfType<BasicUser>().First(x => x.Id == P_UserID);
+                var user = entities.Users.OfType<BasicUser>().FirstOrDefault(x => x.Id == P_UserID);
                 if (user == null)
                     return false;
                 user.UserName = userName;
@@ -190,7 +190,7 @@ namespace CuponWebSite.Controller
         {
             using (ModelContainer entities = new ModelContainer())
             {
-                BasicUser data = entities.Users.OfType<BasicUser>().First(x => x.Id == id);
+                BasicUser data = entities.Users.OfType<BasicUser>().FirstOrDefault(x => x.Id == id);
                 if (data != null)
                 {
                     data.Alerts = (RecommendationType) mode;
@@ -210,7 +210,7 @@ namespace CuponWebSite.Controller
             BasicUser bUser;
             using (ModelContainer entities = new ModelContainer())
             {
-                var user = entities.Users.OfType<BasicUser>().First(x => x.UserName == userName & x.Email == email);
+                var user = entities.Users.OfType<BasicUser>().FirstOrDefault(x => x.UserName == userName & x.Email == email);
                 if (user == null)
                     return JsonConvert.SerializeObject(false, Formatting.Indented);
                 bUser = new BasicUser
@@ -247,7 +247,7 @@ namespace CuponWebSite.Controller
             BasicUser bUser;
             using (ModelContainer entities = new ModelContainer())
             {
-                var user = entities.Users.OfType<BasicUser>().First(x => x.Id == i);
+                var user = entities.Users.OfType<BasicUser>().FirstOrDefault(x => x.Id == i);
                 if (user == null)
                     return JsonConvert.SerializeObject(false, Formatting.Indented);
                 bUser = new BasicUser
@@ -284,7 +284,7 @@ namespace CuponWebSite.Controller
             BasicUser bUser;
             using (ModelContainer entities = new ModelContainer())
             {
-                var user = entities.Users.OfType<BussinessOwner>().First(x => x.Id == i);
+                var user = entities.Users.OfType<BussinessOwner>().FirstOrDefault(x => x.Id == i);
                 if (user == null)
                     return JsonConvert.SerializeObject(false, Formatting.Indented);
                 bUser = new BasicUser
@@ -307,7 +307,7 @@ namespace CuponWebSite.Controller
             int p_UserID = int.Parse(userId);
             using (ModelContainer entities = new ModelContainer())
             {
-                var user = entities.Users.First(x => x.Id == p_UserID);
+                var user = entities.Users.FirstOrDefault(x => x.Id == p_UserID);
                 if (user == null)
                     return false;
                 user.Password = newPassword;
@@ -333,7 +333,7 @@ namespace CuponWebSite.Controller
                 {
                     res.Append(valid[rnd.Next(valid.Length)]);
                 }
-                var user = entities.Users.First(x => x.Id == p_UserID);
+                var user = entities.Users.FirstOrDefault(x => x.Id == p_UserID);
                 if (user == null)
                     return JsonConvert.SerializeObject(false, Formatting.Indented);
                 user.Password = res.ToString();
@@ -352,7 +352,7 @@ namespace CuponWebSite.Controller
             Category p_Category = (Category)int.Parse(category);
             using (ModelContainer entities = new ModelContainer())
             {
-                var user = entities.Users.OfType<BasicUser>().First(x => x.Id == p_UserID);
+                var user = entities.Users.OfType<BasicUser>().FirstOrDefault(x => x.Id == p_UserID);
                 if (user == null)
                     return false;
                 var data = entities.Preferences.Where(x => x.Category == p_Category & x.BasicUser.Id == p_UserID).ToList();

@@ -86,7 +86,7 @@ namespace UnitTestProject
                 _preference.Category = Category.Pleasure;
                 m.Preferences.Attach(_preference);
                 m.SaveChanges();
-                Preference u = m.Preferences.First(x => x.Id == _preference.Id);
+                Preference u = m.Preferences.FirstOrDefault(x => x.Id == _preference.Id);
                 Assert.AreEqual(_preference.Category, u.Category);
             }
         }
@@ -97,7 +97,7 @@ namespace UnitTestProject
             using (ModelContainer m = new ModelContainer())
             {
                 var i = m.Preferences.Count();
-                Preference u1 = m.Preferences.OfType<Preference>().First(x => x.Id == _preference.Id);
+                Preference u1 = m.Preferences.OfType<Preference>().FirstOrDefault(x => x.Id == _preference.Id);
                 Assert.AreEqual(_preference.Id, u1.Id);
             }
         }

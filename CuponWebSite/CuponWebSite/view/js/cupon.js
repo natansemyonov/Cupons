@@ -1,6 +1,7 @@
 var category;
+var RecNew = true;
 GetAllCupons();
-navigator.geolocation.getCurrentPosition(RecommendedCupons);
+//navigator.geolocation.getCurrentPosition(RecommendedCupons);
 
 function Search() {
     var lat = $("#SearchlocationLat").val();
@@ -122,7 +123,7 @@ function GetCupons(catId) {
     }
 
 function ShowCupons(cuponList) {
-    document.getElementById("cupons_div").innerHTML = "";
+    document.getElementById("cupons_div").innerHTML = "<h2>New Cupons</h2>";
     for (var i = 0; i < cuponList.length; i++) {
         var name = cuponList[i].Name;
         if (cuponList[i].Name.length > 15)
@@ -349,7 +350,7 @@ function RecommendedCupons(position) {
 }
 
 function ShowRecommendedCupons(cuponList) {
-    document.getElementById("Reccupons_div").innerHTML = "<h2>Reccomended Cupons</h2>";
+    document.getElementById("cupons_div").innerHTML = "<h2>Reccomended Cupons</h2>";
     for (var i = 0; i < cuponList.length; i++) {
         var name = cuponList[i].Name;
         if (cuponList[i].Name.length > 15)
@@ -359,6 +360,17 @@ function ShowRecommendedCupons(cuponList) {
             '<h4 class="pull-right">' + cuponList[i].Price + '</h4> <h4><a href="#">' + name +
             '</a> </h4> <p>' + cuponList[i].Description + '</p>' +
             '</div> <div class="ratings"> <p class="pull-right"></p> ' + stars(cuponList[i].Rate) + '</div> </div> </div>';
-        document.getElementById("Reccupons_div").innerHTML += j;
+        document.getElementById("cupons_div").innerHTML += j;
     }
+}
+
+function RecNewButton_OnClick() {
+    if (RecNew) {
+        $("#RecNewButton").html("New");
+        navigator.geolocation.getCurrentPosition(RecommendedCupons);
+    } else {
+        $("#RecNewButton").html("Reccomended");
+        GetAllCupons();
+    }
+    RecNew = !RecNew;
 }

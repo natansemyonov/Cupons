@@ -36,7 +36,7 @@ namespace CuponWebSite.Controller
                 var data = entities.Bussinesses.Where(x => x.Name == name).ToList();
                 if (data.Count != 0)
                     return false;
-                var bussinessOwner = entities.Users.OfType<BussinessOwner>().First(x => x.Id == p_bussinessOwnerId);
+                var bussinessOwner = entities.Users.OfType<BussinessOwner>().FirstOrDefault(x => x.Id == p_bussinessOwnerId);
                 if (bussinessOwner == null)
                     return false;
                 Bussiness bussiness = new Bussiness
@@ -65,7 +65,7 @@ namespace CuponWebSite.Controller
             int p_bussinessId = int.Parse(bussinessId);
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Bussinesses.First(x => x.Id == p_bussinessId);
+                var data = entities.Bussinesses.FirstOrDefault(x => x.Id == p_bussinessId);
                 if (data == null)
                     return false;
                 entities.Bussinesses.Remove(data);
@@ -84,7 +84,7 @@ namespace CuponWebSite.Controller
             int p_bussinessId = int.Parse(bussinessId);
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Bussinesses.First(x => x.Id == p_bussinessId);
+                var data = entities.Bussinesses.FirstOrDefault(x => x.Id == p_bussinessId);
                 if (data == null)
                     return false;
                 data.Approved = true;
@@ -108,7 +108,7 @@ namespace CuponWebSite.Controller
 
             using (ModelContainer entities = new ModelContainer())
             {
-                var bussiness = entities.Bussinesses.First(x => x.Id == p_bussinessId);
+                var bussiness = entities.Bussinesses.FirstOrDefault(x => x.Id == p_bussinessId);
                 if (bussiness == null)
                     return false;
                 bussiness.Name = name;
@@ -131,7 +131,7 @@ namespace CuponWebSite.Controller
         {
             using (ModelContainer entities = new ModelContainer())
             {
-                var data = entities.Bussinesses.First(x => x.Name == bussinessName);
+                var data = entities.Bussinesses.FirstOrDefault(x => x.Name == bussinessName);
                 if (data == null)
                     return JsonConvert.SerializeObject(false, Formatting.Indented);
                 Bussiness bussiness = new Bussiness

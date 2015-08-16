@@ -85,10 +85,13 @@ function login() {
         dataType: "json",
         async: false,
         success: function (data) {
-            if (data.d) {
+            if (JSON.parse(data.d) != false) {
                 setCookie("user", userName, 365);
                 setCookie("pass", password, 365);
-                window.location.href = "index.html?"+data.d;
+                window.location.href = "index.html?" + data.d;
+            } else {
+                $("#login-alert").html('Wrong username or password!');
+                $("#login-alert").show();
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {

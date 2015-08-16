@@ -73,7 +73,7 @@ namespace UnitTestProject
                 _user.Email = "updated@gmail.com";
                 m.Users.Attach(_user);
                 m.SaveChanges();
-                SystemAdmin u = m.Users.OfType<SystemAdmin>().First(x => x.Id == _user.Id);
+                SystemAdmin u = m.Users.OfType<SystemAdmin>().FirstOrDefault(x => x.Id == _user.Id);
                 Assert.AreEqual(_user.Email, u.Email);
             }
         }
@@ -84,7 +84,7 @@ namespace UnitTestProject
             using (ModelContainer m = new ModelContainer())
             {
                 var i = m.Users.Count();
-                SystemAdmin u1 = m.Users.OfType<SystemAdmin>().First(x => x.Id == _user.Id);
+                SystemAdmin u1 = m.Users.OfType<SystemAdmin>().FirstOrDefault(x => x.Id == _user.Id);
                 Assert.AreEqual(_user.Id,u1.Id);
             }
         }
