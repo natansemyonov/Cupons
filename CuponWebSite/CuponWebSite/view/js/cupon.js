@@ -42,6 +42,9 @@ function arrayUnique(array) {
 };
 
 function SearchByLocation(lat, lon, radius) {
+    if (radius == "") {
+        return [];
+    }
     $.ajax({
         type: "POST",
         url: "http://localhost:20353/Controller/CuponServices.asmx/FindCuponsByLocation",

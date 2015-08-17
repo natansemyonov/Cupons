@@ -56,11 +56,14 @@ function register(position) {
         dataType: "json",
         async: false,
         success: function (data) {
-            if (data.d) {
+            if (data.d && data.d!="false") {
                 setCookie("user", user.userName, 365);
                 setCookie("pass", user.password, 365);
                 setCookie("id", data.d, 365);
                 window.location.href = "index.html?" + data.d;
+            } else {
+                $('#signupalert').html("Error: Something went wrong, try different username!");
+                $('#signupalert').css("display", "block");
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -138,11 +141,14 @@ function registerBO() {
         dataType: "json",
         async: false,
         success: function (data) {
-            if (data.d) {
+            if (data.d && data.d != "false") {
                 setCookie("user", user.userName, 365);
                 setCookie("pass", user.password, 365);
                 setCookie("id", data.d, 365);
                 window.location.href = "BussinessOwner.html?" + data.d;
+            } else {
+                $('#signupalert').html("Error: Something went wrong, try different username!");
+                $('#signupalert').css("display", "block");
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {

@@ -84,8 +84,9 @@ function SetDashboard() {
 
 SetDashboard();
 function SetView(view) {
-    document.getElementById("CuponsDiv").setAttribute("hidden", true);
-    document.getElementById("main").setAttribute("hidden", true);
+    document.getElementById("page-wrapper").setAttribute("hidden", true);
+    document.getElementById("contact").setAttribute("hidden", true);
+    document.getElementById("about").setAttribute("hidden", true);
     document.getElementById(view).removeAttribute("hidden");
 }
 
